@@ -1,0 +1,782 @@
+Cash + ACH Discounting Platform Capability
+Product Requirements Document
+
+═══════════════════════════════════════════════════════════════════════════════
+
+1. CONTEXT & STRATEGIC POSITIONING
+
+This initiative delivers a cash + ACH discounting platform capability that enables merchants to achieve true "zero fees" by embedding processing costs into list prices and offering discounts for preferred payment methods.
+
+Strategic Evolution
+This capability represents the evolution of our fee-passing offerings from surcharge-only (credit cards) to comprehensive tender-type-driven discounting (cash, ACH, and future tender types). Current Rate Saver offers surcharge on credit cards, leaving debit processing fees with the merchant and blocking/capping merchants in surcharge-restricted states. This capability fills that gap.
+
+Positioning Flexibility
+The underlying capability is designed to support multiple go-to-market strategies:
+•	Rate Saver enhancement: Add cash discounting mode alongside existing surcharge
+•	Standalone feature: Offer directly to merchants as a free or paid feature
+•	Direct to resellers: Offer to resellers unbundled from Rate Saver (e.g. how surcharge is offered today)
+•	Bundled offering: Package with other commerce features
+
+This PRD describes the capability. GTM positioning decisions (Rate Saver vs standalone vs bundled) are business decisions that can be made independently of the technical implementation.
+
+Building Flexibility for Future
+The platform must be architected to support future extensions:
+•	ACH can be decoupled from cash: e.g. different discount rates, or ACH excluded from discount entirely.
+•	Additional tender types: Gift cards, BNPL, digital wallets may have each have their own discount rates.
+•	Ability to select different approaches per channel - e.g. Surcharge in POS, ACH discount in Invoicing.
+•	Ability to support different presentation modes on surfaces - e.g. List Price only, List Price with Discount, List Price and Discounted Price. 
+
+MVP focuses on cash + ACH bundled together with a single discount rate, but the underlying system should anticipate per-tender-type discount flexibility, with additional channel dimensionality. 
+
+Relationship to Existing Rate Saver:
+•	Mutually exclusivity: Merchants choose surcharge OR cash discounting, not both simultaneously
+•	Future state: Channel-based pricing where, for e.g. surcharge applies to POS and cash discount applies to invoicing (only an example)
+•	Existing Rate Saver merchants: Surcharge merchants remain on surcharge unless they actively choose to switch to cash discounting.
+
+
+Primary Customer
+Direct GoDaddy Payments merchants are the primary customer. Reseller merchants (including Dough and others) inherit the same merchant experience with distributor-level configuration controls.
+
+
+Why Cash Discounting?
+Cash discounting is being pursued because it uniquely provides:
+•	True zero processing fees for merchants, including debit
+•	Applicability across all 50 states (surcharge is restricted or capped in several states)
+•	Coverage across all payment methods (credit, debit, ACH, cash)
+•	Fewer network constraints and reduced long-term regulatory risk
+•	A simpler merchant and sales narrative: fees are built into the list price
+
+═══════════════════════════════════════════════════════════════════════════════
+
+2. LEGAL & COMPLIANCE CONSTRAINTS
+
+The following constraints impact product & UX and must be preserved across all surfaces.
+
+Discounts Must Never Be Linked to Processing Costs
+If the discount is framed or interpreted as "covering processing fees," it will be treated as a surcharge, and surcharging debit is illegal. Therefore, discount logic must be decoupled from processing fees in all customer-facing language.
+
+Downward Discount Only
+Customers pay a lower price (receive a discount) for preferred methods (cash/ACH). Fees are never "added" at checkout, that's an illegal surcharge.
+
+All States, No Caps
+Unlike surcharging, cash discounting / dual pricing:
+•	Is legal in all 50 U.S. states
+•	Has no cap on the price difference
+•	Applies across all card types (credit and debit)
+
+Mutual Exclusivity with Surcharge
+Merchants cannot enable Rate Saver surcharge and cash discounting simultaneously for MVP. Future state may allow channel-based usage (surcharge on POS, ACH discount on invoicing).
+
+Pricing Visibility is Mandatory
+Wherever a consumer sees a price, the experience must match the chosen model:
+•	Cash discount → Higher prices from the first exposure, discount disclosed at cart, checkout and on receipt
+
+Violating any of the above creates legal and compliance risk for both merchants and GoDaddy.
+
+═══════════════════════════════════════════════════════════════════════════════
+
+3. PRODUCT MECHANICS
+
+Cash Discounting vs Dual Pricing
+Although often used interchangeably, these are two different presentations of the same underlying capability.
+
+Cash Discounting (MVP - Single Price + Discount Line)
+•	Listed price per item is the card (higher) price
+•	A separate, explicit discount line item is shown when the customer pays with cash or ACH
+•	The discount must appear at checkout and on the receipt
+•	Consumers initially see a single price, with the discount applied at payment selection
+
+Example:
+•	Item 1: $105
+•	Item 2: $210
+•	Subtotal: $315
+•	Cash / ACH discount (3%): –$9.45
+•	Net paid (cash/ACH): $305.55
+
+Dual Pricing (Future - Not MVP)
+•	Two prices are always displayed on all consumer-facing surfaces (shelf, menu, order line items, checkout)
+•	Every item has a list price and a cash/ACH price
+•	At checkout and on receipts: no separate discount line item required; only the selected price is shown
+
+Example:
+•	Item 1: Card $105 / Cash $101.85
+•	Item 2: Card $210 / Cash $203.70
+•	Card Subtotal: $315 / Cash Subtotal: $305.55
+
+MVP focuses on cash discounting (single price + discount line). Dual pricing might be a future enhancement, which should be only a presentation change, with the same underlying cash discounting capabilities. 
+
+Core Calculation Engine
+
+Merchant Configuration Inputs:
+•	Discount percentage (e.g., 3%)
+•	Auto-calculate list prices: ON or OFF
+•	Rounding rule - Applicable only if Auto-Calculate is ON: (Round up to nearest $0.01, $0.05, $0.25, $0.50, $1.00)
+
+
+Auto-Calculate List Prices = ON (Recommended Default)
+Merchant enters their desired cash/ACH price (what they want to net). System calculates the list price by backing out the discount with rounding.
+
+Formula:
+  Cash Price = $100 (merchant's target)
+  List Price = $100 ÷ (1 - 0.03) = $103.09 → round to $103.25 (if rounding to nearest $0.25)
+  At checkout: Card customers pay $103.25, cash customers get 3% discount = $100.15
+
+This mode ensures merchants achieve their target net revenue and processing costs are offset.
+
+Auto-Calculate List Prices = OFF (Pure Cash Discounting)
+Merchant enters the list price. Cash/ACH customers receive a discount off that price at checkout.
+
+Formula:
+  List Price = $100 (merchant sets)
+  Cash/ACH Discount = $100 × 3% = $3.00
+  Cash/ACH Price = $100 - $3.00 = $97.00
+
+This mode is traditional cash discounting. Merchants using this mode do NOT fully offset processing fees—they give up margin to incentivize cash.
+
+Why Offer Both?
+•	Some merchants prefer auto-calculate (offset processing fees, achieve target revenue)
+•	Some merchants prefer pure cash discounting (transparent list price, give discount as incentive)
+•	Offering both as a merchant control allows flexibility without picking a single approach
+•	If future product decisions require forcing one mode, it's easier to default all merchants and hide the toggle.
+
+Tax Treatment
+Tax is calculated on the list price for all payment methods in cash discounting mode (MVP).
+
+Example:
+  List Price: $103.25
+  Tax (10%): $10.33 (calculated on $103.25)
+
+  Card payment: $103.25 + $10.33 = $113.58
+  Cash payment: $103.25 - $3.10 discount = $100.15, + $10.33 tax = $110.48
+
+This ensures tax basis is consistent and compliant.
+Discounts Apply to Subtotal Only
+Discounts are applied to the item/order subtotal, not to tax. Tax is calculated separately and added after discount.
+
+Note: Assumption that needs to be validated with Tax experts.
+
+═══════════════════════════════════════════════════════════════════════════════
+
+4. SCOPE & PHASING
+
+Core + Merchant Controls (P0 - Must Have)
+These are foundational and must be complete before any surface can launch:
+
+1.	Calculation Engine
+   •	Calculate list price from cash price (auto-calculate ON) and using rounding rules
+   •	Calculate cash discount from list price
+
+2.	Merchant Configuration
+   •	Enable/disable cash discounting
+   •	Mutual exclusivity with surcharge
+   •	Set discount percentage
+   •	Toggle auto-calculate list prices ON/OFF
+   •	Choose rounding rule
+   •	Attestation - Comply with pricing visibility and independently setting prices.
+
+3.	Persistent Storage
+   •	Merchant settings stored and retrievable across all surfaces
+   •	Audit log of configuration changes
+
+Surfaces (Layered on Core - Can Be Phased if Needed)
+Once core is complete, surfaces can be built and launched incrementally if necessary. However, the goal is to launch all surfaces together (omni-channel).
+
+Priority:
+•	POS (in-person terminal)
+•	Mobile (GoDaddy Mobile app)
+•	Invoicing
+•	Paylinks
+•	Virtual Terminal / Manual Entry (POS , Mobile app, Commerce Home)
+
+Each surface must implement:
+•	Customer-facing pricing display (single price, discount line at checkout)
+•	Payment method selection with clear pricing for each method
+•	Receipt generation with discount line item (if applicable)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+5. ACCEPTANCE CRITERIA
+
+5.1 Core Calculation Engine
+
+System must support:
+•	Standard Price (list price)
+•	Preferred Method Price (cash/ACH discounted price)
+
+Calculation Modes:
+a) Auto-Calculate ON:
+   •	Input: Cash/ACH price (merchant's target net revenue)
+   •	Output: List price = cash price ÷ (1 - discount%) with rounding applied
+   •	Discount amount = list price × discount%
+   •	Cash/ACH price = list price - discount
+
+b) Auto-Calculate OFF:
+   •	List price = merchant's advertised price
+   •	Discount amount = list price × discount%
+   •	Cash/ACH price = list price - discount
+
+Rounding Rules:
+System must support rounding to nearest:
+•	$0.00 (no rounding)
+•	$0.05 
+•	$0.25 ← recommended default
+•	$0.50
+•	$0.99 
+•	$1.00
+
+Tax Calculation:
+•	Tax calculated on list price for all payment methods (MVP)
+•	Discount applies to subtotal only, not tax basis
+
+Discount Application:
+•	Downward only (never add fees at checkout)
+•	Applied at payment method selection or order finalization
+•	Shown as separate line item on receipt
+
+No Upward Price Add-On:
+System must prevent any upward price adjustment at checkout. Fees are embedded in list price; discounts reduce from that price. 
+Fee/Markup terminology must never appear in customer-facing or merchant-facing UIs or reports.
+
+5.2 Merchant Configuration & Onboarding
+
+Merchant Eligibility:
+•	All U.S. merchants are eligible (cash discounting is legal in all 50 states)
+•	Merchant must NOT have surcharge enabled (mutual exclusivity)
+•	Merchant must have ACH enabled for invoicing/paylinks (if those surfaces support ACH discount)
+
+Configuration UI (Commerce Home):
+Merchant must be able to:
+a) Enable/Disable Cash Discounting
+b) Set Discount Percentage
+c) Auto-Calculate List Prices Toggle
+d) Choose Rounding Rule
+e) Preview / Calculator
+   •	Live preview showing example:
+     - "If you enter $100 (cash price), customers will see $103.25 (list price) with your settings."
+   •	Or if auto-calculate OFF:
+     - "If you set list price at $100, cash/ACH customers pay $97.00 after discount."
+
+Attestation:
+Merchant must attest before enabling cash discounting:
+(i) "I understand pricing visibility obligations: All merchandising materials (menus, boards, brochures, website) will reflect the pricing model (list price with discount for cash/ACH)."
+(ii) "I will place visible signage stating my cash discount policy (e.g., 'Save 3% when you pay with cash or ACH')."
+(iii) "I am independently setting prices/discounts and not linking them to processing fees."
+(iv) Attestation timestamp and content must be logged.
+
+Audit Logging:
+System must log:
+•	Feature activation timestamp
+•	Attestation acceptance and content
+•	All configuration changes (discount %, rounding, auto-calculate toggle)
+•	Timestamp and user ID for each change
+
+SECTION 5: ACCEPTANCE CRITERIA BY SURFACE (CONSOLIDATED)
+
+This section uses a reference-based model: POS (§5.3) contains the comprehensive specification for all common patterns. Subsequent surfaces reference POS and note deltas only.
+
+================================================================================
+5.3 POS (In-Person Terminal) 
+================================================================================
+
+This section serves as the reference specification for payment method selection, receipt structure, manual entry, and disclosure patterns used across all surfaces.
+
+---
+5.3.1 CATALOG-BASED PRODUCT SELECTION
+---
+
+Product Pricing in Catalog:
+a) Auto-Calculate ON:
+   •	System stores cash/ACH price in catalog
+   •	List price calculated as: cash price ÷ (1 - discount%) with rounding
+
+b) Auto-Calculate OFF:
+   •	System stores list price in catalog
+   •	Cash discount calculated as: list price × discount%
+
+Cart / Pre-Checkout:
+   •	Display list prices
+   •	Show "Cash/ACH option available" indicator
+
+---
+5.3.2 PAYMENT METHOD SELECTION 
+---
+
+Customer-Facing Display Must Show:
+   •	💳 Card: $XXX.XX
+   •	💵 Cash: $XXX.XX (Save $X.XX)
+
+Merchant-Facing Display Shows:
+   •	Same information as customer-facing
+
+Flow:
+   •	Customer must confirm payment method selection before proceeding
+   •	Selected method locks in final price
+
+---
+5.3.3 RECEIPT STRUCTURE
+---
+
+Receipt (Card Payment):
+   •	Show items at List price
+   •	Subtotal
+   •	Tax (calculated on subtotal)
+   •	Total
+   •	Payment Method: CREDIT CARD or DEBIT CARD
+   •	No discount line (card customers pay full price)
+
+Receipt (Cash/ACH Payment):
+   •	Show items at card/list price (NOT discounted price per item)
+   •	Subtotal
+   •	Tax (calculated on subtotal)
+   •	Cash/ACH Discount (X%): -$X.XX
+   •	Total (subtotal + tax - discount)
+   •	Payment Method: CASH or ACH
+   •	Footer text: "Thank you! You saved $X.XX with cash/ACH payment."
+
+---
+5.3.4 DISCLOSURES
+---
+
+Physical Signage Required:
+   •	Must be posted at entry and point of sale
+   •	Example text: "List prices are for card payments. Save X% when you pay with cash or ACH."
+   •	Signage requirement documented in onboarding materials
+
+Receipt Disclosure:
+   •	Cash/ACH receipts must show discount as separate line item
+   •	Card receipts show no discount language
+
+Verbal Disclosure (Virtual Terminal):
+   •	Merchant must verbally disclose pricing to customer during phone order
+   •	System displays reminder: "Before taking payment, inform customer: Card price is $XXX.XX, Cash/ACH price is $XXX.XX"
+
+
+================================================================================
+5.4 GoDaddy Mobile App
+================================================================================
+
+Implementation: Same as POS §5.3 with the following deltas:
+
+Catalog-Based Product Selection:
+   •	Same logic as POS §5.3.1
+
+Payment Method Selection:
+   •	Same pattern as POS §5.3.2
+   •	Customer taps on mobile device to select payment method
+   •	Confirmation screen shows final amount before proceeding
+
+Receipt:
+   •	Same structure as POS §5.3.3
+   •	Digital receipt (email/SMS optional)
+
+Virtual Terminal / Manual Entry:
+   •	Same logic as POS §5.3.4
+   •	DELTA: Native mobile keyboard instead of physical keypad
+   •	Input field type: numeric with decimal support
+
+Disclosures:
+   •	Physical signage still required (merchant's physical location)
+   •	Mobile app checkout screen includes text: "Cash discount applied at checkout"
+
+
+================================================================================
+5.5 INVOICING
+================================================================================
+
+Payment Method Selection & Receipts: Same as POS §5.3.2 and §5.3.3
+
+Invoice-Specific Requirements:
+
+---
+5.5.1 INVOICE CREATION (C1) — MULTI-ITEM ENTRY
+---
+
+Line Item Entry:
+   •	Merchant enters multiple items with:
+     - Description
+     - Quantity
+     - Price per item (cash price or list price based on auto-calculate setting)
+   •	System calculates list price or cash discount per §5.3.1 logic
+
+Invoice Preview (Before Sending):
+   •	Shows line items with quantities and prices
+   •	Subtotal (card/list price)
+   •	Tax (calculated on subtotal)
+   •	Cash/ACH Discount: -$X.XX
+   •	Total shown both ways: Card $XXX.XX / Cash/ACH $XXX.XX
+
+Send Invoice:
+   •	Delivery: Email and/or SMS with payment link
+   •	Subject line and body text: Configurable by merchant
+   •	Must include: "Card and Cash/ACH payment options available"
+
+---
+5.5.2 INVOICE PAYMENT PAGE (C2)
+---
+
+Invoice View (Email, PDF, Web Page):
+   •	Display line items at card/list price
+   •	Subtotal
+   •	Tax
+   •	Total: Card $XXX.XX / Cash/ACH $XXX.XX (both shown)
+   •	Explanation text: "Pay with cash or ACH and save X%"
+
+Payment Method Selection:
+   •	💳 Card (Credit or Debit): $XXX.XX
+   •	🏦 ACH / Bank Transfer: $XXX.XX (Save $X.XX)
+   •	Customer must select payment method before entering payment details
+   •	Confirmation screen shows final amount
+
+Receipt:
+   •	Same structure as POS §5.3.3
+   •	Delivered via email/SMS
+   •	Payment Method: CARD or ACH
+
+Disclosures:
+   •	Invoice must state payment options and discount clearly
+   •	Receipt must show discount as separate line item for cash/ACH payments
+
+
+================================================================================
+5.6 PAYLINKS
+================================================================================
+
+Payment Method Selection & Receipts: Same as POS §5.3.2 and §5.3.3
+
+Paylink-Specific Requirements:
+
+---
+5.6.1 PAYLINK CREATION (C1) — SINGLE-ITEM ENTRY
+---
+
+Creation Interface:
+   •	Merchant enters:
+     - Amount (cash price or list price based on auto-calculate setting)
+     - Description (optional)
+   •	System calculates card/cash prices and displays preview:
+     - "Card customers pay: $XXX.XX"
+     - "Cash/ACH customers pay: $XXX.XX (save $X.XX)"
+
+Paylink URL:
+   •	Sharable via SMS, email, social media, QR code
+   •	URL loads payment page (see §5.6.2)
+
+---
+5.6.2 PAYLINK PAYMENT PAGE (C2)
+---
+
+Display:
+   •	Description (if provided)
+   •	Amount: Card $XXX.XX / Cash/ACH $XXX.XX
+   •	Explanation: "Save X% when you pay with cash or ACH"
+
+Payment Method Selection:
+   •	💳 Card: $XXX.XX
+   •	🏦 ACH: $XXX.XX (Save $X.XX)
+   •	💵 Cash (if in-person pickup/delivery enabled): $XXX.XX (Save $X.XX)
+   •	Customer selects before entering payment details
+
+Receipt:
+   •	Same structure as POS §5.3.3
+   •	Digital delivery (email optional)
+
+Disclosures:
+   •	Payment page must clearly show both payment options and savings
+   •	Receipt must show discount line for cash/ACH payments
+
+
+================================================================================
+5.7 VIRTUAL TERMINAL / MANUAL ENTRY
+================================================================================
+
+Entry Screen:
+a) Amount Input:
+   •	Label changes based on auto-calculate setting:
+     - Auto-calculate ON: "Enter Cash/ACH Price"
+     - Auto-calculate OFF: "Enter List Price"
+   •	Physical keypad interface for amount entry
+   •	Input field: $____.__
+
+b) Real-Time Calculation Display:
+   •	If auto-calculate ON: "List price (with rounding): $XXX.XX"
+   •	If auto-calculate OFF: "Cash/ACH price (after X% discount): $XXX.XX"
+
+c) Preview Before Proceeding:
+   •	Shows: "Customer will see: Card $XXX.XX / Cash $XXX.XX"
+   •	Merchant confirms before proceeding to checkout
+
+Payment Processing:
+   •	Proceeds directly to payment method selection (§5.3.2)
+   •	Receipt generated per §5.3.3 pattern
+   •	Single-use entry (clears after transaction)
+
+
+
+================================================================================
+5.8 POST-TRANSACTION MANAGEMENT
+================================================================================
+
+Refunds:
+•	Full Refund:
+   - Refund the amount customer paid (list price or cash/ACH discounted price)
+   - Reverse discount proportionally if cash/ACH payment
+
+•	Partial Refund:
+   - Refund must be issued proportionally based on original payment method
+   - If original payment was cash/ACH with discount, partial refund maintains discount proportion
+   - Example: $100 item, $97 paid after 3% cash discount. $50 partial refund = $48.50 (maintains 3% discount proportion)
+
+Voids:
+•	Void must reverse the exact authorized amount (list price or discounted price)
+
+Chargebacks:
+•	Chargeback amount reflects what customer was actually charged (list price or discounted price)
+•	Merchant liability is based on charged amount, not list price
+
+Order & Transaction Dashboards:
+a) Transaction View:
+   •	Display payment method (card, cash, ACH)
+   •	Display amount charged (list price or discounted price)
+   •	Display discount amount (if applicable)
+   •	Subtotal, discount line, tax, total must reconcile
+
+b) Order Reports:
+   •	Filter by payment method
+   •	Show discount amounts as separate column
+   •	Aggregate discount totals for reporting period
+
+c) Order Item Reports:
+   •	Show item-level pricing (list price)
+   •	Show payment method and discount applied (order-level, not item-level)
+   •	Ensure prices reconcile across all views
+
+5.9 Additional Use Cases
+
+Tips / Gratuity:
+•	Tip calculated on final amount (post-discount for cash/ACH, list price for card)
+•	Tip is NOT subject to cash discount (discount applies to goods/services subtotal only)
+•	Receipt must show: Subtotal, Discount (if applicable), Tip (separate line), Tax, Total
+
+Taxes:
+•	Tax calculated on subtotal (list price) for all payment methods
+•	Discount applies to subtotal only, not tax basis
+•	Tax shown separately on receipt
+
+Promotions / Coupons:
+•	If merchant has other promotional discounts (coupons, promos), order of operations:
+   1. Promotional discount applied first (e.g., 10% off coupon)
+   2. Subtotal after promo discount
+   3. Tax calculated on post-promo subtotal
+   4. Cash/ACH discount applied to subtotal (not to tax)
+   5. Total
+
+•	Stacking order must be documented and consistent
+•	Merchant can configure stacking behavior (allow/disallow multiple discounts)
+
+Split Tender:
+•	If customer pays with multiple methods (e.g., $50 cash + $50 card), discount applies only to cash portion
+•	Example: $100 order, 3% cash discount
+   - Customer pays $50 cash + $50 card
+   - Cash portion: $50 - $1.50 discount = $48.50
+   - Card portion: $50 (no discount)
+   - Total paid: $48.50 + $50 = $98.50
+
+•	System must calculate and apply discount proportionally to cash/ACH portion only
+•	Receipt must show split tender breakdown
+
+5.10 Audit Logging
+
+System must log:
+•	Feature activation/deactivation timestamp
+•	Attestation acceptance (full text + timestamp + merchant ID)
+•	Configuration changes:
+   - Discount percentage changes (old value, new value, timestamp, user ID)
+   - Rounding rule changes
+   - Auto-calculate toggle changes
+•	Payment method used per transaction
+•	Discount amounts applied per transaction
+•	Refund/void events with discount reversal details
+
+Logs must be:
+•	Immutable (append-only)
+•	Queryable for compliance audits
+•	Retained for minimum 7 years (compliance requirement)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+6. RESELLER / DISTRIBUTOR MODEL
+
+Cash Discounting capability must support both models with appropriate control distribution.
+
+Distributor-Level Configuration
+Reseller/distributor admins can configure the settings and overrides for their merchant base.
+
+Distributor Admin Controls:
+a) Enable/Disable Cash Discounting for Distributor
+   •	Toggle: ON / OFF
+   •	If OFF, cash discounting is hidden from all distributor merchants (they cannot see or enable it)
+   •	If ON, distributor can configure defaults below
+
+b) Default Discount Percentage
+   •	Set distributor-wide default (e.g., 3%)
+   •	Merchants inherit this value
+   •	Distributor can choose: Allow merchant override (YES/NO)
+     - If NO: Merchant cannot change discount %, sees it as read-only
+     - If YES: Merchant can edit discount % within allowed range
+
+c) Default Rounding Rule
+   •	Set distributor-wide default (e.g., $0.25)
+   •	Distributor can choose: Allow merchant override (YES/NO)
+
+d) Auto-Calculate List Prices Default
+   •	Set distributor-wide default (ON or OFF)
+   •	Distributor can choose: Allow merchant override (YES/NO)
+   •	If NO: All distributor merchants use the same mode (e.g., auto-calculate always ON), toggle is hidden from merchant UI
+
+e) Fee Program Selection (Surcharge vs Cash Discount)
+   •	Distributor can set default: Surcharge or Cash Discount
+   •	Distributor can choose: Allow merchant override (YES/NO)
+     - If NO: Merchant cannot switch between surcharge and cash discount; distributor controls this
+     - If YES: Merchant can toggle between surcharge and cash discount (mutual exclusivity enforced)
+
+Merchant Experience Under Distributor:
+•	If distributor locks a setting: Merchant sees it as read-only or hidden
+•	If distributor allows override: Merchant sees full configuration UI
+•	Merchant is unaware whether a setting is distributor-controlled or self-controlled (seamless experience)
+•	Attestation still required from merchant (even if distributor controls settings)
+
+Example: Dough Configuration
+Dough (reseller) wants:
+•	All Dough merchants use cash discounting (not surcharge)
+•	3.5% discount rate locked (merchants cannot change)
+•	Auto-calculate list prices always ON (locked)
+•	Rounding to nearest $0.25 (locked)
+
+Dough admin sets:
+•	Fee program: Cash Discount (locked)
+•	Discount %: 3% (locked, no merchant override)
+•	Auto-calculate: ON (locked, no merchant override)
+•	Rounding: $0.25 (locked, no merchant override)
+
+Dough merchants see:
+•	Simplified UI showing their pricing model is active
+•	Cannot access toggle or configuration fields (hidden or read-only)
+•	Still complete attestation (required for compliance)
+
+Implementation Notes:
+•	Distributor-level config stored separately from merchant-level config
+•	Merchant settings inherit from distributor defaults but can be overridden if allowed
+•	API must distinguish between distributor-set and merchant-set values
+•	UI must clearly indicate when a setting is locked by distributor (e.g., "Managed by your payment partner")
+
+═══════════════════════════════════════════════════════════════════════════════
+
+7. SUCCESS CRITERIA
+
+Phase 1 (MVP) Success:
+•	Zero compliance incidents: No legal escalations, no surcharging of debit, no UDAAP violations
+•	Accurate pricing across all surfaces: List price, cash/ACH price, discount amounts, tax calculations all reconcile correctly
+•	Merchant activation: ≥8% of direct SaaS merchants enable cash discounting within 90 days of launch (20% of RateSaver)
+•	Merchant retention: ≥20% of merchants who activate remain active after 6 months 
+•	Transaction accuracy: 100% of transactions reconcile correctly (no discrepancies in discount application, tax calculation, or totals)
+
+Failure Metrics (Trigger Re-Evaluation):
+•	Compliance incident: Any legal escalation or network violation
+•	Merchant confusion: ≥10% of activating merchants contact support due to pricing confusion
+•	Pricing errors: ≥1% of transactions have incorrect discount or tax calculations
+•	Operational issues: Critical bugs blocking transaction completion or receipt generation
+
+Hard Requirements:
+•	Zero compliance incidents (absolute requirement)
+•	No surcharge misclassification (cash discount must never be treated as surcharge)
+•	Accurate price presentation on all surfaces (invoices, mobile, receipts, POS, paylinks, portal)
+•	Merchant attestation logged for 100% of activations
+
+Long-Term Success (6-12 Months Post-Launch):
+•	Direct merchant adoption: Cash discounting grows to 50% of Rate Saver signups.
+•	GPV growth: Measurable GPV increase attributed to zero fees positioning
+•	Margin uplift: GCR improvement from pricing power (merchants not absorbing fees → higher effective rates)
+•	Reseller adoption: Multiple resellers (beyond Dough) adopt cash discounting for their merchant base
+•	Product evolution: Successfully launch dual pricing mode, channel-based pricing, per-tender-type discount rates
+
+═══════════════════════════════════════════════════════════════════════════════
+
+8. OUT OF SCOPE
+
+The following are explicitly out of scope for MVP and should not be included in Phase 1 delivery:
+
+Migration of Existing Rate Saver Merchants:
+•	No automatic migration from surcharge to cash discounting
+•	No proactive outreach or migration campaigns
+•	Existing surcharge merchants remain on surcharge unless they opt in to cash discounting
+•	Migration strategy is a GTM/CS decision, not a product requirement
+
+Dual Pricing Display Mode:
+•	MVP uses single price + discount line only
+•	Dual pricing (two prices shown on shelf/menu/invoice) is a future enhancement
+•	System architecture should anticipate dual pricing, but UI/UX is out of scope for MVP
+
+Channel-Based Pricing (Surcharge + Cash Discount Simultaneously):
+•	MVP enforces mutual exclusivity (surcharge OR cash discount, not both)
+•	Future state may allow surcharge on POS + cash discount on invoicing
+•	Not required for MVP
+
+Per-Tender-Type Discount Rates:
+•	MVP bundles cash + ACH into a single discount rate
+•	Future state allows: Cash 3%, ACH 2%, Gift Card 5%, etc.
+•	System architecture should anticipate this, but configuration UI is out of scope for MVP
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+9. DEPENDENCIES & ASSUMPTIONS
+
+Dependencies:
+•	ACH payment support: Merchants must have ACH enabled for invoicing/paylinks to offer ACH discount (POS/mobile support cash only)
+•	Merchant attestation flow: Legal/compliance must approve attestation text
+•	Receipt generation: Existing receipt infrastructure must support additional line item (discount)
+•	Tax calculation engine: Must support tax-on-subtotal logic (already exists, assuming no changes needed)
+
+Assumptions:
+•	Merchants understand basic fee-passing concepts (surcharge, cash discount)
+•	Merchants can set/change prices in their catalogs if auto-calculate is ON (requires updating cash prices, system calculates list prices)
+•	Existing Rate Saver infrastructure can be extended or paralleled (architecture decision left to engineering)
+•	Resellers/distributors have admin access to configure merchant defaults
+
+Risks:
+•	Merchant confusion: If auto-calculate logic is not explained clearly, merchants may not understand which price to enter
+   - Mitigation: Strong onboarding UX, tooltips, live preview calculator
+•	Customer pushback: Customers may object to higher list prices or perceive cash discount as "penalty"
+   - Mitigation: Merchant education on positioning, signage requirements, clear disclosure
+•	Tax compliance: Tax calculation on subtotal (not discounted price) must be verified with tax advisors
+   - Mitigation: Legal/compliance review before launch, clearly documented tax treatment
+•	Reseller adoption: If resellers prefer surcharge, cash discounting may not gain traction in reseller channel
+   - Mitigation: Business case and education for resellers on state restrictions and debit coverage benefits
+
+═══════════════════════════════════════════════════════════════════════════════
+
+10. GLOSSARY
+
+Cash Discounting: A pricing model where the list price is the card price, and customers who pay with cash or ACH receive a discount. Legal in all 50 U.S. states.
+
+Dual Pricing: A pricing model where two prices are displayed for the same item (card price and cash price). A presentation approach of cash discounting.
+
+Surcharge: An additional fee added to the transaction when a customer pays with a credit card. Cannot be applied to debit cards. Subject to state restrictions and caps.
+
+Auto-Calculate List Prices: A merchant setting where the merchant enters their desired cash/ACH price (net revenue target), and the system calculates the list price by backing out the discount with rounding.
+
+Tender Type: The payment method used (cash, credit card, debit card, ACH, gift card, etc.).
+
+Preferred Payment Method: The payment methods eligible for discount (cash, ACH). In MVP, cash and ACH are bundled with the same discount rate.
+
+List Price: The advertised price (typically the card price in cash discounting mode).
+
+Rounding Rule: The increment to which prices are rounded (e.g., nearest $0.25) for customer clarity.
+
+Attestation: A legal acknowledgment by the merchant that they understand pricing obligations and are independently setting prices (not linking discount to processing fees).
+
+Distributor: A reseller partner who onboards merchants under their brand/relationship (e.g., Dough, Moolah).
+
+Mutual Exclusivity: Surcharge and cash discounting cannot be enabled simultaneously for the same merchant.
+
+═══════════════════════════════════════════════════════════════════════════════

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock 03 — Merchant Setup: Model A</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Merchant Setup Summary</h1>
+      <div class="subtitle">Model A — Card Fee Model (Surcharge)</div>
+    </div>
+
+    <div class="alert alert-info">
+      <strong>Selected Model:</strong> Card Fee (Surcharge)<br>
+      <strong>Plain Language:</strong> Customers see lower base prices. Credit card payments include a fee. Debit and cash do not.
+    </div>
+
+    <div class="section">
+      <div class="section-title">How It Works</div>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-header">What Customers See</div>
+          <div style="margin: 1rem 0;">
+            <div class="label-row">
+              <span>Menu/Shelf Price:</span>
+              <span class="price-display-small">$100</span>
+            </div>
+            <div class="divider"></div>
+            <div style="font-size: 0.9rem;">
+              <strong>At Payment:</strong><br><br>
+              Credit Card: <strong>$103</strong> (includes 3% card fee)<br>
+              Debit Card: <strong>$100</strong><br>
+              Cash: <strong>$100</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Payment Type Behavior</div>
+          <table style="width: 100%; font-size: 0.9rem;">
+            <tr>
+              <td style="padding: 0.5rem 0;"><strong>Credit Cards</strong></td>
+              <td style="padding: 0.5rem 0; text-align: right;">Base + 3% fee</td>
+            </tr>
+            <tr style="background: #f8f9fa;">
+              <td style="padding: 0.5rem 0;"><strong>Debit Cards</strong></td>
+              <td style="padding: 0.5rem 0; text-align: right;">Base price (no fee)</td>
+            </tr>
+            <tr>
+              <td style="padding: 0.5rem 0;"><strong>Cash</strong></td>
+              <td style="padding: 0.5rem 0; text-align: right;">Base price</td>
+            </tr>
+            <tr style="background: #f8f9fa;">
+              <td style="padding: 0.5rem 0;"><strong>ACH</strong></td>
+              <td style="padding: 0.5rem 0; text-align: right;">Base price (if available)</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Required Disclosures</div>
+
+      <div class="card">
+        <div class="card-header">Compliance Requirements</div>
+        <ul class="list">
+          <li><strong>Entry signage:</strong> "Credit card payments include a 3% fee" (or similar clear language)</li>
+          <li><strong>Menu/shelf signage:</strong> Fee disclosure must be visible where prices are shown</li>
+          <li><strong>Checkout disclosure:</strong> Fee amount must be shown before payment method selection</li>
+          <li><strong>Receipt:</strong> Fee must appear as separate line item</li>
+          <li><strong>Debit restriction:</strong> Fee CANNOT be applied to debit cards (illegal)</li>
+        </ul>
+      </div>
+
+      <div class="alert alert-warning" style="margin-top: 1rem;">
+        <strong>State Restrictions:</strong> Surcharging is prohibited or restricted in some states. We'll help you confirm what's allowed in your location.
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Estimated Fee Offset</div>
+
+      <div class="grid grid-3">
+        <div class="stat-card">
+          <span class="stat-value">65%</span>
+          <div class="stat-label">Estimated Coverage</div>
+          <div style="font-size: 0.8rem; color: #6c757d; margin-top: 0.5rem;">
+            Based on typical payment mix:<br>
+            65% credit, 25% debit, 10% cash
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-value">$195</span>
+          <div class="stat-label">Est. Monthly Offset</div>
+          <div style="font-size: 0.8rem; color: #6c757d; margin-top: 0.5rem;">
+            If $10,000/month in credit volume at 3% fee
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-value" style="color: #dc3545;">$105</span>
+          <div class="stat-label">Remaining Merchant Cost</div>
+          <div style="font-size: 0.8rem; color: #6c757d; margin-top: 0.5rem;">
+            Debit + cash transactions (35% of volume)
+          </div>
+        </div>
+      </div>
+
+      <div class="highlight" style="margin-top: 1rem;">
+        <strong>Important:</strong> Debit and cash transactions are NOT covered by this model. Your actual offset depends on your payment mix.
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Key Limitations</div>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-header">What This Model Does NOT Do</div>
+          <ul class="list list-cross">
+            <li><strong>Does not offset debit fees:</strong> Debit cannot be surcharged, so those transactions remain a merchant cost</li>
+            <li><strong>Does not cover cash costs:</strong> Cash has no fee to offset</li>
+            <li><strong>Customer pushback risk:</strong> Some customers may object to visible fees</li>
+            <li><strong>Signage required:</strong> Disclosure requirements must be met</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Best Fit For</div>
+          <ul class="list list-check">
+            <li>Merchants with <strong>high credit card volume</strong> (>60%)</li>
+            <li>Businesses comfortable with <strong>visible pricing differences</strong></li>
+            <li>Merchants who prefer <strong>lower posted prices</strong></li>
+            <li>Industries where fees are <strong>commonly accepted</strong> (parking, utilities, etc.)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Staff Explanation Script</div>
+
+      <div class="card">
+        <div class="card-header">What Your Staff Should Say</div>
+        <div style="font-size: 0.95rem; line-height: 1.8;">
+          <p><strong>Standard explanation:</strong></p>
+          <p style="background: #f8f9fa; padding: 1rem; border-left: 3px solid #0066cc; margin: 1rem 0;">
+            "Our menu prices are the base price. If you pay with a credit card, there's a 3% card fee to cover processing costs. Debit and cash are the menu price with no extra fee."
+          </p>
+
+          <p><strong>If customer asks "why?":</strong></p>
+          <p style="background: #f8f9fa; padding: 1rem; border-left: 3px solid #0066cc; margin: 1rem 0;">
+            "Credit card companies charge us fees to process payments. We keep our menu prices lower by passing that cost to customers who choose credit. Debit and cash don't have those fees."
+          </p>
+
+          <p><strong>If customer objects:</strong></p>
+          <p style="background: #f8f9fa; padding: 1rem; border-left: 3px solid #0066cc; margin: 1rem 0;">
+            "I understand. You're welcome to pay with debit or cash at the menu price with no extra charge."
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Setup Configuration</div>
+
+      <div class="card">
+        <div style="margin-bottom: 1rem;">
+          <strong>Fee Percentage:</strong>
+          <div style="margin-top: 0.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem;">
+              <input type="radio" name="fee" value="3" checked> 3% (typical)
+            </label>
+            <label style="display: block; margin-bottom: 0.5rem;">
+              <input type="radio" name="fee" value="3.5"> 3.5%
+            </label>
+            <label style="display: block;">
+              <input type="radio" name="fee" value="custom"> Custom (must not exceed actual processing cost)
+            </label>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <strong>Display Language:</strong>
+          <div style="margin-top: 0.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem;">
+              <input type="radio" name="language" value="card-fee" checked> "Card Fee" (plain language)
+            </label>
+            <label style="display: block;">
+              <input type="radio" name="language" value="surcharge"> "Surcharge" (industry term)
+            </label>
+          </div>
+        </div>
+
+        <div class="alert alert-info">
+          <strong>Recommendation:</strong> Start with "card fee" language — it's clearer for customers.
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-title">Research Questions This Mock Supports</div>
+      <div class="footer-content">
+        <ul>
+          <li>Can merchants operate Model A given the debit inconsistency (credit charged, debit not)?</li>
+          <li>Do merchants find the disclosure requirements acceptable or burdensome?</li>
+          <li>Is 65% coverage (credit only) sufficient, or is it a dealbreaker?</li>
+          <li>Do merchants believe their staff can explain this model consistently?</li>
+          <li>Does "lower posted prices + visible fee" feel workable long-term?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

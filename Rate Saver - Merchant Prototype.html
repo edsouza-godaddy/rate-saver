@@ -1,0 +1,2683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Saver Demo</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f0f2f5;
+            color: #1c1e21;
+            line-height: 1.5;
+        }
+
+        .app-container {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: #2c3e50;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .sidebar-subtitle {
+            font-size: 0.875rem;
+            color: #95a5a6;
+        }
+
+        .nav-menu {
+            flex: 1;
+            padding: 1rem 0;
+        }
+
+        .nav-item {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 4px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .nav-item.active {
+            background: rgba(255,255,255,0.1);
+            border-left-color: #3498db;
+        }
+
+        .nav-icon {
+            font-size: 1.25rem;
+        }
+
+        .nav-label {
+            font-weight: 500;
+        }
+
+        .sidebar-footer {
+            padding: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            color: #95a5a6;
+        }
+
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            background: #f0f2f5;
+        }
+
+        .content-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1c1e21;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-description {
+            font-size: 1rem;
+            color: #65676b;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f2f5;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1c1e21;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #1c1e21;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #dfe1e5;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .form-help {
+            font-size: 0.75rem;
+            color: #65676b;
+            margin-top: 0.25rem;
+        }
+
+        /* Radio Button Groups */
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .radio-option:hover {
+            border-color: #3498db;
+            background: #f8fafc;
+        }
+
+        .radio-option.selected {
+            border-color: #3498db;
+            background: #ebf5fb;
+        }
+
+        .radio-circle {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #cbd5e0;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 0.125rem;
+            position: relative;
+        }
+
+        .radio-option.selected .radio-circle {
+            border-color: #3498db;
+        }
+
+        .radio-option.selected .radio-circle::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background: #3498db;
+            border-radius: 50%;
+        }
+
+        .radio-content {
+            flex: 1;
+        }
+
+        .radio-title {
+            font-weight: 600;
+            color: #1c1e21;
+            margin-bottom: 0.25rem;
+        }
+
+        .radio-description {
+            font-size: 0.875rem;
+            color: #65676b;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .product-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .product-card:hover {
+            border-color: #3498db;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .product-name {
+            font-weight: 600;
+            color: #1c1e21;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-category {
+            font-size: 0.75rem;
+            color: #65676b;
+            background: #f0f2f5;
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-prices {
+            border-top: 1px solid #f0f2f5;
+            padding-top: 0.75rem;
+        }
+
+        .product-price {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #1c1e21;
+        }
+
+        .product-base-price {
+            font-size: 0.75rem;
+            color: #65676b;
+            margin-top: 0.25rem;
+        }
+
+        /* Cart */
+        .cart-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .cart-items {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #65676b;
+        }
+
+        .cart-empty-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            color: #1c1e21;
+            margin-bottom: 0.25rem;
+        }
+
+        .cart-item-price {
+            font-size: 0.875rem;
+            color: #65676b;
+        }
+
+        .cart-item-qty {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .qty-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #dfe1e5;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .qty-btn:hover {
+            background: #f0f2f5;
+            border-color: #3498db;
+        }
+
+        .qty-value {
+            min-width: 32px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .remove-btn {
+            color: #e74c3c;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        .cart-summary {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            height: fit-content;
+            position: sticky;
+            top: 1rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f0f2f5;
+        }
+
+        .summary-row.total {
+            border-bottom: none;
+            border-top: 2px solid #e2e8f0;
+            margin-top: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .summary-label {
+            color: #65676b;
+        }
+
+        .summary-value {
+            font-weight: 600;
+            color: #1c1e21;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .btn-primary:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+
+        .btn-success {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #229954;
+        }
+
+        /* Checkout */
+        .checkout-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .checkout-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .checkout-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .checkout-subtitle {
+            color: #65676b;
+        }
+
+        .checkout-card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .price-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .price-option {
+            padding: 1.5rem;
+            border: 3px solid #e2e8f0;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .price-option:hover {
+            border-color: #3498db;
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+        }
+
+        .price-option.selected {
+            border-color: #3498db;
+            background: #ebf5fb;
+        }
+
+        .price-option-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #65676b;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-option-amount {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1c1e21;
+            margin: 0.5rem 0;
+        }
+
+        .price-option-badge {
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .price-option-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tables */
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+
+        .order-table th {
+            text-align: left;
+            padding: 0.75rem;
+            border-bottom: 2px solid #e2e8f0;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: #65676b;
+        }
+
+        .order-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #f0f2f5;
+        }
+
+        .order-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Receipt */
+        .receipt {
+            background: white;
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border: 2px dashed #cbd5e0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+        }
+
+        .receipt-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed #cbd5e0;
+        }
+
+        .receipt-company {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .receipt-line {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem 0;
+        }
+
+        .receipt-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px dotted #e2e8f0;
+        }
+
+        .receipt-total {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #cbd5e0;
+        }
+
+        .receipt-total .receipt-line {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .receipt-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #cbd5e0;
+            font-size: 0.75rem;
+            color: #65676b;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: #65676b;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1c1e21;
+        }
+
+        .stat-value.positive {
+            color: #27ae60;
+        }
+
+        .stat-value.negative {
+            color: #e74c3c;
+        }
+
+        .stat-helper {
+            font-size: 0.75rem;
+            color: #95a5a6;
+            margin-top: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .cart-container {
+                grid-template-columns: 1fr;
+            }
+            .price-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+            }
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useMemo } = React;
+
+        /**
+         * TEACHING MOMENT: Corrected Pricing Engine
+         * 
+         * Key principle: Cash price = merchant's desired base price
+         *                List price = adjusted upward to offset discount
+         * 
+         * Formula: If merchant wants to net $100 (cash price)
+         *          and offers 3.5% cash discount:
+         *          cardPrice * (1 - 0.035) = $100
+         *          cardPrice = $100 / 0.965 = $103.63
+         * 
+         * This way, whether customer pays with card ($103.63) or cash ($100),
+         * the merchant nets their target price of $100.
+         */
+        const PricingEngine = {
+            /**
+             * Calculate List price from cash price (merchant's base/desired price)
+             */
+            calculateCardPrice(cashPrice, discountPercent, roundingRule) {
+                if (discountPercent === 0) return cashPrice;
+                
+                // List price must be higher so that when discounted, it equals cash price
+                const multiplier = 1 / (1 - (discountPercent / 100));
+                const rawCardPrice = cashPrice * multiplier;
+                
+                return this.applyRounding(rawCardPrice, roundingRule);
+            },
+
+            /**
+             * Rounding rules for clean pricing - always round UP to protect merchant margin
+             */
+            applyRounding(price, rule) {
+                switch(rule) {
+                    case 'none':
+                        return Math.ceil(price * 100) / 100; // Round up to nearest penny
+                    case 'nearest_nickel':
+                        return Math.ceil(price * 20) / 20; // Round up to nearest $0.05
+                    case 'nearest_dime':
+                        return Math.ceil(price * 10) / 10; // Round up to nearest $0.10
+                    case 'nearest_quarter':
+                        return Math.ceil(price * 4) / 4; // Round up to nearest $0.25
+                    case 'nearest_dollar':
+                        return Math.ceil(price); // Round up to nearest $1.00
+                    case 'ends_99':
+                        const dollars = Math.floor(price);
+                        const candidate = dollars + 0.99;
+                        return candidate >= price ? candidate : dollars + 1.99;
+                    case 'ends_95':
+                        const dollars95 = Math.floor(price);
+                        const candidate95 = dollars95 + 0.95;
+                        return candidate95 >= price ? candidate95 : dollars95 + 1.95;
+                    default:
+                        return price;
+                }
+            },
+
+            /**
+             * Calculate actual discount amount
+             * Discount must be a true percentage of the list/List price
+             */
+            calculateDiscount(cardPrice, discountPercent) {
+                return (cardPrice * discountPercent) / 100;
+            },
+
+            /**
+             * Calculate processing fee based on card type and program
+             */
+            calculateProcessingFee(amount, cardType, feeProgram) {
+                // Standard processing rates
+                const rates = {
+                    credit: 0.03, // 3%
+                    debit: 0.023   // 2.3%
+                };
+                
+                return amount * rates[cardType];
+            },
+
+            /**
+             * Calculate fee offset (what merchant collects to offset processing)
+             */
+            calculateFeeOffset(cashPrice, cardPrice, paymentMethod, feeProgram, cardType) {
+                if (paymentMethod === 'cash') {
+                    return 0; // No fees on cash
+                }
+
+                if (feeProgram === 'surcharge') {
+                    // Surcharge program: direct pass-through
+                    return cardType === 'credit' ? cashPrice * 0.03 : cashPrice * 0.023;
+                } else if (feeProgram === 'cash_discount') {
+                    // Cash discount: markup is the offset
+                    return cardPrice - cashPrice;
+                }
+
+                return 0;
+            }
+        };
+
+        // Product library - cashPrice is what merchant wants to net
+        const INITIAL_PRODUCTS = [
+            { id: 1, name: 'Espresso', cashPrice: 3.50, category: 'F&B', sku: 'FB-001' },
+            { id: 2, name: 'Cappuccino', cashPrice: 4.75, category: 'F&B', sku: 'FB-002' },
+            { id: 3, name: 'Avocado Toast', cashPrice: 12.00, category: 'F&B', sku: 'FB-003' },
+            { id: 4, name: 'Caesar Salad', cashPrice: 14.50, category: 'F&B', sku: 'FB-004' },
+            { id: 5, name: 'Premium T-Shirt', cashPrice: 28.00, category: 'Retail', sku: 'RT-001' },
+            { id: 6, name: 'Denim Jeans', cashPrice: 79.99, category: 'Retail', sku: 'RT-002' },
+            { id: 7, name: 'Running Shoes', cashPrice: 89.99, category: 'Retail', sku: 'RT-003' },
+            { id: 8, name: 'Yoga Mat', cashPrice: 45.00, category: 'Retail', sku: 'RT-004' },
+            { id: 9, name: 'Haircut & Style', cashPrice: 65.00, category: 'Services', sku: 'SV-001' },
+            { id: 10, name: 'Hair Coloring', cashPrice: 120.00, category: 'Services', sku: 'SV-002' },
+            { id: 11, name: 'Massage (60min)', cashPrice: 95.00, category: 'Services', sku: 'SV-003' },
+            { id: 12, name: 'Facial Treatment', cashPrice: 85.00, category: 'Services', sku: 'SV-004' },
+        ];
+
+        function VirtualTerminalPOS() {
+            // Navigation
+            const [currentView, setCurrentView] = useState('settings');
+            const [manualEntryAmount, setManualEntryAmount] = useState('');
+            const [invoiceNumber] = useState(Math.floor(1000 + Math.random() * 9000));
+            const [invoiceItems, setInvoiceItems] = useState([]);
+            const [currentInvoiceItem, setCurrentInvoiceItem] = useState({
+                description: '',
+                amount: '',
+                quantity: 1
+            });
+
+            // Fee Program Settings
+            const [feeProgram, setFeeProgram] = useState('surcharge'); // 'surcharge' or 'cash_discount'
+            const [cashDiscountPercent, setCashDiscountPercent] = useState('3.5');
+            const [roundingRule, setRoundingRule] = useState('ends_99');
+            const [autoCalculateListPrices, setAutoCalculateListPrices] = useState(true);
+
+            // Shopping cart
+            const [cart, setCart] = useState([]);
+            const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
+            const [selectedCardType, setSelectedCardType] = useState('credit'); // 'credit' or 'debit'
+            const [orderComplete, setOrderComplete] = useState(false);
+
+            // Sales tracking for reporting
+            const [completedSales, setCompletedSales] = useState([]);
+
+            /**
+             * TEACHING MOMENT: Adjusted products calculation
+             * 
+             * Now properly implements:
+             * - cashPrice = merchant's target (what they want to net)
+             * - cardPrice = adjusted upward based on discount %
+             */
+            const adjustedProducts = useMemo(() => {
+                const discountPercent = parseFloat(cashDiscountPercent) || 0;
+
+                return INITIAL_PRODUCTS.map(product => {
+                    let cardPrice, displayPrice, cashDiscountAmount, cashDiscountedPrice;
+
+                    if (feeProgram === 'cash_discount') {
+                        if (autoCalculateListPrices) {
+                            cardPrice = PricingEngine.calculateCardPrice(
+                                product.cashPrice,
+                                discountPercent,
+                                roundingRule
+                            );
+                            cashDiscountAmount = PricingEngine.calculateDiscount(cardPrice, discountPercent);
+                            cashDiscountedPrice = cardPrice - cashDiscountAmount;
+                            displayPrice = cardPrice;
+                        } else {
+                            cardPrice = product.cashPrice;
+                            cashDiscountAmount = PricingEngine.calculateDiscount(cardPrice, discountPercent);
+                            cashDiscountedPrice = Math.max(0, cardPrice - cashDiscountAmount);
+                            displayPrice = product.cashPrice;
+                        }
+                    } else if (feeProgram === 'surcharge') {
+                        cardPrice = product.cashPrice;
+                        cashDiscountAmount = 0;
+                        cashDiscountedPrice = product.cashPrice;
+                        displayPrice = product.cashPrice;
+                    } else {
+                        cardPrice = product.cashPrice;
+                        cashDiscountAmount = 0;
+                        cashDiscountedPrice = product.cashPrice;
+                        displayPrice = product.cashPrice;
+                    }
+
+                    return {
+                        ...product,
+                        cardPrice,
+                        displayPrice,
+                        discount: cashDiscountAmount,
+                        cashDiscountAmount,
+                        cashDiscountedPrice
+                    };
+                });
+            }, [feeProgram, cashDiscountPercent, roundingRule, autoCalculateListPrices]);
+
+            // Cart operations
+            const addToCart = (product) => {
+                const existingItem = cart.find(item => item.id === product.id);
+                if (existingItem) {
+                    setCart(cart.map(item =>
+                        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+                    ));
+                } else {
+                    setCart([...cart, { ...product, quantity: 1 }]);
+                }
+            };
+
+            const updateQuantity = (productId, newQuantity) => {
+                if (newQuantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    setCart(cart.map(item =>
+                        item.id === productId ? { ...item, quantity: newQuantity } : item
+                    ));
+                }
+            };
+
+            const removeFromCart = (productId) => {
+                setCart(cart.filter(item => item.id !== productId));
+            };
+
+            const clearCart = () => {
+                setCart([]);
+                setSelectedPaymentMethod(null);
+                setSelectedCardType('credit');
+                setOrderComplete(false);
+            };
+
+            const handleManualEntry = (digit) => {
+                if (digit === 'clear') {
+                    setManualEntryAmount('');
+                } else if (digit === 'backspace') {
+                    setManualEntryAmount(manualEntryAmount.slice(0, -1));
+                } else if (digit === '.' && manualEntryAmount.includes('.')) {
+                    return; // Don't allow multiple decimals
+                } else {
+                    setManualEntryAmount(manualEntryAmount + digit);
+                }
+            };
+
+            const proceedWithManualEntry = () => {
+                const amount = parseFloat(manualEntryAmount);
+                if (!amount || amount <= 0) return;
+
+                // Calculate prices based on settings
+                let cardPrice, cashPrice, cashDiscountAmount, cashDiscountedPrice;
+
+                if (feeProgram === 'cash_discount') {
+                    const discountPercent = parseFloat(cashDiscountPercent);
+                    if (autoCalculateListPrices) {
+                        // User entered cash price, calculate List price
+                        cashPrice = amount;
+                        cardPrice = PricingEngine.calculateCardPrice(amount, discountPercent, roundingRule);
+                        cashDiscountAmount = PricingEngine.calculateDiscount(cardPrice, discountPercent);
+                        cashDiscountedPrice = cardPrice - cashDiscountAmount;
+                    } else {
+                        // User entered list price
+                        cardPrice = amount;
+                        cashPrice = amount;
+                        cashDiscountAmount = PricingEngine.calculateDiscount(cardPrice, discountPercent);
+                        cashDiscountedPrice = Math.max(0, cardPrice - cashDiscountAmount);
+                    }
+                } else {
+                    // Surcharge mode - user entered base price
+                    cardPrice = amount;
+                    cashPrice = amount;
+                    cashDiscountAmount = 0;
+                    cashDiscountedPrice = amount;
+                }
+
+                // Create synthetic product
+                const manualProduct = {
+                    id: Date.now(), // Unique ID
+                    name: 'Manual Entry',
+                    cashPrice: cashPrice,
+                    cardPrice: cardPrice,
+                    cashDiscountAmount: cashDiscountAmount,
+                    cashDiscountedPrice: cashDiscountedPrice,
+                    displayPrice: cardPrice,
+                    category: 'Manual',
+                    sku: 'MANUAL',
+                    quantity: 1
+                };
+
+                // Reset checkout state and add manual entry
+                setOrderComplete(false);
+                setSelectedPaymentMethod(null);
+                setSelectedCardType('credit');
+                setCart([manualProduct]);
+                setManualEntryAmount('');
+                setCurrentView('checkout');
+            };
+
+            const addInvoiceItem = () => {
+                const amount = parseFloat(currentInvoiceItem.amount);
+                if (!currentInvoiceItem.description || !amount || amount <= 0 || currentInvoiceItem.quantity <= 0) return;
+
+                // Calculate prices based on settings
+                let cardPrice, cashPrice, cashDiscountAmount, cashDiscountedPrice;
+
+                if (feeProgram === 'cash_discount') {
+                    const discountPercent = parseFloat(cashDiscountPercent);
+                    if (autoCalculateListPrices) {
+                        cashPrice = amount;
+                        cardPrice = PricingEngine.calculateCardPrice(amount, discountPercent, roundingRule);
+                        cashDiscountAmount = PricingEngine.calculateDiscount(cardPrice, discountPercent);
+                        cashDiscountedPrice = cardPrice - cashDiscountAmount;
+                    } else {
+                        cardPrice = amount;
+                        cashPrice = amount;
+                        cashDiscountAmount = PricingEngine.calculateDiscount(cardPrice, discountPercent);
+                        cashDiscountedPrice = Math.max(0, cardPrice - cashDiscountAmount);
+                    }
+                } else {
+                    cardPrice = amount;
+                    cashPrice = amount;
+                    cashDiscountAmount = 0;
+                    cashDiscountedPrice = amount;
+                }
+
+                const newItem = {
+                    id: Date.now(),
+                    name: currentInvoiceItem.description,
+                    cashPrice: cashPrice,
+                    cardPrice: cardPrice,
+                    cashDiscountAmount: cashDiscountAmount,
+                    cashDiscountedPrice: cashDiscountedPrice,
+                    displayPrice: cardPrice,
+                    category: 'Invoice',
+                    sku: `INV-${invoiceNumber}`,
+                    quantity: currentInvoiceItem.quantity
+                };
+
+                setInvoiceItems([...invoiceItems, newItem]);
+                setCurrentInvoiceItem({ description: '', amount: '', quantity: 1 });
+            };
+
+            const removeInvoiceItem = (itemId) => {
+                setInvoiceItems(invoiceItems.filter(item => item.id !== itemId));
+            };
+
+            const updateInvoiceItemQuantity = (itemId, newQuantity) => {
+                if (newQuantity <= 0) {
+                    removeInvoiceItem(itemId);
+                } else {
+                    setInvoiceItems(invoiceItems.map(item =>
+                        item.id === itemId ? { ...item, quantity: newQuantity } : item
+                    ));
+                }
+            };
+
+            const proceedWithInvoice = () => {
+                if (invoiceItems.length === 0) return;
+                // Reset checkout state
+                setOrderComplete(false);
+                setSelectedPaymentMethod(null);
+                setSelectedCardType('credit');
+                // Clear any existing cart first, then set invoice items
+                setCart([]);
+                // Use setTimeout to ensure cart is cleared before adding invoice items
+                setTimeout(() => {
+                    setCart(invoiceItems);
+                    setInvoiceItems([]);
+                    setCurrentInvoiceItem({ description: '', amount: '', quantity: 1 });
+                    setCurrentView('checkout');
+                }, 0);
+            };
+
+            // Calculate order totals
+            const orderTotals = useMemo(() => {
+                const baseSubtotal = cart.reduce((sum, item) => sum + (item.cashPrice * item.quantity), 0);
+                const listSubtotal = cart.reduce((sum, item) => sum + (item.cardPrice * item.quantity), 0);
+
+                let cardSubtotal = listSubtotal;
+                let cashSubtotal = baseSubtotal;
+                let cashDiscountAmount = 0;
+                let surchargeAmount = 0;
+
+                if (feeProgram === 'cash_discount') {
+                    if (autoCalculateListPrices) {
+                        cardSubtotal = listSubtotal;
+                        cashDiscountAmount = cart.reduce((sum, item) => sum + ((item.cashDiscountAmount || 0) * item.quantity), 0);
+                        cashSubtotal = Math.max(0, cardSubtotal - cashDiscountAmount);
+                    } else {
+                        cardSubtotal = baseSubtotal;
+                        cashDiscountAmount = cart.reduce((sum, item) => sum + ((item.cashDiscountAmount || 0) * item.quantity), 0);
+                        cashSubtotal = Math.max(0, baseSubtotal - cashDiscountAmount);
+                    }
+                } else if (feeProgram === 'surcharge') {
+                    cashSubtotal = baseSubtotal;
+                    const surchargeRate = selectedCardType === 'credit' ? 0.03 : 0;
+                    surchargeAmount = cashSubtotal * surchargeRate;
+                    cardSubtotal = cashSubtotal + surchargeAmount;
+                }
+
+                return {
+                    itemCount: cart.reduce((sum, item) => sum + item.quantity, 0),
+                    baseSubtotal,
+                    listSubtotal,
+                    cardTotal: cardSubtotal,
+                    cashTotal: cashSubtotal,
+                    savingsAmount: cashDiscountAmount,
+                    surchargeAmount
+                };
+            }, [cart, feeProgram, selectedCardType, autoCalculateListPrices]);
+
+            const proceedToCheckout = () => {
+                if (cart.length > 0) {
+                    setCurrentView('checkout');
+                    setSelectedPaymentMethod(null);
+                    setOrderComplete(false);
+                }
+            };
+
+            const completeOrder = (paymentMethod, cardType = 'credit') => {
+                const discountPercent = parseFloat(cashDiscountPercent) || 0;
+                
+                // Calculate fees for this transaction
+                let processingFee = 0;
+                let feeOffset = 0;
+                let finalTotal = 0;
+
+                if (paymentMethod === 'cash') {
+                    finalTotal = orderTotals.cashTotal;
+                    processingFee = 0;
+                    feeOffset = 0;
+                } else {
+                    finalTotal = orderTotals.cardTotal;
+                    processingFee = PricingEngine.calculateProcessingFee(
+                        orderTotals.baseSubtotal,
+                        cardType,
+                        feeProgram
+                    );
+
+                    if (feeProgram === 'cash_discount') {
+                        feeOffset = autoCalculateListPrices ? orderTotals.savingsAmount : 0; // Only markup counts as fee offset
+                    } else if (feeProgram === 'surcharge') {
+                        feeOffset = orderTotals.surchargeAmount; // Surcharge collected
+                    }
+                }
+
+                const netFee = processingFee - feeOffset;
+
+                // Record the sale
+                const sale = {
+                    id: Date.now(),
+                    timestamp: new Date(),
+                    items: cart.map(item => ({
+                        name: item.name,
+                        quantity: item.quantity,
+                        cashPrice: item.cashPrice,
+                        cardPrice: item.cardPrice,
+                        cashDiscountedPrice: item.cashDiscountedPrice
+                    })),
+                    paymentMethod,
+                    cardType: paymentMethod === 'card' ? cardType : null,
+                    totalAmount: finalTotal,
+                    processingFee,
+                    feeOffset,
+                    netFee,
+                    feeProgram,
+                    autoCalculateListPrices
+                };
+
+                setCompletedSales([...completedSales, sale]);
+                setSelectedPaymentMethod(paymentMethod);
+                setSelectedCardType(cardType);
+                setOrderComplete(true);
+            };
+
+            // Reporting calculations
+            const salesReport = useMemo(() => {
+                const totalSales = completedSales.reduce((sum, sale) => sum + sale.totalAmount, 0);
+                const totalProcessingFees = completedSales.reduce((sum, sale) => sum + sale.processingFee, 0);
+                const totalFeeOffsets = completedSales.reduce((sum, sale) => sum + sale.feeOffset, 0);
+                const totalNetFees = completedSales.reduce((sum, sale) => sum + sale.netFee, 0);
+                
+                const cardSales = completedSales.filter(s => s.paymentMethod === 'card').length;
+                const cashSales = completedSales.filter(s => s.paymentMethod === 'cash').length;
+
+                return {
+                    totalTransactions: completedSales.length,
+                    totalSales,
+                    totalProcessingFees,
+                    totalFeeOffsets,
+                    totalNetFees,
+                    cardSales,
+                    cashSales,
+                    effectiveFeeRate: totalSales > 0 ? (totalNetFees / totalSales) * 100 : 0
+                };
+            }, [completedSales]);
+
+            // Render views...
+            const renderSettingsView = () => (
+                <div className="content-wrapper">
+                    <div className="page-header">
+                        <h1 className="page-title">Rate Saver Settings</h1>
+                        <p className="page-description">
+                            Configure your pricing program
+                        </p>
+                    </div>
+
+                    <div className="card">
+                        <div className="card-header">
+                            <h2 className="card-title">Choose Your Rate Saver Program</h2>
+                        </div>
+
+                        <div className="radio-group">
+                            <div
+                                className={`radio-option ${feeProgram === 'surcharge' ? 'selected' : ''}`}
+                                onClick={() => setFeeProgram('surcharge')}
+                            >
+                                <div className="radio-circle"></div>
+                                <div className="radio-content">
+                                    <div className="radio-title">Option A</div>
+                                    <div className="radio-description" style={{lineHeight: '1.6'}}>
+                                        <div style={{fontSize: '0.9rem', color: '#1c1e21', marginBottom: '0.75rem'}}>Your base prices stay exactly as they are — a compliant surcharge is added only for credit card transactions at checkout.</div>
+                                        <div><strong>Benefits:</strong> Debit and cash customers always pay your standard price. No need to reprice anything on your menu, shelf, or website.</div>
+                                        <div style={{marginTop: '0.5rem'}}><strong>How it works:</strong> A clearly disclosed surcharge is applied at checkout for credit card transactions only. Debit and cash customers pay your base price.</div>
+                                        <div style={{marginTop: '0.5rem'}}><strong>Compliance notes:</strong> Available on credit cards only (not debit). Not available in Connecticut, Massachusetts, or Puerto Rico. Capped at 2% in Colorado; elsewhere capped at the lower of 3% or actual processing cost. Requires 30-day advance registration and clear disclosure at entry, point of sale, and on receipts.</div>
+                                        <div style={{marginTop: '0.5rem'}}><strong>Responsibilities:</strong> Post clear signage at entry and point of sale. Display the surcharge as a separate line item on receipts.</div>
+                                        <div style={{marginTop: '0.5rem'}}><strong>Processing rates:</strong> 3% for credit cards, 2.3% for debit cards, 1% for ACH (merchant pays debit and ACH fees)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                className={`radio-option ${feeProgram === 'cash_discount' ? 'selected' : ''}`}
+                                onClick={() => setFeeProgram('cash_discount')}
+                            >
+                                <div className="radio-circle"></div>
+                                <div className="radio-content">
+                                    <div className="radio-title">Option B</div>
+                                    <div className="radio-description" style={{lineHeight: '1.6'}}>
+                                        <div style={{fontSize: '0.9rem', color: '#1c1e21', marginBottom: '0.75rem'}}>The system helps calculate a list price that covers your processing cost, then automatically passes a discount to customers who pay with cash or ACH.</div>
+                                        <div><strong>Benefits:</strong> Eliminate processing fees on every payment type — credit, debit, and ACH. No percentage cap on the discount, available in all 50 states, and the system can automatically calculate list prices to protect your target margin.</div>
+                                        <div style={{marginTop: '0.5rem'}}><strong>How it works:</strong> Post list prices that reflect your processing cost. Cash and ACH customers receive a discount at checkout — your system handles the math. Card customers pay the list price.</div>
+                                        <div style={{marginTop: '0.5rem'}}><strong>Compliance notes:</strong> Available nationwide with no state restrictions or card-network registration required.</div>
+                                        <div style={{marginTop: '0.5rem'}}><strong>Responsibilities:</strong> Update all pricing displays (menus, shelves, website) to reflect list prices. Post signage indicating customers can save by paying with cash or ACH.</div>
+                                        <div style={{marginTop: '0.5rem'}}><strong>Processing rates:</strong> 3.5% all cards · 1% ACH</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {feeProgram === 'cash_discount' && (
+                        <>
+                            <div className="card">
+                                <div className="card-header">
+                                    <h2 className="card-title">Zero Fees (Cash Discount) Settings</h2>
+                                </div>
+
+                                <div className="form-group">
+                                    <label className="form-label">Cash Discount Percentage</label>
+                                    <input
+                                        type="number"
+                                        className="form-input"
+                                        min="0"
+                                        max="10"
+                                        step="0.1"
+                                        value={cashDiscountPercent}
+                                        onChange={(e) => {
+                                            const val = parseFloat(e.target.value);
+                                            if (val >= 0 && val <= 10) {
+                                                setCashDiscountPercent(e.target.value);
+                                            }
+                                        }}
+                                    />
+                                    <p className="form-help">
+                                        Enter a discount percentage between 0% and 10%. Typical range is 3-4% to cover card processing costs.
+                                    </p>
+                                </div>
+
+<div className="form-group">
+    <label className="form-label">Automatically calculate List Prices</label>
+    <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.75rem'
+    }}>
+        <button
+            type="button"
+            onClick={() => setAutoCalculateListPrices(!autoCalculateListPrices)}
+            aria-pressed={autoCalculateListPrices}
+            style={{
+                position: 'relative',
+                width: '52px',
+                height: '30px',
+                background: autoCalculateListPrices ? '#27ae60' : '#cbd5e0',
+                borderRadius: '999px',
+                border: 'none',
+                cursor: 'pointer',
+                flexShrink: 0,
+                transition: 'background 0.2s ease'
+            }}
+        >
+            <div style={{
+                position: 'absolute',
+                top: '3px',
+                left: autoCalculateListPrices ? '25px' : '3px',
+                width: '24px',
+                height: '24px',
+                background: 'white',
+                borderRadius: '50%',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+                transition: 'left 0.2s ease'
+            }}></div>
+        </button>
+        <span style={{ fontSize: '0.875rem', color: '#65676b' }}>
+            {autoCalculateListPrices ? 'Enabled' : 'Disabled'}
+        </span>
+    </div>
+    <p className="form-help">
+        When enabled, list prices are automatically calculated above your base prices. When disabled, list prices stay the same as your base prices and the cash/ACH discount is applied at checkout.
+    </p>
+</div>
+
+                                <div className="form-group">
+                                    <label className="form-label">Price Rounding Rule</label>
+                                    <select
+                                        className="form-select"
+                                        value={roundingRule}
+                                        onChange={(e) => setRoundingRule(e.target.value)}
+                                    >
+                                        <option value="none">Round Up to Nearest Penny</option>
+                                        <option value="nearest_nickel">Round Up to Nearest $0.05</option>
+                                        <option value="nearest_dime">Round Up to Nearest $0.10</option>
+                                        <option value="nearest_quarter">Round Up to Nearest $0.25</option>
+                                        <option value="nearest_dollar">Round Up to Nearest $1.00</option>
+                                        <option value="ends_99">End in .99 (Psychological Pricing)</option>
+                                        <option value="ends_95">End in .95</option>
+                                    </select>
+                                    <p className="form-help">
+                                        Choose how adjusted List prices should be rounded for display
+                                    </p>
+                                </div>
+
+                                <div className="alert alert-info">
+                                    <strong>How This Works:</strong><br/>
+                                    {autoCalculateListPrices ? (
+                                        <>
+                                            Your base prices remain the same (what you want to net). We automatically calculate a higher list price—typically around {cashDiscountPercent}% above your base. Customers paying with cash or ACH receive a discount, while card customers pay the list price. Either way, you receive your target amount—<strong>effectively offsetting processing fees.</strong>
+                                        </>
+                                    ) : (
+                                        <>
+                                            Your list prices stay the same as your base prices. Customers paying with cash or ACH receive a {cashDiscountPercent}% discount off that price at checkout, while card customers pay the listed amount. This setup creates a traditional cash discount instead of automatically marking up list prices.
+                                        </>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className="card">
+                                <div className="card-header">
+                                    <h2 className="card-title">Pricing Preview</h2>
+                                </div>
+
+                                <table className="order-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>{autoCalculateListPrices ? 'Your Price (Cash/ACH)' : 'Base Price'}</th>
+                                            <th>{autoCalculateListPrices ? 'List Price (Cards)' : 'List Price'}</th>
+                                            <th>{autoCalculateListPrices ? 'Markup Amount' : 'Cash Discount'}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {adjustedProducts.slice(0, 6).map(product => (
+                                            <tr key={product.id}>
+                                                <td>
+                                                    <strong>{product.name}</strong><br/>
+                                                    <span style={{fontSize: '0.75rem', color: '#65676b'}}>
+                                                        {product.category}
+                                                    </span>
+                                                </td>
+                                                <td style={{color: '#27ae60'}}>
+                                                    <strong>${product.cashPrice.toFixed(2)}</strong>
+                                                </td>
+                                                <td><strong>${product.cardPrice.toFixed(2)}</strong></td>
+                                                <td>
+                                                    <span style={{color: autoCalculateListPrices ? '#3498db' : '#27ae60'}}>
+                                                        {autoCalculateListPrices ? '+' : '-'}${product.discount.toFixed(2)}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </>
+                    )}
+
+                    {feeProgram === 'surcharge' && (
+                        <div className="card">
+                            <div className="card-header">
+                                <h2 className="card-title">Lower Fees (Credit Surcharge) Settings</h2>
+                            </div>
+
+                            <div className="alert alert-warning">
+                                <strong>Important Compliance Requirements:</strong><br/>
+                                • Not available in Connecticut, Massachusetts, or Puerto Rico<br/>
+                                • Requires advance registration with Visa and Mastercard<br/>
+                                • Surcharge cannot exceed actual processing cost<br/>
+                                • Must be clearly disclosed to customers before payment
+                            </div>
+
+                            <table className="order-table">
+                                <thead>
+                                    <tr>
+                                        <th>Card Type</th>
+                                        <th>Surcharge Rate</th>
+                                        <th>Example: $100 Purchase</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Credit Card</strong></td>
+                                        <td>3.0%</td>
+                                        <td>
+                                            $100.00 + $3.00 surcharge = <strong>$103.00</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Debit Card</strong></td>
+                                        <td>0%</td>
+                                        <td>
+                                            <strong>$100.00</strong> (no surcharge)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Cash / ACH</strong></td>
+                                        <td>0.0%</td>
+                                        <td>
+                                            <strong>$100.00</strong> (no surcharge)
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+                </div>
+            );
+
+            const renderOrderView = () => (
+                <div className="content-wrapper">
+                    <div className="page-header">
+                        <h1 className="page-title">Create Order</h1>
+                        <p className="page-description">
+                            Select products to add to the order, then proceed to checkout
+                        </p>
+                    </div>
+
+                    <div className="cart-container">
+                        <div>
+                            <div className="card">
+                                <div className="card-header">
+                                    <h2 className="card-title">Product Library</h2>
+                                </div>
+
+                                <div className="product-grid">
+                                    {adjustedProducts.map(product => (
+                                        <div
+                                            key={product.id}
+                                            className="product-card"
+                                            onClick={() => addToCart(product)}
+                                        >
+                                            <div className="product-name">{product.name}</div>
+                                            <div className="product-category">{product.category}</div>
+                                            <div className="product-prices">
+                                                <div className="product-price">
+                                                    ${product.displayPrice.toFixed(2)}
+                                                </div>
+                                                {feeProgram === 'cash_discount' && parseFloat(cashDiscountPercent) > 0 && (
+                                                    <div className="product-base-price">
+                                                        Cash/ACH: ${product.cashDiscountedPrice.toFixed(2)}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div className="cart-summary">
+                                <h3 className="card-title" style={{marginBottom: '1rem'}}>
+                                    Current Order
+                                </h3>
+
+                                {cart.length === 0 ? (
+                                    <div className="cart-empty">
+                                        <div className="cart-empty-icon">🛒</div>
+                                        <p>No items in order</p>
+                                        <p style={{fontSize: '0.875rem', marginTop: '0.5rem'}}>
+                                            Click products to add
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <>
+                                        <div className="cart-items" style={{marginBottom: '1rem', maxHeight: '300px'}}>
+                                            {cart.map(item => (
+                                                <div key={item.id} className="cart-item">
+                                                    <div className="cart-item-info">
+                                                        <div className="cart-item-name">{item.name}</div>
+                                                        <div className="cart-item-price">
+                                                            ${item.displayPrice.toFixed(2)} each
+                                                            {feeProgram === 'cash_discount' && parseFloat(cashDiscountPercent) > 0 && !autoCalculateListPrices && (
+                                                                <span style={{display: 'block'}}>
+                                                                    Cash/ACH: ${item.cashDiscountedPrice.toFixed(2)}
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                    <div className="cart-item-qty">
+                                                        <button
+                                                            className="qty-btn"
+                                                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                                        >
+                                                            -
+                                                        </button>
+                                                        <span className="qty-value">{item.quantity}</span>
+                                                        <button
+                                                            className="qty-btn"
+                                                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                                        >
+                                                            +
+                                                        </button>
+                                                    </div>
+                                                    <button
+                                                        className="remove-btn"
+                                                        onClick={() => removeFromCart(item.id)}
+                                                    >
+                                                        ×
+                                                    </button>
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        <div className="summary-row">
+                                            <span className="summary-label">Items</span>
+                                            <span className="summary-value">{orderTotals.itemCount}</span>
+                                        </div>
+
+                                        {feeProgram === 'cash_discount' && parseFloat(cashDiscountPercent) > 0 && (
+                                            <>
+                                                <div className="summary-row">
+                                                    <span className="summary-label">{autoCalculateListPrices ? 'Card Total' : 'List Price Total'}</span>
+                                                    <span className="summary-value">
+                                                        ${orderTotals.cardTotal.toFixed(2)}
+                                                    </span>
+                                                </div>
+                                                <div className="summary-row">
+                                                    <span className="summary-label">Cash/ACH Total</span>
+                                                    <span className="summary-value" style={{color: '#27ae60'}}>
+                                                        ${orderTotals.cashTotal.toFixed(2)}
+                                                    </span>
+                                                </div>
+                                                <div className="summary-row">
+                                                    <span className="summary-label">{autoCalculateListPrices ? 'Cash Savings' : 'Cash/ACH Discount'} ({cashDiscountPercent}%)</span>
+                                                    <span className="summary-value" style={{color: '#27ae60'}}>
+                                                        ${orderTotals.savingsAmount.toFixed(2)}
+                                                    </span>
+                                                </div>
+                                            </>
+                                        )}
+
+                                        <div className="summary-row total">
+                                            <span>Subtotal</span>
+                                            <span>
+                                                ${feeProgram === 'cash_discount' ? 
+                                                    orderTotals.cardTotal.toFixed(2) : 
+                                                    orderTotals.cashTotal.toFixed(2)
+                                                }
+                                            </span>
+                                        </div>
+
+                                        <button
+                                            className="btn btn-primary"
+                                            onClick={proceedToCheckout}
+                                        >
+                                            Proceed to Checkout →
+                                        </button>
+
+                                        <button
+                                            className="btn btn-secondary"
+                                            onClick={clearCart}
+                                        >
+                                            Clear Order
+                                        </button>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const renderInvoiceView = () => {
+                const invoiceSubtotal = invoiceItems.reduce((sum, item) => {
+                    return sum + (item.cardPrice * item.quantity);
+                }, 0);
+
+                let invoiceDiscount = 0;
+                if (feeProgram === 'cash_discount') {
+                    // Discount is always a true percentage of the list/card price (invoiceSubtotal)
+                    invoiceDiscount = invoiceSubtotal * (parseFloat(cashDiscountPercent) / 100);
+                }
+
+                const invoiceCashTotal = invoiceSubtotal - invoiceDiscount;
+
+                return (
+                    <div style={{maxWidth: '800px', margin: '0 auto', padding: '2rem'}}>
+                        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem'}}>
+                            <h2 style={{fontSize: '2rem', fontWeight: '700', color: '#1c1e21'}}>
+                                Create Invoice
+                            </h2>
+                            <div style={{fontSize: '1.25rem', fontWeight: '600', color: '#65676b'}}>
+                                Invoice #{invoiceNumber}
+                            </div>
+                        </div>
+
+                        <div className="card" style={{marginBottom: '1.5rem'}}>
+                            <h3 style={{fontSize: '1.25rem', fontWeight: '700', marginBottom: '1rem', color: '#1c1e21'}}>
+                                Add Item
+                            </h3>
+
+                            <div style={{display: 'grid', gap: '1rem'}}>
+                                <div>
+                                    <label style={{display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem', color: '#65676b'}}>
+                                        Description
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={currentInvoiceItem.description}
+                                        onChange={(e) => setCurrentInvoiceItem({...currentInvoiceItem, description: e.target.value})}
+                                        placeholder="Enter item description"
+                                        style={{
+                                            width: '100%',
+                                            padding: '0.75rem',
+                                            fontSize: '1rem',
+                                            border: '2px solid #e4e6eb',
+                                            borderRadius: '8px',
+                                            outline: 'none'
+                                        }}
+                                    />
+                                </div>
+
+                                <div style={{display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1rem'}}>
+                                    <div>
+                                        <label style={{display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem', color: '#65676b'}}>
+                                            {feeProgram === 'cash_discount' && autoCalculateListPrices ? 'Cash/ACH Price' : 'Amount'}
+                                        </label>
+                                        <input
+                                            type="number"
+                                            step="0.01"
+                                            value={currentInvoiceItem.amount}
+                                            onChange={(e) => setCurrentInvoiceItem({...currentInvoiceItem, amount: e.target.value})}
+                                            placeholder="0.00"
+                                            style={{
+                                                width: '100%',
+                                                padding: '0.75rem',
+                                                fontSize: '1rem',
+                                                border: '2px solid #e4e6eb',
+                                                borderRadius: '8px',
+                                                outline: 'none'
+                                            }}
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label style={{display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem', color: '#65676b'}}>
+                                            Quantity
+                                        </label>
+                                        <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+                                            <button
+                                                onClick={() => setCurrentInvoiceItem({
+                                                    ...currentInvoiceItem,
+                                                    quantity: Math.max(1, currentInvoiceItem.quantity - 1)
+                                                })}
+                                                style={{
+                                                    padding: '0.75rem 1rem',
+                                                    fontSize: '1.25rem',
+                                                    fontWeight: '700',
+                                                    border: '2px solid #e4e6eb',
+                                                    borderRadius: '8px',
+                                                    background: 'white',
+                                                    cursor: 'pointer'
+                                                }}
+                                            >
+                                                −
+                                            </button>
+                                            <input
+                                                type="number"
+                                                min="1"
+                                                value={currentInvoiceItem.quantity}
+                                                onChange={(e) => setCurrentInvoiceItem({
+                                                    ...currentInvoiceItem,
+                                                    quantity: Math.max(1, parseInt(e.target.value) || 1)
+                                                })}
+                                                style={{
+                                                    width: '60px',
+                                                    padding: '0.75rem',
+                                                    fontSize: '1rem',
+                                                    textAlign: 'center',
+                                                    border: '2px solid #e4e6eb',
+                                                    borderRadius: '8px',
+                                                    outline: 'none'
+                                                }}
+                                            />
+                                            <button
+                                                onClick={() => setCurrentInvoiceItem({
+                                                    ...currentInvoiceItem,
+                                                    quantity: currentInvoiceItem.quantity + 1
+                                                })}
+                                                style={{
+                                                    padding: '0.75rem 1rem',
+                                                    fontSize: '1.25rem',
+                                                    fontWeight: '700',
+                                                    border: '2px solid #e4e6eb',
+                                                    borderRadius: '8px',
+                                                    background: 'white',
+                                                    cursor: 'pointer'
+                                                }}
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button
+                                    onClick={addInvoiceItem}
+                                    disabled={!currentInvoiceItem.description || !parseFloat(currentInvoiceItem.amount)}
+                                    style={{
+                                        padding: '0.75rem',
+                                        fontSize: '1rem',
+                                        fontWeight: '600',
+                                        border: 'none',
+                                        borderRadius: '8px',
+                                        background: (currentInvoiceItem.description && parseFloat(currentInvoiceItem.amount)) ? '#27ae60' : '#e4e6eb',
+                                        color: (currentInvoiceItem.description && parseFloat(currentInvoiceItem.amount)) ? 'white' : '#65676b',
+                                        cursor: (currentInvoiceItem.description && parseFloat(currentInvoiceItem.amount)) ? 'pointer' : 'not-allowed'
+                                    }}
+                                >
+                                    + Add Item
+                                </button>
+                            </div>
+                        </div>
+
+                        {invoiceItems.length > 0 && (
+                            <>
+                                <div className="card" style={{marginBottom: '1.5rem'}}>
+                                    <h3 style={{fontSize: '1.25rem', fontWeight: '700', marginBottom: '1rem', color: '#1c1e21'}}>
+                                        Invoice Items
+                                    </h3>
+
+                                    <div style={{display: 'grid', gap: '0.75rem'}}>
+                                        {invoiceItems.map(item => (
+                                            <div
+                                                key={item.id}
+                                                style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '1rem',
+                                                    padding: '1rem',
+                                                    background: '#f0f2f5',
+                                                    borderRadius: '8px'
+                                                }}
+                                            >
+                                                <div style={{flex: 1}}>
+                                                    <div style={{fontWeight: '600', marginBottom: '0.25rem'}}>
+                                                        {item.name}
+                                                    </div>
+                                                    <div style={{fontSize: '0.875rem', color: '#65676b'}}>
+                                                        ${item.cardPrice.toFixed(2)} × {item.quantity}
+                                                    </div>
+                                                </div>
+                                                <div style={{fontWeight: '600', fontSize: '1rem', marginRight: '1rem'}}>
+                                                    ${(item.cardPrice * item.quantity).toFixed(2)}
+                                                </div>
+                                                <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+                                                    <button
+                                                        onClick={() => updateInvoiceItemQuantity(item.id, item.quantity - 1)}
+                                                        style={{
+                                                            padding: '0.5rem 0.75rem',
+                                                            fontSize: '1rem',
+                                                            fontWeight: '700',
+                                                            border: '2px solid #e4e6eb',
+                                                            borderRadius: '6px',
+                                                            background: 'white',
+                                                            cursor: 'pointer'
+                                                        }}
+                                                    >
+                                                        −
+                                                    </button>
+                                                    <span style={{fontWeight: '600', width: '30px', textAlign: 'center'}}>
+                                                        {item.quantity}
+                                                    </span>
+                                                    <button
+                                                        onClick={() => updateInvoiceItemQuantity(item.id, item.quantity + 1)}
+                                                        style={{
+                                                            padding: '0.5rem 0.75rem',
+                                                            fontSize: '1rem',
+                                                            fontWeight: '700',
+                                                            border: '2px solid #e4e6eb',
+                                                            borderRadius: '6px',
+                                                            background: 'white',
+                                                            cursor: 'pointer'
+                                                        }}
+                                                    >
+                                                        +
+                                                    </button>
+                                                    <button
+                                                        onClick={() => removeInvoiceItem(item.id)}
+                                                        style={{
+                                                            padding: '0.5rem 0.75rem',
+                                                            fontSize: '1rem',
+                                                            fontWeight: '700',
+                                                            border: 'none',
+                                                            borderRadius: '6px',
+                                                            background: '#e74c3c',
+                                                            color: 'white',
+                                                            cursor: 'pointer'
+                                                        }}
+                                                    >
+                                                        ×
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <div style={{marginTop: '1.5rem', paddingTop: '1.5rem', borderTop: '2px solid #e4e6eb'}}>
+                                        <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem'}}>
+                                            <span style={{fontSize: '1rem', color: '#65676b'}}>Subtotal:</span>
+                                            <span style={{fontSize: '1rem', fontWeight: '600'}}>${invoiceSubtotal.toFixed(2)}</span>
+                                        </div>
+                                        {feeProgram === 'cash_discount' && invoiceDiscount > 0 && (
+                                            <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem'}}>
+                                                <span style={{fontSize: '1rem', color: '#27ae60'}}>Cash/ACH Discount ({cashDiscountPercent}%):</span>
+                                                <span style={{fontSize: '1rem', fontWeight: '600', color: '#27ae60'}}>-${invoiceDiscount.toFixed(2)}</span>
+                                            </div>
+                                        )}
+                                        <div style={{display: 'flex', justifyContent: 'space-between', paddingTop: '0.5rem', borderTop: '1px solid #e4e6eb'}}>
+                                            <span style={{fontSize: '1.25rem', fontWeight: '700'}}>Total:</span>
+                                            <span style={{fontSize: '1.25rem', fontWeight: '700', color: '#0066cc'}}>
+                                                {feeProgram === 'cash_discount' ? (
+                                                    <>
+                                                        Card: ${invoiceSubtotal.toFixed(2)} / Cash: ${invoiceCashTotal.toFixed(2)}
+                                                    </>
+                                                ) : (
+                                                    `$${invoiceSubtotal.toFixed(2)}`
+                                                )}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <button
+                                        onClick={proceedWithInvoice}
+                                        style={{
+                                            width: '100%',
+                                            marginTop: '1rem',
+                                            padding: '1rem',
+                                            fontSize: '1rem',
+                                            fontWeight: '600',
+                                            border: 'none',
+                                            borderRadius: '8px',
+                                            background: '#0066cc',
+                                            color: 'white',
+                                            cursor: 'pointer'
+                                        }}
+                                    >
+                                        Proceed to Checkout →
+                                    </button>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                );
+            };
+
+            const renderManualEntryView = () => {
+                const amount = parseFloat(manualEntryAmount) || 0;
+                let enteredLabel, calculatedAmount, calculatedLabel;
+
+                if (feeProgram === 'cash_discount') {
+                    if (autoCalculateListPrices) {
+                        enteredLabel = 'Cash/ACH Price';
+                        calculatedAmount = amount > 0 ? PricingEngine.calculateCardPrice(amount, parseFloat(cashDiscountPercent), roundingRule) : 0;
+                        calculatedLabel = 'Card Price (including rounding)';
+                    } else {
+                        enteredLabel = 'List Price';
+                        calculatedAmount = amount > 0 ? (amount * (100 - parseFloat(cashDiscountPercent))) / 100 : 0;
+                        calculatedLabel = `Cash/ACH Price (after ${cashDiscountPercent}% discount)`;
+                    }
+                } else {
+                    enteredLabel = 'Base Price';
+                    calculatedAmount = amount;
+                    calculatedLabel = 'Card Price (surcharge added at checkout if credit)';
+                }
+
+                return (
+                    <div style={{maxWidth: '600px', margin: '0 auto', padding: '2rem'}}>
+                        <h2 style={{fontSize: '2rem', fontWeight: '700', marginBottom: '2rem', color: '#1c1e21'}}>
+                            Manual Entry
+                        </h2>
+
+                        <div className="card" style={{marginBottom: '2rem'}}>
+                            <div style={{marginBottom: '1.5rem'}}>
+                                <div style={{fontSize: '0.875rem', color: '#65676b', marginBottom: '0.5rem', fontWeight: '600'}}>
+                                    {enteredLabel}
+                                </div>
+                                <div style={{
+                                    fontSize: '3rem',
+                                    fontWeight: '700',
+                                    color: '#1c1e21',
+                                    fontFamily: 'monospace',
+                                    padding: '1rem',
+                                    background: '#f0f2f5',
+                                    borderRadius: '8px',
+                                    textAlign: 'right'
+                                }}>
+                                    ${manualEntryAmount || '0.00'}
+                                </div>
+                            </div>
+
+                            {amount > 0 && (
+                                <div style={{
+                                    padding: '1rem',
+                                    background: '#e7f3ff',
+                                    borderRadius: '8px',
+                                    marginBottom: '1.5rem'
+                                }}>
+                                    <div style={{fontSize: '0.875rem', color: '#1c1e21', marginBottom: '0.25rem'}}>
+                                        {calculatedLabel}
+                                    </div>
+                                    <div style={{fontSize: '1.5rem', fontWeight: '700', color: '#0066cc', fontFamily: 'monospace'}}>
+                                        ${calculatedAmount.toFixed(2)}
+                                    </div>
+                                </div>
+                            )}
+
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(3, 1fr)',
+                                gap: '0.75rem',
+                                marginBottom: '1rem'
+                            }}>
+                                {['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', '⌫'].map(digit => (
+                                    <button
+                                        key={digit}
+                                        onClick={() => handleManualEntry(digit === '⌫' ? 'backspace' : digit)}
+                                        style={{
+                                            padding: '1.25rem',
+                                            fontSize: '1.5rem',
+                                            fontWeight: '600',
+                                            border: '2px solid #e4e6eb',
+                                            borderRadius: '8px',
+                                            background: 'white',
+                                            cursor: 'pointer',
+                                            transition: 'all 0.2s'
+                                        }}
+                                        onMouseEnter={(e) => e.target.style.background = '#f0f2f5'}
+                                        onMouseLeave={(e) => e.target.style.background = 'white'}
+                                    >
+                                        {digit}
+                                    </button>
+                                ))}
+                            </div>
+
+                            <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem'}}>
+                                <button
+                                    onClick={() => handleManualEntry('clear')}
+                                    style={{
+                                        padding: '1rem',
+                                        fontSize: '1rem',
+                                        fontWeight: '600',
+                                        border: '2px solid #e4e6eb',
+                                        borderRadius: '8px',
+                                        background: 'white',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.2s'
+                                    }}
+                                    onMouseEnter={(e) => e.target.style.background = '#f0f2f5'}
+                                    onMouseLeave={(e) => e.target.style.background = 'white'}
+                                >
+                                    Clear
+                                </button>
+                                <button
+                                    onClick={proceedWithManualEntry}
+                                    disabled={!amount || amount <= 0}
+                                    style={{
+                                        padding: '1rem',
+                                        fontSize: '1rem',
+                                        fontWeight: '600',
+                                        border: 'none',
+                                        borderRadius: '8px',
+                                        background: amount > 0 ? '#0066cc' : '#e4e6eb',
+                                        color: amount > 0 ? 'white' : '#65676b',
+                                        cursor: amount > 0 ? 'pointer' : 'not-allowed',
+                                        transition: 'all 0.2s'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        if (amount > 0) e.target.style.background = '#0052a3';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        if (amount > 0) e.target.style.background = '#0066cc';
+                                    }}
+                                >
+                                    Proceed to Checkout →
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="card" style={{background: '#fffbf0', border: '1px solid #ffc107'}}>
+                            <h4 style={{fontSize: '0.875rem', fontWeight: '700', marginBottom: '0.5rem', color: '#1c1e21'}}>
+                                How this works:
+                            </h4>
+                            <p style={{fontSize: '0.875rem', color: '#65676b', lineHeight: '1.5'}}>
+                                {feeProgram === 'cash_discount' && autoCalculateListPrices &&
+                                    `Enter the cash/ACH price (what you want to net). The List price will be automatically calculated to include the ${cashDiscountPercent}% markup with proper rounding.`
+                                }
+                                {feeProgram === 'cash_discount' && !autoCalculateListPrices &&
+                                    `Enter the list price. Customers paying with cash/ACH will receive a ${cashDiscountPercent}% discount at checkout.`
+                                }
+                                {feeProgram === 'surcharge' &&
+                                    'Enter the base price. If the customer pays with a credit card, a 3% surcharge will be added at checkout.'
+                                }
+                            </p>
+                        </div>
+                    </div>
+                );
+            };
+
+            const renderCheckoutView = () => {
+                if (orderComplete) {
+                    const finalTotal = selectedPaymentMethod === 'cash' ? 
+                        orderTotals.cashTotal : 
+                        orderTotals.cardTotal;
+
+                    const processingFee = selectedPaymentMethod === 'cash' ? 0 :
+                        PricingEngine.calculateProcessingFee(orderTotals.baseSubtotal, selectedCardType, feeProgram);
+
+                    const feeOffset = selectedPaymentMethod === 'cash' ? 0 :
+                        (feeProgram === 'cash_discount' ? orderTotals.savingsAmount : orderTotals.surchargeAmount);
+
+                    const netFee = processingFee - feeOffset;
+
+                    return (
+                        <div className="content-wrapper">
+                            <div className="checkout-container">
+                                <div className="alert alert-success" style={{textAlign: 'center', fontSize: '1.125rem'}}>
+                                    ✓ Payment Complete
+                                </div>
+
+                                {/* Fee Analysis */}
+                                <div className="card">
+                                    <div className="card-header">
+                                        <h2 className="card-title">Transaction Fee Analysis</h2>
+                                    </div>
+
+                                    <div className="stats-grid">
+                                        <div className="stat-card">
+                                            <div className="stat-label">Transaction Amount</div>
+                                            <div className="stat-value">
+                                                ${finalTotal.toFixed(2)}
+                                            </div>
+                                            <div className="stat-helper">
+                                                {selectedPaymentMethod === 'cash' ? 'Cash / ACH Payment' : `${selectedCardType === 'credit' ? 'Credit' : 'Debit'} Card`}
+                                            </div>
+                                        </div>
+
+                                        <div className="stat-card">
+                                            <div className="stat-label">Processing Fee</div>
+                                            <div className="stat-value negative">
+                                                -${processingFee.toFixed(2)}
+                                            </div>
+                                            <div className="stat-helper">
+                                                {selectedPaymentMethod === 'cash' ? 'No fee on cash' : 
+                                                    `${selectedCardType === 'credit' ? '3.0%' : '2.3%'} processing`}
+                                            </div>
+                                        </div>
+
+                                        <div className="stat-card">
+                                            <div className="stat-label">Fee Offset Collected</div>
+                                            <div className="stat-value positive">
+                                                +${feeOffset.toFixed(2)}
+                                            </div>
+                                            <div className="stat-helper">
+                                                {feeProgram === 'cash_discount'
+                                                    ? (autoCalculateListPrices ? 'List price markup' : 'No markup collected')
+                                                    : 'Surcharge collected'}
+                                            </div>
+                                        </div>
+
+                                        <div className="stat-card">
+                                            <div className="stat-label">Net Processing Cost</div>
+                                            <div className={`stat-value ${netFee <= 0 ? 'positive' : 'negative'}`}>
+                                                ${netFee.toFixed(2)}
+                                            </div>
+                                            <div className="stat-helper">
+                                                {netFee <= 0 ? '✓ Zero or negative net cost!' : 'Partial offset'}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {netFee <= 0 && selectedPaymentMethod === 'card' && (
+                                        <div className="alert alert-success">
+                                            <strong>🎉 Zero Fee Achievement!</strong><br/>
+                                            This transaction had zero net processing cost to your business. 
+                                            The {feeProgram === 'cash_discount' ? 'List price adjustment' : 'surcharge'} of ${feeOffset.toFixed(2)} 
+                                            fully offset the ${processingFee.toFixed(2)} processing fee.
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Receipt */}
+                                <div className="receipt">
+                                    <div className="receipt-header">
+                                        <div className="receipt-company">MERCHANT NAME</div>
+                                        <div>123 Main Street</div>
+                                        <div>Anytown, USA 12345</div>
+                                        <div style={{marginTop: '0.5rem'}}>
+                                            {new Date().toLocaleString()}
+                                        </div>
+                                    </div>
+
+                                    <div style={{margin: '1rem 0'}}>
+                                        {cart.map(item => (
+                                            <div key={item.id} className="receipt-item">
+                                                <div className="receipt-line">
+                                                    <span>{item.name}</span>
+                                                    <span></span>
+                                                </div>
+                                                <div className="receipt-line" style={{fontSize: '0.75rem', color: '#65676b'}}>
+                                                    <span>  {item.quantity} × ${(selectedPaymentMethod === 'cash'
+                                                        ? (feeProgram === 'cash_discount' ? item.cardPrice : item.cashPrice)
+                                                        : item.cardPrice).toFixed(2)}</span>
+                                                    <span>${(selectedPaymentMethod === 'cash'
+                                                        ? ((feeProgram === 'cash_discount' ? item.cardPrice : item.cashPrice) * item.quantity)
+                                                        : item.cardPrice * item.quantity).toFixed(2)}</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {feeProgram === 'cash_discount' && selectedPaymentMethod === 'cash' && (
+                                        <div style={{margin: '1rem 0', padding: '0.5rem', background: '#d4edda', borderRadius: '4px'}}>
+                                            <div className="receipt-line">
+                                                <span>Cash/ACH Discount ({cashDiscountPercent}%)</span>
+                                                <span>-${orderTotals.savingsAmount.toFixed(2)}</span>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {feeProgram === 'surcharge' && selectedPaymentMethod === 'card' && (
+                                        <div style={{margin: '1rem 0'}}>
+                                            <div className="receipt-line">
+                                                <span>Card Surcharge ({selectedCardType === 'credit' ? '3%' : '0%'})</span>
+                                                <span>+${orderTotals.surchargeAmount.toFixed(2)}</span>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    <div className="receipt-total">
+                                        <div className="receipt-line">
+                                            <span>TOTAL</span>
+                                            <span>${finalTotal.toFixed(2)}</span>
+                                        </div>
+                                    </div>
+
+                                    <div style={{marginTop: '1rem', fontSize: '0.75rem'}}>
+                                        <div className="receipt-line">
+                                            <span>Payment Method:</span>
+                                            <span style={{textTransform: 'uppercase'}}>
+                                                {selectedPaymentMethod === 'cash' ? 'CASH' : `${selectedCardType.toUpperCase()} CARD`}
+                                            </span>
+                                        </div>
+                                        <div className="receipt-line">
+                                            <span>Transaction ID:</span>
+                                            <span>TXN{Date.now().toString().slice(-8)}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="receipt-footer">
+                                        {selectedPaymentMethod === 'cash' && feeProgram === 'cash_discount' ? (
+                                            <div>Thank you! You saved ${orderTotals.savingsAmount.toFixed(2)} ({cashDiscountPercent}%) with cash/ACH payment.</div>
+                                        ) : (
+                                            <div>Thank you for your business!</div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div style={{textAlign: 'center', marginTop: '2rem'}}>
+                                    <button
+                                        className="btn btn-primary"
+                                        onClick={() => {
+                                            clearCart();
+                                            setCurrentView('order');
+                                        }}
+                                        style={{maxWidth: '400px', margin: '0 auto'}}
+                                    >
+                                        Start New Order
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                }
+
+                return (
+                    <div className="content-wrapper">
+                        <div className="checkout-container">
+                            <div className="checkout-header">
+                                <h1 className="checkout-title">Order Checkout</h1>
+                                <p className="checkout-subtitle">
+                                    Review order and select payment method
+                                </p>
+                            </div>
+
+                            <div className="checkout-card">
+                                <h3 style={{marginBottom: '1rem'}}>Order Summary</h3>
+                                
+                                <table className="order-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th style={{textAlign: 'center'}}>Qty</th>
+                                            <th style={{textAlign: 'right'}}>Price</th>
+                                            <th style={{textAlign: 'right'}}>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {cart.map(item => (
+                                            <tr key={item.id}>
+                                                <td>
+                                                    <strong>{item.name}</strong><br/>
+                                                    <span style={{fontSize: '0.75rem', color: '#65676b'}}>
+                                                        {item.sku}
+                                                    </span>
+                                                </td>
+                                                <td style={{textAlign: 'center'}}>{item.quantity}</td>
+                                                <td style={{textAlign: 'right'}}>
+                                                    ${item.displayPrice.toFixed(2)}
+                                                    {feeProgram === 'cash_discount' && parseFloat(cashDiscountPercent) > 0 && !autoCalculateListPrices && (
+                                                        <div style={{fontSize: '0.75rem', color: '#27ae60'}}>
+                                                            Cash/ACH: ${item.cashDiscountedPrice.toFixed(2)}
+                                                        </div>
+                                                    )}
+                                                </td>
+                                                <td style={{textAlign: 'right'}}>
+                                                    <strong>${(item.displayPrice * item.quantity).toFixed(2)}</strong>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div className="checkout-card">
+                                <h3 style={{marginBottom: '1.5rem', textAlign: 'center'}}>
+                                    Select Payment Method
+                                </h3>
+
+                                {feeProgram === 'cash_discount' && parseFloat(cashDiscountPercent) > 0 ? (
+                                    <>
+                                        <div className="price-comparison">
+                                            <div
+                                                className={`price-option ${selectedPaymentMethod === 'card' ? 'selected' : ''}`}
+                                                onClick={() => setSelectedPaymentMethod('card')}
+                                            >
+                                                <div className="price-option-icon">💳</div>
+                                                <div className="price-option-label">{autoCalculateListPrices ? 'Pay with Card' : 'Pay List Price'}</div>
+                                                <div className="price-option-amount">
+                                                    ${orderTotals.cardTotal.toFixed(2)}
+                                                </div>
+                                                <div style={{fontSize: '0.75rem', color: '#65676b', marginTop: '0.5rem'}}>
+                                                    Credit or Debit Card
+                                                </div>
+                                            </div>
+
+                                            <div
+                                                className={`price-option ${selectedPaymentMethod === 'cash' ? 'selected' : ''}`}
+                                                onClick={() => setSelectedPaymentMethod('cash')}
+                                            >
+                                                <div className="price-option-icon">💵</div>
+                                                <div className="price-option-label">Pay with Cash / ACH</div>
+                                                <div className="price-option-amount" style={{color: '#27ae60'}}>
+                                                    ${orderTotals.cashTotal.toFixed(2)}
+                                                </div>
+                                                <div className="price-option-badge">
+                                                    {autoCalculateListPrices ? `Save $${orderTotals.savingsAmount.toFixed(2)} (${cashDiscountPercent}%)` : `Discount $${orderTotals.savingsAmount.toFixed(2)} (${cashDiscountPercent}%)`}
+                                                </div>
+                                                <div style={{fontSize: '0.75rem', color: '#65676b', marginTop: '0.5rem'}}>
+                                                    Cash or ACH Transfer
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div style={{marginTop: '1.5rem', padding: '1rem', background: '#f0f2f5', borderRadius: '6px', textAlign: 'center'}}>
+                                            <strong>Cash Discount Active:</strong> {autoCalculateListPrices
+                                                ? `Choose your preferred payment method. Cash/ACH payments receive the discounted base price.`
+                                                : `Choose your preferred payment method. Cash/ACH payments receive a ${cashDiscountPercent}% discount off the listed price.`}
+                                        </div>
+                                    </>
+                                ) : feeProgram === 'surcharge' ? (
+                                    <>
+                                        <div className="form-group" style={{maxWidth: '400px', margin: '0 auto 1.5rem'}}>
+                                            <label className="form-label">Card Type (for surcharge calculation)</label>
+                                            <select
+                                                className="form-select"
+                                                value={selectedCardType}
+                                                onChange={(e) => setSelectedCardType(e.target.value)}
+                                            >
+                                                <option value="credit">Credit Card (3% surcharge)</option>
+                                                <option value="debit">Debit Card (no surcharge)</option>
+                                            </select>
+                                        </div>
+
+                                        <div className="price-comparison">
+                                            <div
+                                                className={`price-option ${selectedPaymentMethod === 'card' ? 'selected' : ''}`}
+                                                onClick={() => setSelectedPaymentMethod('card')}
+                                            >
+                                                <div className="price-option-icon">💳</div>
+                                                <div className="price-option-label">Pay with Card</div>
+                                                <div className="price-option-amount">
+                                                    ${orderTotals.cardTotal.toFixed(2)}
+                                                </div>
+                                                <div style={{fontSize: '0.75rem', color: '#e74c3c', marginTop: '0.5rem'}}>
+                                                    Includes ${orderTotals.surchargeAmount.toFixed(2)} surcharge
+                                                </div>
+                                            </div>
+
+                                            <div
+                                                className={`price-option ${selectedPaymentMethod === 'cash' ? 'selected' : ''}`}
+                                                onClick={() => setSelectedPaymentMethod('cash')}
+                                            >
+                                                <div className="price-option-icon">💵</div>
+                                                <div className="price-option-label">Pay with Cash</div>
+                                                <div className="price-option-amount" style={{color: '#27ae60'}}>
+                                                    ${orderTotals.cashTotal.toFixed(2)}
+                                                </div>
+                                                <div className="price-option-badge">
+                                                    No Surcharge
+                                                </div>
+                                                <div style={{fontSize: '0.75rem', color: '#65676b', marginTop: '0.5rem'}}>
+                                                    Cash or ACH Transfer
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <div style={{textAlign: 'center', padding: '2rem'}}>
+                                        <div className="price-option-amount">
+                                            ${orderTotals.cashTotal.toFixed(2)}
+                                        </div>
+                                        <div style={{marginTop: '1.5rem'}}>
+                                            <button
+                                                className="btn btn-primary"
+                                                onClick={() => completeOrder('card', 'credit')}
+                                                style={{maxWidth: '300px'}}
+                                            >
+                                                Complete Payment
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {selectedPaymentMethod && (
+                                    <div style={{marginTop: '1.5rem', display: 'flex', gap: '1rem'}}>
+                                        <button
+                                            className="btn btn-success"
+                                            onClick={() => completeOrder(selectedPaymentMethod, selectedCardType)}
+                                        >
+                                            Complete Order - ${(selectedPaymentMethod === 'cash' ? orderTotals.cashTotal : orderTotals.cardTotal).toFixed(2)}
+                                        </button>
+                                        <button
+                                            className="btn btn-secondary"
+                                            onClick={() => setCurrentView('order')}
+                                            style={{flex: '0 0 auto', width: 'auto'}}
+                                        >
+                                            ← Back
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                );
+            };
+
+            const renderReportsView = () => (
+                <div className="content-wrapper">
+                    <div className="page-header">
+                        <h1 className="page-title">Fee Reporting & Analytics</h1>
+                        <p className="page-description">
+                            Track processing fees vs. fee offsets to demonstrate zero-fee outcomes
+                        </p>
+                    </div>
+
+                    <div className="stats-grid">
+                        <div className="stat-card">
+                            <div className="stat-label">Total Transactions</div>
+                            <div className="stat-value">{salesReport.totalTransactions}</div>
+                            <div className="stat-helper">
+                                {salesReport.cardSales} card • {salesReport.cashSales} cash
+                            </div>
+                        </div>
+
+                        <div className="stat-card">
+                            <div className="stat-label">Total Sales Volume</div>
+                            <div className="stat-value">${salesReport.totalSales.toFixed(2)}</div>
+                            <div className="stat-helper">Gross revenue</div>
+                        </div>
+
+                        <div className="stat-card">
+                            <div className="stat-label">Processing Fees Paid</div>
+                            <div className="stat-value negative">
+                                -${salesReport.totalProcessingFees.toFixed(2)}
+                            </div>
+                            <div className="stat-helper">Card processing costs</div>
+                        </div>
+
+                        <div className="stat-card">
+                            <div className="stat-label">Fee Offsets Collected</div>
+                            <div className="stat-value positive">
+                                +${salesReport.totalFeeOffsets.toFixed(2)}
+                            </div>
+                            <div className="stat-helper">
+                                {feeProgram === 'cash_discount'
+                                    ? (completedSales.some(sale => sale.autoCalculateListPrices) ? 'Card markups collected' : 'No markups collected')
+                                    : 'Surcharges'}
+                            </div>
+                        </div>
+
+                        <div className="stat-card">
+                            <div className="stat-label">Net Processing Cost</div>
+                            <div className={`stat-value ${salesReport.totalNetFees <= 0 ? 'positive' : 'negative'}`}>
+                                ${salesReport.totalNetFees.toFixed(2)}
+                            </div>
+                            <div className="stat-helper">
+                                {salesReport.totalNetFees <= 0 ? '✓ Zero or negative net cost!' : 'Effective cost'}
+                            </div>
+                        </div>
+
+                        <div className="stat-card">
+                            <div className="stat-label">Effective Fee Rate</div>
+                            <div className={`stat-value ${salesReport.effectiveFeeRate <= 0 ? 'positive' : 'negative'}`}>
+                                {salesReport.effectiveFeeRate.toFixed(2)}%
+                            </div>
+                            <div className="stat-helper">Net fees ÷ total sales</div>
+                        </div>
+                    </div>
+
+                    {salesReport.totalNetFees <= 0 && salesReport.totalTransactions > 0 && (
+                        <div className="alert alert-success">
+                            <strong>🎉 Zero Fee Success!</strong><br/>
+                            Your fee program has successfully offset all processing costs. 
+                            You've collected ${salesReport.totalFeeOffsets.toFixed(2)} in {feeProgram === 'cash_discount' ? 'List price adjustments' : 'surcharges'} 
+                            while paying ${salesReport.totalProcessingFees.toFixed(2)} in processing fees, 
+                            resulting in a net of ${Math.abs(salesReport.totalNetFees).toFixed(2)} {salesReport.totalNetFees < 0 ? 'profit' : 'even'}.
+                        </div>
+                    )}
+
+                    {completedSales.length === 0 && (
+                        <div className="card">
+                            <div className="cart-empty">
+                                <div className="cart-empty-icon">📊</div>
+                                <p>No transactions yet</p>
+                                <p style={{fontSize: '0.875rem', marginTop: '0.5rem', color: '#65676b'}}>
+                                    Complete some sales to see fee reporting data
+                                </p>
+                            </div>
+                        </div>
+                    )}
+
+                    {completedSales.length > 0 && (
+                        <div className="card">
+                            <div className="card-header">
+                                <h2 className="card-title">Transaction History</h2>
+                            </div>
+
+                            <table className="order-table">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Payment</th>
+                                        <th style={{textAlign: 'right'}}>Amount</th>
+                                        <th style={{textAlign: 'right'}}>Processing Fee</th>
+                                        <th style={{textAlign: 'right'}}>Fee Offset</th>
+                                        <th style={{textAlign: 'right'}}>Net Cost</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {completedSales.slice().reverse().map(sale => (
+                                        <tr key={sale.id}>
+                                            <td style={{fontSize: '0.75rem'}}>
+                                                {sale.timestamp.toLocaleTimeString()}
+                                            </td>
+                                            <td>
+                                                {sale.paymentMethod === 'cash' ? 'Cash' : 
+                                                    `${sale.cardType === 'credit' ? 'Credit' : 'Debit'} Card`}
+                                            </td>
+                                            <td style={{textAlign: 'right'}}>
+                                                <strong>${sale.totalAmount.toFixed(2)}</strong>
+                                            </td>
+                                            <td style={{textAlign: 'right', color: '#e74c3c'}}>
+                                                -${sale.processingFee.toFixed(2)}
+                                            </td>
+                                            <td style={{textAlign: 'right', color: '#27ae60'}}>
+                                                +${sale.feeOffset.toFixed(2)}
+                                            </td>
+                                            <td style={{textAlign: 'right'}}>
+                                                <strong style={{color: sale.netFee <= 0 ? '#27ae60' : '#e74c3c'}}>
+                                                    ${sale.netFee.toFixed(2)}
+                                                </strong>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+                </div>
+            );
+
+            return (
+                <div className="app-container">
+                    <div className="sidebar">
+                        <div className="sidebar-header">
+                            <div className="sidebar-title">GoDaddy Payments</div>
+                            <div className="sidebar-subtitle">Rate Saver</div>
+                        </div>
+
+                        <div className="nav-menu">
+                            <div
+                                className={`nav-item ${currentView === 'settings' ? 'active' : ''}`}
+                                onClick={() => setCurrentView('settings')}
+                            >
+                                <span className="nav-icon">⚙️</span>
+                                <span className="nav-label">Rate Saver Settings</span>
+                            </div>
+
+                            <div
+                                className={`nav-item ${currentView === 'order' ? 'active' : ''}`}
+                                onClick={() => setCurrentView('order')}
+                            >
+                                <span className="nav-icon">🛒</span>
+                                <span className="nav-label">Create Order</span>
+                                {cart.length > 0 && (
+                                    <span style={{
+                                        marginLeft: 'auto',
+                                        background: '#e74c3c',
+                                        color: 'white',
+                                        borderRadius: '12px',
+                                        padding: '0.125rem 0.5rem',
+                                        fontSize: '0.75rem',
+                                        fontWeight: '700'
+                                    }}>
+                                        {orderTotals.itemCount}
+                                    </span>
+                                )}
+                            </div>
+
+                            <div
+                                className={`nav-item ${currentView === 'manual' ? 'active' : ''}`}
+                                onClick={() => setCurrentView('manual')}
+                            >
+                                <span className="nav-icon">🔢</span>
+                                <span className="nav-label">Manual Entry</span>
+                            </div>
+
+                            <div
+                                className={`nav-item ${currentView === 'invoice' ? 'active' : ''}`}
+                                onClick={() => setCurrentView('invoice')}
+                            >
+                                <span className="nav-icon">📄</span>
+                                <span className="nav-label">Invoice</span>
+                                {invoiceItems.length > 0 && (
+                                    <span style={{
+                                        marginLeft: 'auto',
+                                        background: '#3498db',
+                                        color: 'white',
+                                        borderRadius: '12px',
+                                        padding: '0.125rem 0.5rem',
+                                        fontSize: '0.75rem',
+                                        fontWeight: '700'
+                                    }}>
+                                        {invoiceItems.length}
+                                    </span>
+                                )}
+                            </div>
+
+                            <div
+                                className={`nav-item ${currentView === 'checkout' ? 'active' : ''}`}
+                                onClick={() => cart.length > 0 && setCurrentView('checkout')}
+                                style={{opacity: cart.length === 0 ? 0.5 : 1, cursor: cart.length === 0 ? 'not-allowed' : 'pointer'}}
+                            >
+                                <span className="nav-icon">💳</span>
+                                <span className="nav-label">Checkout</span>
+                            </div>
+
+                            <div
+                                className={`nav-item ${currentView === 'reports' ? 'active' : ''}`}
+                                onClick={() => setCurrentView('reports')}
+                            >
+                                <span className="nav-icon">📊</span>
+                                <span className="nav-label">Fee Reports</span>
+                                {completedSales.length > 0 && (
+                                    <span style={{
+                                        marginLeft: 'auto',
+                                        background: '#27ae60',
+                                        color: 'white',
+                                        borderRadius: '12px',
+                                        padding: '0.125rem 0.5rem',
+                                        fontSize: '0.75rem',
+                                        fontWeight: '700'
+                                    }}>
+                                        {completedSales.length}
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="sidebar-footer">
+                            <div><strong>Active Program:</strong></div>
+                            <div>{feeProgram === 'cash_discount' ? 'Cash Discount' : 'Surcharge'}</div>
+                            {feeProgram === 'cash_discount' && (
+                                <div>Discount: {cashDiscountPercent}%</div>
+                            )}
+                            <div style={{marginTop: '0.5rem', paddingTop: '0.5rem', borderTop: '1px solid rgba(255,255,255,0.1)'}}>
+                                Demo Version 2.0
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="main-content">
+                        {currentView === 'settings' && renderSettingsView()}
+                        {currentView === 'order' && renderOrderView()}
+                        {currentView === 'manual' && renderManualEntryView()}
+                        {currentView === 'invoice' && renderInvoiceView()}
+                        {currentView === 'checkout' && renderCheckoutView()}
+                        {currentView === 'reports' && renderReportsView()}
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<VirtualTerminalPOS />, document.getElementById('root'));
+    </script>
+</body>
+</html>

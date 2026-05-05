@@ -1,0 +1,85 @@
+SLIDES 6 & 7 - INSERT THESE AFTER SLIDE 5 (WHAT WE'RE BUILDING)
+
+================================================================================
+
+SLIDE 6: WHAT WE'RE MOVING TOWARDS
+Design: Bold headline with clear positioning statement, followed by comparison diagram
+
+Title: Zero Fees Powered by Cash Discounting
+Subtitle: The compliant path to true zero fees
+
+[Large headline/positioning statement - centered, bold]:
+We are evolving to deliver ZERO FEES powered by CASH DISCOUNTING
+
+[Two-column comparison]:
+
+LEFT COLUMN - WHERE WE ARE (Rate Saver / Surcharge):
+Base price: $100
+• Credit card: $100 + 3% surcharge = $103
+• Debit card: $100 (surcharge illegal ❌)
+• Cash: $100
+
+RESULT: Merchant still pays fees on debit
+Coverage: ~65% (credit only)
+
+RIGHT COLUMN - WHERE WE'RE GOING (Cash Discounting):
+Posted price: $103.25 (fee-inclusive)
+• Credit/Debit cards: $103.25
+• Cash/ACH: 3% discount = $100.15
+
+RESULT: TRUE zero fees on ALL cards ✓
+Coverage: ~90% (credit + debit)
+
+[Bottom section - WHY CASH DISCOUNTING]:
+✓ Legal in all 50 states (no geographic restrictions)
+✓ No caps on price difference
+✓ Covers credit AND debit cards
+✓ Fewer compliance risks than surcharge
+✓ Customer sees pricing BEFORE payment method selection
+
+[Callout box - blue background]:
+This is the compliant, defensible way to achieve TRUE zero fees
+
+================================================================================
+
+SLIDE 7: WHAT IT LOOKS LIKE - THE CUSTOMER EXPERIENCE
+Design: Use actual prototype screenshots/mockups. Show 4 key moments in a grid or flow layout.
+
+Title: What It Looks Like
+Subtitle: Prototyped, designed, ready to build
+
+[Introduction text]:
+We've built comprehensive prototypes covering the full customer journey. Assets ready to drive engineering forward.
+
+[Four quadrants with visuals from prototypes]:
+
+1. SHELF/MENU PRICE
+[Visual: Screenshot from comparison_redesigned_complete.html showing dual pricing]
+Caption: "Posted price $103.25 (card) | Cash/ACH price $100.15"
+Note: Customer sees options upfront
+
+2. CHECKOUT/PAYMENT SELECTION
+[Visual: Screenshot showing payment options screen]
+Caption: "Customer selects payment method with clear pricing for each"
+Note: No surprises, transparent choice
+
+3. RECEIPT
+[Visual: Screenshot of receipt showing discount line item or dual pricing]
+Caption: "Receipt shows payment method and appropriate price"
+Note: Compliant disclosure, clean presentation
+
+4. STAFF VIEW/TERMINAL
+[Visual: Screenshot from mock_08_explanation_helper.html]
+Caption: "Staff training: 'Card price is posted price, cash/ACH saves 3%'"
+Note: Easy to explain, handles objections
+
+[Bottom callout box - green background]:
+8 prototype scenarios complete: setup, economics, staff training, disclosures, manual entry, customer perception, tax treatment, channel configuration
+
+[Second callout - orange]:
+All comparison documentation, prototype mocks, and technical foundation from Dough Phase 1 ready for engineering
+
+================================================================================
+
+DESIGN NOTE FOR COPILOT:
+For Slide 7, if you cannot embed actual screenshots, use placeholder boxes with the captions and notes. Indicate "[INSERT SCREENSHOT: comparison_redesigned_complete.html - Stage 1]" etc. as placeholders that can be manually replaced with actual mockup screenshots.

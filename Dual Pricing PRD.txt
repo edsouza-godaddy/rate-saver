@@ -1,0 +1,228 @@
+ Dual Pricing via ACH/Cash Discounting Platform Capability
+
+Context 	
+This initiative originated from a specific request from a new reseller, Dough (https://www.dough.cc), an affiliate of Moolah.
+Dough’s core value proposition to merchants is true “zero fees” on all transactions, including Credit and Debit cards. ACH and cash will be treated as equivalent.
+
+Critically, this requirement cannot be met through credit card surcharging because:
+•	Surcharging cannot be applied to debit cards (illegal)
+•	Surcharging is restricted or capped in several U.S. states
+•	Surcharging introduces additional compliance and network rule complexity
+The compliant way to deliver Dough’s promised value proposition is through cash discounting / dual pricing, where fees are embedded in the price and a discount/lower price is offered for cash equivalent payments (cash and ACH).
+
+Rate Saver limitations
+GoDaddy Payments’ existing fee-passing solution, Rate Saver, has validated demand for merchants who want to reduce or offset processing fees. However, learnings from anecdotal sales feedback and merchant interviews have surfaced key limitations:
+•	Merchants expect “zero fees” per our advertising, but discover they still pay fees for processing debit. This creates confusion, objection handling, and perceived “bait and switch”
+•	Merchants operating in surcharge restricted states (e.g., CA, NY, MA) are blocked 
+•	Surcharge is capped by the processing fees.
+These gaps became especially acute when assessing reseller led opportunities like Dough and other ISOs.
+Why cash discounting / dual pricing?
+Cash discounting / dual pricing is being pursued as a complementary fee program (not a replacement) because it uniquely provides:
+•	True zero processing fees for merchants, including debit
+•	Applicability across all 50 states
+•	Coverage across all payment methods (credit, debit, ACH, cash)
+•	Fewer network constraints and reduced longterm regulatory risk
+•	A simpler merchant and sales narrative: fees are built into the card price
+This model mirrors widely accepted realworld examples (e.g., gas stations) and aligns with Dough’s GTM promise while remaining compliant and scalable for GoDaddy Payments.
+ 
+
+Cash Discounting vs Dual Pricing
+Although often used interchangeably in conversation, cash discounting and dual pricing are two different presentations of the same underlying capabilities.
+
+Cash Discounting
+•	Listed / sticker price is the card (higher) price
+•	A separate, explicit discount line item is shown when the customer pays with: 
+o	Cash or ACH (treated as cash equivalent)
+•	The discount must appear at checkout and on the receipt
+•	Consumers initially see a single price, with the discount applied at checkout 
+Example:
+•	Item 1 price: $105
+•	Item 2 price: $210
+•	SubTotal: $315
+•	5% Cash / ACH discount: –$15.75
+•	Net paid (cash/ACH): $299.25
+
+Dual Pricing
+•	Two prices are always displayed on all consumer facing surfaces, including: 
+o	Shelf price
+o	Menu
+o	Order/Invoice line items
+o	Checkout screen
+•	Every item has: 
+o	A card price
+o	A cash / ACH price
+•	At checkout and on receipts: 
+o	No separate discount line item is required
+o	Only the selected price is shown
+
+Example:
+•	Item 1 
+o	Card price: $105
+o	Cash/ACH price: $99.75
+•	Item 2 
+o	Card price: $210
+o	Cash/ACH price: $199.50
+•	Card SubTotal: $315
+•	Cash Sub Total: $299.25
+Key rule: For a C2, no item has a single price: All items are  dual-listed everywhere the 
+customer sees price of an item.
+The rest of this document will focus on Dual Pricing as the product construct we will deliver. The above distinction is for clarity on contrasting presentation of the underlying capability. 
+Legal & Compliance Constraints
+The following constraints impact product & UX 
+1.	Discounts must never be linked to processing costs
+o	If the discount is framed or interpreted as “covering processing fees,” it will be treated as a surcharge, and surcharging debit is illegal. Therefore, discount logic must be decoupled from processing fees
+2.	Downward discount only
+o	Customers pay a lower price/receive a discount for preferred methods (cash/ACH), fees are never “added” at checkout, that’s an illegal surcharge.
+3.	All states, no caps
+o	Unlike surcharging, cash discounting / dual pricing: 
+	Is legal in all 50 U.S. states
+	Has no cap on the price difference
+	Applies across all card types
+4.	Mutual exclusivity with surcharge
+o	Merchants cannot enable Rate Saver and dual pricing simultaneously
+5.	Pricing visibility is mandatory
+o	Wherever a customer sees a price, the experience must match the chosen model: 
+	Cash discount → discount disclosed at checkout and receipt
+	Dual pricing → both prices visible from first exposure
+Violating any of the above creates legal and compliance risk for both merchants and GoDaddy.
+
+
+
+OKR alignment
+This work aligns to core Payments & Commerce OKRs for 2026, specifically: 
+
+1.	Objective#3 Win The Next Moolah
+Dough is categorically a “Zero Fee ISO” that projects $20M aGPV towards the $100M aGPV target for this OKR. 
+
+2.	Objective#1 Double Direct - $5M high margin revenue.
+Dual pricing supports the Commerce objective of driving high margin revenue through a complement to the current surcharge (Rate Saver) program. The business case projects that dual pricing drives +2 to +4 bps GCR uplift (i.e. $800K-$1.6M in ‘27), that remains positive even under conservative assumptions (no pricing premium, higher cash/ACH shift), primarily due to uplift on debit take rate. This capability also gives us the leverage to increase differentiated debit pricing on Rate Saver, as we have a zero fees alternative.
+
+Scoping and Phasing
+This section defines what is included in the initial launch and what is intentionally deferred, to reduce blast radius while enabling Dough’s near-term needs and establishing a reusable/extensible platform capability. 
+1.	Phase 1: MVP for Dough with Dual pricing on Invoicing (ACH preferred) and Mobile App (Cash preferred): 
+Deliver core capabilities + invoicing and mobile experience to support true zero-fee narrative via dual pricing presentation.
+Deliverables: Core engine (Standard Price /Preferred price for ACH/card), merchant opt-in including mutual exclusivity with credit surcharge, and attestation; C1 invoicing UI, C2 Invoicing presentation and receipts, Mobile/POS dual-price display + receipts with Cash as a preferred method, C1 post-order management including voids, refunds, chargebacks, order and transaction dashboards and reports, audit logging.
+2.	Phase 2: Additional channels (POS, Pay links) and GoDaddy Direct: 
+Extend the same engine and compliance model to in-person and paylinks
+Deliverables: Support for GoDaddy Payments, packaging/positioning as part of Rate Saver (i.e. credit surcharge or dual pricing). C1 management with toggle on whether catalog price is standard or preferred.
+
+Definition of Success  (Phase 1)
+Success in phase 1 is enabling Dough’s Dual Pricing on invoicing and mobile, with real usage.
+Metrics:
+•	Dual pricing live on Invoicing & Mobile for Dough
+•	Dough merchants issuing live dual-priced invoices and mobile sales
+•	Sustained usage (MAS) of 30%+ of base.
+•	Directional revenue: Credible path to ~$10M annualized GPV from Dough within 2 quarters of launch
+Hard requirements:
+•	Zero compliance incidents
+•	No surcharge misclassification
+•	Accurate price presentation on invoices, mobile, receipts, commerce home, dashboards and reports
+Failure metrics:
+•	Merchant or customer confusion
+•	Pricing perceived as a surcharge
+•	Operational issues or legal escalations
+
+
+
+
+
+
+
+
+Phase 1: MVP for Dough: Invoicing  (preferred pricing for ACH) and GD Mobile (preferred pricing for Cash)
+Deliver core capabilities + invoicing & mobile experiences to support true zero-fee narrative via dual pricing presentation.
+Acceptance Criteria: 
+1.	Core calculation (Preferred price for ACH, Standard Price for Cards), 
+a.	System must support:
+•	Standard Price
+•	Preferred Method Price 
+o	For ACH on Invoicing (and future on Paylinks and eCommerce)
+o	For Cash on Mobile (and future on POS)
+b.	System must prevent any upward price add-on at checkout, or “Fee” terminology.
+2.	Distributor Eligibility 
+a.	Dual Pricing availability should be configurable at a distributor level. For Phase 1, this is only for Dough.
+3.	Merchant Eligibility and opt-in
+a.	Dough Merchants must be automatically enrolled into ACH at onboarding.
+b.	Merchant must have ACH enabled to support dual pricing on Invoicing.
+c.	Mutual exclusivity with credit surcharge
+d.	Currently allowed in all US states, but might be restricted by jurisdiction in the future.
+e.	Merchant must attest:
+(i)	They understand pricing visibility obligations
+1.	All merchandising pricing material (menus, boards, brochures, website) will reflect the dual pricing – i.e. ACH/cash and card pricing
+2.	Place signs visible around their business stating their cash discount policy. For example, “Save 5% when you pay with cash.”
+(ii)	They are independently setting prices/discounts and not linked to processing fees.
+(iii)	Attestation must be timestamped and logged.
+4.	Configuration at merchant level
+a.	Enable Preferred Method Savings - on/off
+b.	Discount % for preferred pricing
+i.	ACH __%
+ii.	Cash __% 
+c.	Indicate whether their catalog/entered prices already include discount – yes/no
+•	 If Catalog/Invoice prices already include the discount, then
+Standard Price = Catalog price ÷ (1 - discount%)
+Preferred Payment Method price = Catalog Price
+•	If Catalog/Invoice prices do not already include the discount, then
+Standard Price = Catalog price
+Preferred Payment Method Price = Catalog price x (1 - discount%)
+d.	Toggle on whether c2-facing displays should be as discounts or dual prices.
+5.	C1 Create Invoice  UI
+a.	Indicate to C1 that dual pricing is active, and whether amounts being entered are pre- or post- discount
+b.	Highlight dual pricing on Invoice previews.  
+6.	C2 Invoicing presentation and receipts
+a.	At all points prior to payment where pricing is displayed (e.g. email, PDF, invoice web page, system must:
+i.	Display dual pricing: standard price and discounted ACH price for each line item
+ii.	Display total amount for Standard and discounted ACH.
+b.	Require c2 selection of payment method and confirmation of amount before proceeding
+c.	Receipt Requirements
+i.	Receipt must always display the selected payment method.
+ii.	For a card payment – receipt must display the Standard Prices, with no discounts. 
+iii.	For a preferred payment method, receipt must display prices with discounts applied at line item level. (per current behavior?). 
+iv.	No references to processing costs, surcharges or card fees
+d.	If merchant has chosen to display as a discount instead of Dual pricing, the invoice and receipt must display discounts rather than dual pricing. 
+See appendix for draft suggestions, awaiting UX for finals.
+7.	GD Mobile Experience 
+a.	C1 must be able to set up and configure their dual pricing setup (#4 above)
+b.	At all points prior to payment, C1 and C2-facing screens must
+i.	Display dual pricing: standard price and discounted Cash price for each line item
+ii.	Display total amount for Standard and discounted Cash.
+c.	Require c2 selection of payment method and confirmation of amount before proceeding
+d.	Receipt Requirements
+i.	Receipt must always display the selected payment method, and pricing (line items and totals) per the selected payment method.
+ii.	No references to processing costs, surcharges or card fees
+e.	If merchant has chosen to display as a discount instead of Dual pricing, the invoice and receipt must display discounts rather than dual pricing. 
+See appendix for draft suggestions, awaiting UX for finals
+8.	C1 post-order management 
+Manage the invoice and orders post-transaction, including voids, refunds/partial refunds, chargebacks etc.
+a.	Refunds
+Partial refunds must be issued proportionally based on the original payment method, and reverse discount proportionally. 
+b.	Voids
+Void must reverse the exact authorized amount.
+9.	Order and transaction dashboards and reports
+a.	Transaction dashboards and reports must reflect amounts based on selected payment method.
+b.	Transaction amounts must reconcile to order amounts 
+c.	Order reports and order item reports must reflect item-level price accuracy, including discounts and/or discounted and undiscounted prices.Standard Pricing with discounts applied if a preferred payment method was used.
+10.	Additional Use Cases
+a.	Tips / Gratuity
+Tip calculations must be based on the selected payment method price and reflect final authorized amount transparently.
+b.	Taxes
+Taxes must be calculated on the final transaction subtotals (post-discount for cash/ACH, Standard Price for others), consistent with jurisdictional tax rules.
+c.	Promotions / Coupons
+Savings must apply after other promotional discounts unless merchant explicitly configures stacking order; stacking order must be documented and consistent.
+d.	Split Tender
+System must calculate and apply savings only to the relevant portion of the transaction; e.g. for in-person cash+card split tender, discount applied only to cash portion. 
+11.	Audit logging
+a.	The system must log:
+•	Feature activation timestamp
+•	Attestation acceptance
+•	Pricing configuration changes
+•	Payment method used and resultant order-item level pricing.
+
+Phase 2: Extend to Mobile with preferred pricing for Cash 
+[TODO]
+Guardrails
+Must avoid surcharge classification or adding markups/upcharge/fees.
+•	Enforce baseline disclosure compliance and merchant attestation
+•	Full audit trail maintained
+
+
+

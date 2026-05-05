@@ -1,0 +1,191 @@
+ZERO FEES DIRECT GTM STRATEGY DECK
+7 Slides - Content for PowerPoint
+
+================================================================================
+SLIDE 1: TITLE SLIDE
+================================================================================
+
+TITLE:
+Zero Fees Direct GTM Strategy
+
+SUBTITLE:
+Evolving to deliver true zero fees and drive 2026 growth
+
+META:
+Strategic Alignment & Next Steps
+
+[Design note: Full bleed gradient background, centered text]
+
+================================================================================
+SLIDE 2: THANK YOU & WHAT WE'VE LEARNED
+================================================================================
+
+TITLE: Thank You & What We've Learned
+
+PROGRESS SO FAR:
+• Dough Phase 1 design, engineering scoping, technical foundation established
+
+FROM EXECUTIVES:
+• Zero fees = major 2026 growth driver
+• Pricing power increases when merchants don't absorb fees
+• Direct business is strategic priority; resellers follow or adapt
+
+FROM MERCHANTS (Rate Saver learnings):
+• "Zero fees" creates funnel pull, but surcharge reality causes friction
+• "I thought it meant ALL cards" — debit gap creates bait-and-switch perception
+• State restrictions (CA, NY, MA) block significant segments
+• Competitors (ISOs) have terrible experiences → massive differentiation opportunity
+
+FROM PRODUCT EXPERIENCE:
+• Payment features = omni-channel or bust. Learned the hard way.
+• Commerce features can go channel by channel.
+
+[Design note: Use colored boxes/cards for each section]
+
+================================================================================
+SLIDE 3: THE STRATEGIC OPPORTUNITY
+================================================================================
+
+TITLE: The Strategic Opportunity
+
+KEY POINTS:
+• Merchants choose us to save money — "0% fees" is a proven acquisition message
+• Current Rate Saver leaves money on table: debit gap, state restrictions, funnel friction
+• Competitors (ISOs) are untrustworthy with poor experiences
+
+HIGHLIGHT BOX 1:
+The Prize: TRUE zero fees drives new GPV at higher margin
+
+HIGHLIGHT BOX 2:
+This could be the biggest new sales driver in 2026
+
+[Design note: Use contrasting highlight boxes for the two callouts]
+
+================================================================================
+SLIDE 4: THE STRATEGIC SHIFT
+================================================================================
+
+TITLE: The Strategic Shift
+
+FROM → TO (Three transitions):
+
+1. Dough-first → Direct-first (Dough inherits or adapts)
+
+2. Invoicing + Mobile only → All Channels: POS, Invoicing, Paylinks, Online
+
+3. Phase 1 then maybe → Launch to Win: MVP Q2/Q3, knock it out of the park
+
+WHY THIS SHIFT:
+Direct business = strategic priority, bigger market, more control, higher margins
+
+CRITICAL LESSON:
+Payment features must be omni-channel. We learned the hard way — no single-channel payment launches.
+
+[Design note: Use arrow graphics for the transitions]
+
+================================================================================
+SLIDE 5: WHAT WE'RE BUILDING (may need 2 slides if content is dense)
+================================================================================
+
+TITLE: What We're Building
+
+SUBTITLE: Two Models — Merchant Choice
+
+MODEL A: CREDIT FEE
+Approach: Lower posted prices + surcharge on credit only
+✓ Strengths: Familiar approach, attractive shelf prices, Rate Saver continuity
+✗ Limitations: Debit gap, state restrictions, consumer backlash risk
+
+MODEL B: EMBEDDED + DISCOUNT
+Approach: Higher posted prices + cash/ACH discount
+✓ Strengths: True zero fees (credit+debit), no state restrictions, no surprise fees
+✗ Limitations: Higher posted prices, requires merchant trust in pricing help
+
+KEY MESSAGE:
+Merchant decides which model fits their business (or channel-based mix)
+
+THE PRODUCT:
+• Compliant cash discounting / dual pricing platform
+• All surfaces at launch: POS, Invoicing, Paylinks, Online
+• Guided setup with pricing calculation help
+• Exceptional experience: setup, customer UX, staff operability, transparency
+
+ASSETS READY:
+• Full comparison documentation
+• Prototype mocks (8 scenarios: setup, economics, staff training, disclosures)
+• Technical foundation from Dough Phase 1
+
+[Design note: Use side-by-side cards for Model A and Model B comparison]
+
+================================================================================
+SLIDE 6: BUSINESS CASE
+================================================================================
+
+TITLE: Business Case
+
+REVENUE OPPORTUNITY (3 stat cards):
++2-4 bps | GCR Margin Uplift
+$800K-$1.6M | Incremental Revenue '27
+#1 | Potential Sales Driver '26
+
+STRATEGIC VALUE:
+• Differentiated from Rate Saver (or evolves it) — fills debit gap
+• Pricing power when merchants don't absorb fees
+• Leverage for debit pricing on Rate Saver
+• Competitive moat vs ISOs (experience quality)
+
+INVESTMENT & RISK:
+• Engineering investment for omni-channel build
+• Research validation ($)
+• GTM execution
+• Risk mitigation: Research validates demand before full build commitment
+
+BOTTOM LINE:
+Conservative assumptions: positive even with no pricing premium, higher cash/ACH shift
+
+[Design note: Use 3-column stat cards at top, two-column layout below]
+
+================================================================================
+SLIDE 7: VALIDATION & NEXT STEPS
+================================================================================
+
+TITLE: Validation & Next Steps
+
+WHAT WE'RE VALIDATING:
+• Merchant demand: How much do they care? Worth trade-offs?
+• Willingness to pay: Raise prices? SaaS or rate premium?
+• Model preference: A vs B, why, which segments
+• Positioning: Rate Saver evolution vs separate (user feedback decides)
+• UX nuances: Setup, disclosures, staff operability, payment mix
+
+METHOD:
+Updated merchant survey, fielded in 2 weeks → Informs packaging, positioning, UX refinements
+
+Key principle: Research informs and refines, doesn't block progress. Engineering moves forward.
+
+PARALLEL WORKSTREAMS:
+Engineering → Use assets, build omni-channel foundation
+Research → Validate demand, positioning, UX (2 weeks)
+Product & Design → Refine scope, exceptional UX
+GTM → Positioning framework
+
+THE ASK:
+1. Align on direct-first, omni-channel approach (Dough inherits)
+2. Keep engineering moving using existing assets
+3. Commit to "knock it out of the park" quality bar
+4. Embrace research-informed decisions (positioning, UX refinements)
+5. Rally around this as potential biggest 2026 growth driver
+
+[Design note: Use timeline/process flow for workstreams, highlighted box for The Ask]
+
+================================================================================
+END OF DECK
+================================================================================
+
+DESIGN TIPS FOR POWERPOINT:
+- Use consistent color scheme: primary blue, green for success, orange for emphasis
+- Keep slides uncluttered with generous white space
+- Use icons where appropriate (arrows, checkmarks, warning signs)
+- Model comparison should be side-by-side cards
+- Stats should be large and prominent
+- The Ask section should be visually distinct (colored background box)

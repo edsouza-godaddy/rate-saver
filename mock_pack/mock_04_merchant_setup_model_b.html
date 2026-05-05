@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock 04 — Merchant Setup: Model B</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Merchant Setup Summary</h1>
+      <div class="subtitle">Model B — Prices Include Fees + Cash/ACH Discount</div>
+    </div>
+
+    <div class="alert alert-info">
+      <strong>Selected Model:</strong> Prices Include Fees (with Cash/ACH Discount)<br>
+      <strong>Plain Language:</strong> Posted prices cover processing costs. Customers who pay with cash or ACH receive a discount.
+    </div>
+
+    <div class="section">
+      <div class="section-title">How It Works</div>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-header">What Customers See</div>
+          <div style="margin: 1rem 0;">
+            <div class="label-row">
+              <span>Menu/Shelf Price:</span>
+              <span class="price-display-small">$103</span>
+            </div>
+            <div class="divider"></div>
+            <div style="font-size: 0.9rem;">
+              <strong>At Payment:</strong><br><br>
+              Credit Card: <strong>$103</strong><br>
+              Debit Card: <strong>$103</strong><br>
+              Cash: <strong>$100</strong> <span class="badge badge-success">Save $3</span><br>
+              ACH: <strong>$100</strong> <span class="badge badge-success">Save $3</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Payment Type Behavior</div>
+          <table style="width: 100%; font-size: 0.9rem;">
+            <tr>
+              <td style="padding: 0.5rem 0;"><strong>Credit Cards</strong></td>
+              <td style="padding: 0.5rem 0; text-align: right;">Posted price</td>
+            </tr>
+            <tr style="background: #f8f9fa;">
+              <td style="padding: 0.5rem 0;"><strong>Debit Cards</strong></td>
+              <td style="padding: 0.5rem 0; text-align: right;">Posted price</td>
+            </tr>
+            <tr>
+              <td style="padding: 0.5rem 0;"><strong>Cash</strong></td>
+              <td style="padding: 0.5rem 0; text-align: right;">Posted price - discount</td>
+            </tr>
+            <tr style="background: #f8f9fa;">
+              <td style="padding: 0.5rem 0;"><strong>ACH</strong></td>
+              <td style="padding: 0.5rem 0; text-align: right;">Posted price - discount</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">System-Calculated Pricing</div>
+
+      <div class="card">
+        <div class="card-header">How Your Posted Prices Are Set</div>
+
+        <div style="margin: 1rem 0; padding: 1rem; background: #f8f9fa; border-radius: 6px;">
+          <div style="margin-bottom: 1rem;">
+            <strong>Your Current Base Price:</strong> $100
+          </div>
+          <div style="margin-bottom: 1rem;">
+            <strong>Your Target Margin:</strong> $25 (25%)
+          </div>
+          <div style="margin-bottom: 1rem;">
+            <strong>Estimated Card Processing Cost:</strong> 3%
+          </div>
+          <div class="divider"></div>
+          <div style="font-size: 1.1rem;">
+            <strong>System Calculates Posted Price:</strong> <span class="price-display-small">$103</span>
+          </div>
+          <div style="font-size: 0.85rem; color: #6c757d; margin-top: 0.5rem;">
+            This price ensures you maintain your $25 margin even after card processing fees
+          </div>
+        </div>
+
+        <div class="alert alert-warning">
+          <strong>You retain control:</strong> You can review and adjust the calculated price before going live. The system recommends the price, but you decide.
+        </div>
+      </div>
+
+      <div class="grid grid-2" style="margin-top: 1rem;">
+        <div class="card">
+          <div class="card-header">✓ What You Control</div>
+          <ul class="list list-check">
+            <li>Your base costs and margins</li>
+            <li>Discount percentage for cash/ACH</li>
+            <li>Final approval of posted prices</li>
+            <li>Ability to edit prices manually</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-header">What the System Handles</div>
+          <ul class="list">
+            <li>Calculating the markup needed to preserve margin</li>
+            <li>Applying the discount at checkout automatically</li>
+            <li>Keeping pricing consistent across channels</li>
+            <li>Updating if processing costs change</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Required Disclosures</div>
+
+      <div class="card">
+        <div class="card-header">Compliance Requirements</div>
+        <ul class="list">
+          <li><strong>Posted price consistency:</strong> The price on your menu/shelf must match the standard price customers pay</li>
+          <li><strong>Discount disclosure:</strong> "Pay less with cash/ACH" or similar language must be visible at point of sale</li>
+          <li><strong>Checkout disclosure:</strong> Discount must be shown before payment method selection</li>
+          <li><strong>Receipt:</strong> Should show list price, discount applied, and final total</li>
+        </ul>
+      </div>
+
+      <div class="alert alert-info" style="margin-top: 1rem;">
+        <strong>Compliance Status:</strong> This model is compliant in all states when configured correctly. The posted price is the standard price — the discount is an optional benefit.
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Estimated Fee Offset</div>
+
+      <div class="grid grid-3">
+        <div class="stat-card">
+          <span class="stat-value">90%</span>
+          <div class="stat-label">Estimated Coverage</div>
+          <div style="font-size: 0.8rem; color: #6c757d; margin-top: 0.5rem;">
+            Based on typical payment mix:<br>
+            65% credit, 25% debit, 10% cash
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-value">$270</span>
+          <div class="stat-label">Est. Monthly Offset</div>
+          <div style="font-size: 0.8rem; color: #6c757d; margin-top: 0.5rem;">
+            If $10,000/month total volume with 90% card payments
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-value" style="color: #28a745;">$30</span>
+          <div class="stat-label">Discount Cost</div>
+          <div style="font-size: 0.8rem; color: #6c757d; margin-top: 0.5rem;">
+            Margin reduction from cash discounts (10% of volume)
+          </div>
+        </div>
+      </div>
+
+      <div class="highlight" style="margin-top: 1rem;">
+        <strong>Key Advantage:</strong> Both credit AND debit transactions are covered by fee-inclusive pricing. Only cash/ACH discounts reduce margin slightly.
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Key Tradeoffs</div>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-header">Challenges</div>
+          <ul class="list list-cross">
+            <li><strong>Higher visible prices:</strong> Your posted prices will be ~3% higher than competitors who absorb fees</li>
+            <li><strong>Trust in calculation:</strong> Requires trusting the system to calculate the right posted price</li>
+            <li><strong>Customer perception:</strong> Some customers may not understand the discount framing</li>
+            <li><strong>Competitive positioning:</strong> May be harder to compete on posted price</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Benefits</div>
+          <ul class="list list-check">
+            <li><strong>No surprise fees:</strong> Customers never see an unexpected charge at checkout</li>
+            <li><strong>Better coverage:</strong> Credit + debit are both covered (90%+ of transactions)</li>
+            <li><strong>Positive framing:</strong> "Save with cash" feels better than "fee for cards"</li>
+            <li><strong>Simpler compliance:</strong> Posted price consistency is straightforward</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Staff Explanation Script</div>
+
+      <div class="card">
+        <div class="card-header">What Your Staff Should Say</div>
+        <div style="font-size: 0.95rem; line-height: 1.8;">
+          <p><strong>Standard explanation:</strong></p>
+          <p style="background: #f8f9fa; padding: 1rem; border-left: 3px solid #0066cc; margin: 1rem 0;">
+            "Our posted prices include all costs. If you pay with cash or ACH, you get a discount — that's $100 instead of $103."
+          </p>
+
+          <p><strong>If customer asks "why is it higher?":</strong></p>
+          <p style="background: #f8f9fa; padding: 1rem; border-left: 3px solid #0066cc; margin: 1rem 0;">
+            "Our prices are set to cover all our costs, including card processing fees. But if you pay with cash or bank transfer, you'll save a few dollars."
+          </p>
+
+          <p><strong>If customer compares to competitor:</strong></p>
+          <p style="background: #f8f9fa; padding: 1rem; border-left: 3px solid #0066cc; margin: 1rem 0;">
+            "We price transparently — all costs are included. Many businesses factor fees into their pricing too, but they don't offer a discount for cash like we do."
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Setup Configuration</div>
+
+      <div class="card">
+        <div style="margin-bottom: 1rem;">
+          <strong>Discount Amount:</strong>
+          <div style="margin-top: 0.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem;">
+              <input type="radio" name="discount" value="3" checked> 3% (matches typical processing fee)
+            </label>
+            <label style="display: block; margin-bottom: 0.5rem;">
+              <input type="radio" name="discount" value="2.5"> 2.5%
+            </label>
+            <label style="display: block;">
+              <input type="radio" name="discount" value="custom"> Custom
+            </label>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <strong>Discount Applies To:</strong>
+          <div style="margin-top: 0.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem;">
+              <input type="checkbox" name="discount-cash" checked> Cash
+            </label>
+            <label style="display: block;">
+              <input type="checkbox" name="discount-ach" checked> ACH / Bank Transfer
+            </label>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <strong>Pricing Control:</strong>
+          <div style="margin-top: 0.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem;">
+              <input type="radio" name="control" value="auto" checked> System calculates prices (I can review and edit)
+            </label>
+            <label style="display: block;">
+              <input type="radio" name="control" value="manual"> I'll set all prices manually
+            </label>
+          </div>
+        </div>
+
+        <div class="alert alert-info">
+          <strong>Recommendation:</strong> Let the system calculate, then review. This ensures your margins are protected.
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-title">Research Questions This Mock Supports</div>
+      <div class="footer-content">
+        <ul>
+          <li>Do merchants trust system-calculated pricing, or does it feel like losing control?</li>
+          <li>Are merchants willing to accept higher posted prices if it means no surprise fees?</li>
+          <li>Does 90% coverage (credit + debit) make this model significantly more attractive than Model A?</li>
+          <li>Do merchants believe "pay less with cash" messaging will work with their customers?</li>
+          <li>Is the positive framing (discount) better than visible fees (Model A)?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

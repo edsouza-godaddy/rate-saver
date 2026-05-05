@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock 01 — Customer Price Comparison</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Customer Price Comparison</h1>
+      <div class="subtitle">What your customers see and pay across three pricing models</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">The Same $100 Item Across Three Models</div>
+      <div class="section-subtitle">
+        Each model offsets processing fees differently. Here's what the customer experiences.
+      </div>
+
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Payment Method</th>
+            <th>
+              <span class="model-name">Model A</span><br>
+              <span style="font-weight: normal; font-size: 0.85rem;">Card Fee (Surcharge)</span>
+            </th>
+            <th>
+              <span class="model-name">Model B</span><br>
+              <span style="font-weight: normal; font-size: 0.85rem;">Prices Include Fees</span>
+            </th>
+            <th>
+              <span class="model-name">Model C Example</span><br>
+              <span style="font-weight: normal; font-size: 0.85rem;">Channel-Based</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Posted/Menu Price</strong></td>
+            <td class="price">$100</td>
+            <td class="price">$103</td>
+            <td class="price">$100 (POS)<br>$103 (online)</td>
+          </tr>
+          <tr>
+            <td><strong>Credit Card Payment</strong></td>
+            <td>
+              <span class="price">$103</span><br>
+              <span style="font-size: 0.85rem; color: #6c757d;">Base + 3% card fee</span>
+            </td>
+            <td>
+              <span class="price">$103</span><br>
+              <span style="font-size: 0.85rem; color: #6c757d;">Posted price (no extra fee)</span>
+            </td>
+            <td>
+              <span class="price">$103 (POS)<br>$103 (online)</span><br>
+              <span style="font-size: 0.85rem; color: #6c757d;">Depends on channel setup</span>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Debit Card Payment</strong></td>
+            <td>
+              <span class="price">$100</span><br>
+              <span style="font-size: 0.85rem; color: #6c757d;">No fee on debit</span>
+            </td>
+            <td>
+              <span class="price">$103</span><br>
+              <span style="font-size: 0.85rem; color: #6c757d;">Posted price (no extra fee)</span>
+            </td>
+            <td>
+              <span class="price">$100 (POS)<br>$103 (online)</span><br>
+              <span style="font-size: 0.85rem; color: #6c757d;">Depends on channel setup</span>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Cash Payment</strong></td>
+            <td>
+              <span class="price">$100</span><br>
+              <span style="font-size: 0.85rem; color: #6c757d;">Base price</span>
+            </td>
+            <td>
+              <span class="price">$100</span><br>
+              <span style="font-size: 0.85rem; color: #28a745;">Save $3 with cash</span>
+            </td>
+            <td>
+              <span class="price">$100</span><br>
+              <span style="font-size: 0.85rem; color: #6c757d;">Typically base or discounted</span>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>ACH/Bank Transfer</strong></td>
+            <td>
+              <span class="price">$100</span><br>
+              <span style="font-size: 0.85rem; color: #6c757d;">Base price (if available)</span>
+            </td>
+            <td>
+              <span class="price">$100</span><br>
+              <span style="font-size: 0.85rem; color: #28a745;">Save $3 with ACH</span>
+            </td>
+            <td>
+              <span class="price">$100</span><br>
+              <span style="font-size: 0.85rem; color: #6c757d;">Typically base or discounted</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">What the Customer Sees Before Payment</div>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-header">Model A</div>
+          <div style="font-size: 0.9rem; margin-bottom: 1rem;">
+            <strong>Menu/shelf:</strong> $100
+          </div>
+          <div style="font-size: 0.9rem; margin-bottom: 1rem;">
+            <strong>At checkout:</strong><br>
+            "Credit card payments: $103 (includes 3% card fee)<br>
+            Debit or cash: $100"
+          </div>
+          <div class="alert alert-info" style="font-size: 0.85rem;">
+            Customer sees lower price first, fee appears at payment step
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Model B</div>
+          <div style="font-size: 0.9rem; margin-bottom: 1rem;">
+            <strong>Menu/shelf:</strong> $103
+          </div>
+          <div style="font-size: 0.9rem; margin-bottom: 1rem;">
+            <strong>At checkout:</strong><br>
+            "Total: $103<br>
+            Pay with cash or ACH and save $3 (final: $100)"
+          </div>
+          <div class="alert alert-info" style="font-size: 0.85rem;">
+            Customer sees full price first, discount offered at payment step
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Model C Example</div>
+          <div style="font-size: 0.9rem; margin-bottom: 1rem;">
+            <strong>In-person (using Model A):</strong> $100 on menu, fee at payment<br><br>
+            <strong>Online (using convenience fee):</strong> $100 item, $3 convenience fee for cards
+          </div>
+          <div class="alert alert-info" style="font-size: 0.85rem;">
+            Customer experience varies by channel
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Key Differences at a Glance</div>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-header">Model A</div>
+          <div class="label-row">
+            <span class="label-primary">Posted Price</span>
+            <span class="label-secondary">Lower</span>
+          </div>
+          <div class="label-row">
+            <span class="label-primary">Fee Visibility</span>
+            <span class="label-secondary">Visible (credit only)</span>
+          </div>
+          <div class="label-row">
+            <span class="label-primary">Debit Behavior</span>
+            <span class="label-secondary">No fee</span>
+          </div>
+          <div class="label-row">
+            <span class="label-primary">Customer Reaction Risk</span>
+            <span class="badge badge-warning">Medium</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Model B</div>
+          <div class="label-row">
+            <span class="label-primary">Posted Price</span>
+            <span class="label-secondary">Higher</span>
+          </div>
+          <div class="label-row">
+            <span class="label-primary">Fee Visibility</span>
+            <span class="label-secondary">Built-in (no surprise)</span>
+          </div>
+          <div class="label-row">
+            <span class="label-primary">Debit Behavior</span>
+            <span class="label-secondary">Same as credit</span>
+          </div>
+          <div class="label-row">
+            <span class="label-primary">Customer Reaction Risk</span>
+            <span class="badge badge-success">Low</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Model C</div>
+          <div class="label-row">
+            <span class="label-primary">Posted Price</span>
+            <span class="label-secondary">Varies by channel</span>
+          </div>
+          <div class="label-row">
+            <span class="label-primary">Fee Visibility</span>
+            <span class="label-secondary">Depends on setup</span>
+          </div>
+          <div class="label-row">
+            <span class="label-primary">Consistency</span>
+            <span class="label-secondary">Different by channel</span>
+          </div>
+          <div class="label-row">
+            <span class="label-primary">Complexity</span>
+            <span class="badge badge-warning">Higher</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-title">Research Questions This Mock Supports</div>
+      <div class="footer-content">
+        <ul>
+          <li>Which pricing reality feels most natural to merchants?</li>
+          <li>Do merchants understand the tradeoff between lower posted prices (Model A) and no surprise fees (Model B)?</li>
+          <li>Does channel-based thinking (Model C) resonate, or does it feel unnecessarily complex?</li>
+          <li>Can merchants articulate what their customers would experience under each model?</li>
+          <li>Which model creates the strongest switching intent?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

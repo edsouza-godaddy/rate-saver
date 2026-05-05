@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock 02 — Pricing Transparency</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Pricing Transparency Check</h1>
+      <div class="subtitle">Shelf → Checkout → Receipt consistency for Models A and B</div>
+    </div>
+
+    <div class="alert alert-info">
+      <strong>Transparency Requirement:</strong> Customers must see the final price or clear pricing logic before selecting their payment method.
+    </div>
+
+    <div class="section">
+      <div class="section-title">Model A — Card Fee Model (Surcharge)</div>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-header">1. Shelf/Menu/Site</div>
+          <div class="price-display">$100</div>
+          <div class="card-note">
+            <strong>Signage visible:</strong><br>
+            "Credit card payments include a 3% card fee"
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">2. Checkout/Payment Screen</div>
+          <div style="margin: 1rem 0;">
+            <div style="font-size: 0.9rem; margin-bottom: 0.5rem;">Item: $100</div>
+            <div style="padding: 1rem; background: #f8f9fa; border-radius: 4px; margin-bottom: 1rem;">
+              <strong>Select Payment Method:</strong><br><br>
+              <label style="display: block; margin-bottom: 0.5rem;">
+                <input type="radio" name="payment" value="credit">
+                Credit Card — <strong>$103</strong> (includes 3% card fee)
+              </label>
+              <label style="display: block; margin-bottom: 0.5rem;">
+                <input type="radio" name="payment" value="debit">
+                Debit Card — <strong>$100</strong>
+              </label>
+              <label style="display: block;">
+                <input type="radio" name="payment" value="cash">
+                Cash — <strong>$100</strong>
+              </label>
+            </div>
+          </div>
+          <div class="card-note">
+            Customer sees final price for each method before selecting
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">3. Receipt/Confirmation</div>
+          <div style="font-family: monospace; font-size: 0.85rem; background: #f8f9fa; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+            Item: $100.00<br>
+            Card Fee (3%): $3.00<br>
+            ────────────────<br>
+            <strong>Total Paid: $103.00</strong><br><br>
+            Payment: Credit Card ****1234
+          </div>
+          <div class="card-note">
+            Receipt shows base price, fee, and total
+          </div>
+        </div>
+      </div>
+
+      <div class="highlight" style="margin-top: 1rem;">
+        <strong>Transparency Analysis:</strong> Customer sees $100 on shelf, then sees $103 at payment selection with clear fee disclosure. <span class="badge badge-success">Compliant</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Model B — Prices Include Fees + Cash/ACH Discount</div>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-header">1. Shelf/Menu/Site</div>
+          <div class="price-display">$103</div>
+          <div class="card-note">
+            <strong>Signage visible:</strong><br>
+            "Pay less with cash or ACH"
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">2. Checkout/Payment Screen</div>
+          <div style="margin: 1rem 0;">
+            <div style="font-size: 0.9rem; margin-bottom: 0.5rem;">Item: $103</div>
+            <div style="padding: 1rem; background: #f8f9fa; border-radius: 4px; margin-bottom: 1rem;">
+              <strong>Select Payment Method:</strong><br><br>
+              <label style="display: block; margin-bottom: 0.5rem;">
+                <input type="radio" name="payment-b" value="credit">
+                Credit Card — <strong>$103</strong>
+              </label>
+              <label style="display: block; margin-bottom: 0.5rem;">
+                <input type="radio" name="payment-b" value="debit">
+                Debit Card — <strong>$103</strong>
+              </label>
+              <label style="display: block; margin-bottom: 0.5rem;">
+                <input type="radio" name="payment-b" value="cash">
+                Cash — <strong>$100</strong> <span class="badge badge-success">Save $3</span>
+              </label>
+              <label style="display: block;">
+                <input type="radio" name="payment-b" value="ach">
+                ACH — <strong>$100</strong> <span class="badge badge-success">Save $3</span>
+              </label>
+            </div>
+          </div>
+          <div class="card-note">
+            Customer sees posted price, discount offer before selecting
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">3. Receipt/Confirmation</div>
+          <div style="font-family: monospace; font-size: 0.85rem; background: #f8f9fa; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+            Item: $103.00<br>
+            Cash Discount: -$3.00<br>
+            ────────────────<br>
+            <strong>Total Paid: $100.00</strong><br><br>
+            Payment: Cash
+          </div>
+          <div class="card-note">
+            Receipt shows list price, discount, and total
+          </div>
+        </div>
+      </div>
+
+      <div class="highlight" style="margin-top: 1rem;">
+        <strong>Transparency Analysis:</strong> Customer sees $103 on shelf, then sees discount offer at payment selection. Posted price matches standard price. <span class="badge badge-success">Compliant</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Side-by-Side Transparency Comparison</div>
+
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Stage</th>
+            <th>Model A</th>
+            <th>Model B</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Posted/Shelf Price</strong></td>
+            <td>$100 (lower)</td>
+            <td>$103 (higher, but standard)</td>
+          </tr>
+          <tr>
+            <td><strong>Fee/Discount Disclosed?</strong></td>
+            <td>✓ Yes (via signage + checkout)</td>
+            <td>✓ Yes (via signage + checkout)</td>
+          </tr>
+          <tr>
+            <td><strong>Price Known Before Payment?</strong></td>
+            <td>✓ Yes (shown per method)</td>
+            <td>✓ Yes (shown per method)</td>
+          </tr>
+          <tr>
+            <td><strong>Surprise Factor</strong></td>
+            <td>Fee appears at checkout (but disclosed)</td>
+            <td>No surprise (posted price is standard)</td>
+          </tr>
+          <tr>
+            <td><strong>Customer Perception Risk</strong></td>
+            <td>"Hidden fee" if signage missed</td>
+            <td>"High prices" vs competitors</td>
+          </tr>
+          <tr>
+            <td><strong>Compliance Status</strong></td>
+            <td><span class="badge badge-success">Compliant with proper disclosure</span></td>
+            <td><span class="badge badge-success">Compliant</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">What Would Violate Transparency?</div>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-header">❌ Non-Compliant Examples</div>
+          <ul class="list list-cross">
+            <li>Showing $100 on shelf, $103 at checkout with NO fee disclosure</li>
+            <li>Changing price after card type is detected ("oh it's credit, add $3")</li>
+            <li>Advertising $100 everywhere but charging $103 without explanation</li>
+            <li>Surcharging debit cards (illegal)</li>
+            <li>Applying fee only AFTER customer swipes/taps</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-header">✓ Compliant Practices</div>
+          <ul class="list list-check">
+            <li>Clear signage at entry/menu that fee or discount applies</li>
+            <li>Price displayed for each payment method before selection</li>
+            <li>Receipt shows breakdown (base, fee/discount, total)</li>
+            <li>Consistent language across all touchpoints</li>
+            <li>Staff trained to explain pricing clearly</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-title">Research Questions This Mock Supports</div>
+      <div class="footer-content">
+        <ul>
+          <li>Do merchants believe customers will perceive the pricing flow as transparent?</li>
+          <li>Which model feels safer from a compliance standpoint?</li>
+          <li>Do merchants understand the signage/disclosure requirements?</li>
+          <li>Does "lower price + visible fee" feel riskier than "higher price + discount"?</li>
+          <li>Can merchants articulate the difference between compliant and non-compliant pricing?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

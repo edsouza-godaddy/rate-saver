@@ -1,0 +1,288 @@
+Create a professional 9-slide PowerPoint presentation with the following specifications:
+
+DESIGN REQUIREMENTS:
+- Modern, clean corporate design with strong visual hierarchy
+- Color scheme: Primary blue (#0066FF), secondary green (#00C896) for positive/success, accent orange (#FF6B35) for emphasis
+- Use sans-serif fonts throughout (Segoe UI, Calibri, or Arial)
+- Generous white space, avoid cluttered slides
+- Consistent header/footer with slide numbers
+- Use icons, graphics, and visual elements where appropriate
+
+TONE & STYLE:
+- Professional but energetic
+- Strategic and forward-looking
+- Action-oriented
+- Data-informed
+
+================================================================================
+
+SLIDE 1: TITLE SLIDE
+Design: Full bleed gradient background (blue gradient), centered white text
+
+Title: Zero Fees Direct GTM Strategy
+Subtitle: Evolving to deliver true zero fees and drive 2026 growth
+Footer text: Strategic Alignment & Next Steps
+
+================================================================================
+
+SLIDE 2: THANK YOU & WHAT WE'VE LEARNED
+Design: Use colored callout boxes or cards for each section
+
+Title: Thank You & What We've Learned
+
+Content organized in 4 sections:
+
+PROGRESS SO FAR (neutral box):
+Dough Phase 1 design, engineering scoping, technical foundation established
+
+FROM EXECUTIVES (blue box):
+• Zero fees = major 2026 growth driver
+• Pricing power increases when merchants don't absorb fees
+• Direct business is strategic priority; resellers follow or adapt
+
+FROM MERCHANTS - Rate Saver learnings (orange box):
+• "Zero fees" creates funnel pull, but surcharge reality causes friction
+• "I thought it meant ALL cards" — debit gap creates bait-and-switch perception
+• State restrictions (CA, NY, MA) block significant segments
+• Competitors (ISOs) have terrible experiences → massive differentiation opportunity
+
+FROM PRODUCT EXPERIENCE (green box):
+Payment features = omni-channel or bust. Learned the hard way.
+Commerce features can go channel by channel.
+
+================================================================================
+
+SLIDE 3: THE STRATEGIC OPPORTUNITY
+Design: Bullet points followed by two prominent highlight boxes
+
+Title: The Strategic Opportunity
+
+Bullet points:
+• Merchants choose us to save money — "0% fees" is a proven acquisition message
+• Current Rate Saver leaves money on table: debit gap, state restrictions, funnel friction
+• Competitors (ISOs) are untrustworthy with poor experiences
+
+First highlight box (green background, large text):
+The Prize: TRUE zero fees drives new GPV at higher margin
+
+Second highlight box (orange background, large bold text):
+This could be the biggest new sales driver in 2026
+
+================================================================================
+
+SLIDE 4: THE STRATEGIC SHIFT
+Design: Use large arrow graphics showing transformation. Three horizontal "FROM → TO" rows
+
+Title: The Strategic Shift
+
+Three transitions (use arrow graphics between left and right):
+
+FROM: Dough-first
+TO: Direct-first (Dough inherits or adapts)
+
+FROM: Invoicing + Mobile only
+TO: All Channels: POS, Invoicing, Paylinks, Online
+
+FROM: Phase 1 then maybe
+TO: Launch to Win: MVP Q2/Q3, knock it out of the park
+
+Bottom section (blue box):
+WHY THIS SHIFT:
+Direct business = strategic priority, bigger market, more control, higher margins
+
+Callout box (orange border, bold):
+CRITICAL LESSON: Payment features must be omni-channel. We learned the hard way — no single-channel payment launches.
+
+================================================================================
+
+SLIDE 5: WHAT WE'RE BUILDING
+Design: Two-column comparison cards for models, followed by bullet list
+
+Title: What We're Building
+Subtitle: Two Models — Merchant Choice
+
+[Left card - MODEL A: CREDIT FEE]
+Lower posted prices + surcharge on credit only
+
+✓ Strengths:
+Familiar approach, attractive shelf prices, Rate Saver continuity
+
+✗ Limitations:
+Debit gap, state restrictions, consumer backlash risk
+
+[Right card - MODEL B: EMBEDDED + DISCOUNT]
+Higher posted prices + cash/ACH discount
+
+✓ Strengths:
+True zero fees (credit+debit), no state restrictions, no surprise fees
+
+✗ Limitations:
+Higher posted prices, requires merchant trust in pricing help
+
+[Center callout between cards]:
+Merchant decides which model fits their business (or channel-based mix)
+
+Below comparison:
+
+THE PRODUCT:
+• Compliant cash discounting / dual pricing platform
+• All surfaces at launch: POS, Invoicing, Paylinks, Online
+• Guided setup with pricing calculation help
+• Exceptional experience: setup, customer UX, staff operability, transparency
+
+ASSETS READY:
+Full comparison documentation | Prototype mocks (8 scenarios) | Technical foundation from Dough Phase 1
+
+================================================================================
+
+SLIDE 6: WHAT WE'RE MOVING TOWARDS
+Design: Bold headline with clear positioning statement, followed by comparison diagram
+
+Title: Zero Fees Powered by Cash Discounting
+Subtitle: The compliant path to true zero fees
+
+[Large headline/positioning statement - centered, bold]:
+We are evolving to deliver ZERO FEES powered by CASH DISCOUNTING
+
+[Two-column comparison]:
+
+LEFT COLUMN - WHERE WE ARE (Rate Saver / Surcharge):
+Base price: $100
+• Credit card: $100 + 3% surcharge = $103
+• Debit card: $100 (surcharge illegal ❌)
+• Cash: $100
+
+RESULT: Merchant still pays fees on debit
+Coverage: ~65% (credit only)
+
+RIGHT COLUMN - WHERE WE'RE GOING (Cash Discounting):
+Posted price: $103.25 (fee-inclusive)
+• Credit/Debit cards: $103.25
+• Cash/ACH: 3% discount = $100.15
+
+RESULT: TRUE zero fees on ALL cards ✓
+Coverage: ~90% (credit + debit)
+
+[Bottom section - WHY CASH DISCOUNTING]:
+✓ Legal in all 50 states (no geographic restrictions)
+✓ No caps on price difference
+✓ Covers credit AND debit cards
+✓ Fewer compliance risks than surcharge
+✓ Customer sees pricing BEFORE payment method selection
+
+[Callout box - blue background]:
+This is the compliant, defensible way to achieve TRUE zero fees
+
+================================================================================
+
+SLIDE 7: WHAT IT LOOKS LIKE - THE CUSTOMER EXPERIENCE
+Design: Use actual prototype screenshots/mockups. Show 4 key moments in a grid or flow layout.
+
+Title: What It Looks Like
+Subtitle: Prototyped, designed, ready to build
+
+[Introduction text]:
+We've built comprehensive prototypes covering the full customer journey. Assets ready to drive engineering forward.
+
+[Four quadrants with visuals from prototypes]:
+
+1. SHELF/MENU PRICE
+[Visual: Screenshot from comparison_redesigned_complete.html showing dual pricing]
+Caption: "Posted price $103.25 (card) | Cash/ACH price $100.15"
+Note: Customer sees options upfront
+
+2. CHECKOUT/PAYMENT SELECTION
+[Visual: Screenshot showing payment options screen]
+Caption: "Customer selects payment method with clear pricing for each"
+Note: No surprises, transparent choice
+
+3. RECEIPT
+[Visual: Screenshot of receipt showing discount line item or dual pricing]
+Caption: "Receipt shows payment method and appropriate price"
+Note: Compliant disclosure, clean presentation
+
+4. STAFF VIEW/TERMINAL
+[Visual: Screenshot from mock_08_explanation_helper.html]
+Caption: "Staff training: 'Card price is posted price, cash/ACH saves 3%'"
+Note: Easy to explain, handles objections
+
+[Bottom callout box - green background]:
+8 prototype scenarios complete: setup, economics, staff training, disclosures, manual entry, customer perception, tax treatment, channel configuration
+
+[Second callout - orange]:
+All comparison documentation, prototype mocks, and technical foundation from Dough Phase 1 ready for engineering
+
+================================================================================
+
+DESIGN NOTE FOR COPILOT:
+For Slide 7, if you cannot embed actual screenshots, use placeholder boxes with the captions and notes. Indicate "[INSERT SCREENSHOT: comparison_redesigned_complete.html - Stage 1]" etc. as placeholders that can be manually replaced with actual mockup screenshots.
+
+================================================================================
+
+SLIDE 8: BUSINESS CASE
+Design: Three large stat cards at top, two-column layout below
+
+Title: Business Case
+
+[Three prominent stat cards across top row]:
+Card 1: +2-4 bps | GCR Margin Uplift
+Card 2: $800K-$1.6M | Incremental Revenue '27
+Card 3: #1 | Potential Sales Driver '26
+
+[Two columns below]:
+
+Left column - STRATEGIC VALUE:
+• Differentiated from Rate Saver (or evolves it) — fills debit gap
+• Pricing power when merchants don't absorb fees
+• Leverage for debit pricing on Rate Saver
+• Competitive moat vs ISOs (experience quality)
+
+Right column - INVESTMENT & RISK:
+• Engineering investment for omni-channel build
+• Research validation ($)
+• GTM execution
+• Risk mitigation: Research validates demand before full build commitment
+
+[Bottom callout box - green background]:
+Conservative assumptions: positive even with no pricing premium, higher cash/ACH shift
+
+================================================================================
+
+SLIDE 9: VALIDATION & NEXT STEPS
+Design: Two-column layout for validation, timeline graphic for workstreams, prominent CTA box at bottom
+
+Title: Validation & Next Steps
+
+Section 1: WHAT WE'RE VALIDATING (two columns):
+
+Column 1:
+• Merchant demand: How much do they care? Worth trade-offs?
+• Willingness to pay: Raise prices? SaaS or rate premium?
+• Model preference: A vs B, why, which segments
+
+Column 2:
+• Positioning: Rate Saver evolution vs separate (user feedback decides)
+• UX nuances: Setup, disclosures, staff operability, payment mix
+
+[Callout box]:
+METHOD: Updated merchant survey, fielded in 2 weeks → Informs packaging, positioning, UX refinements
+Key principle: Research informs and refines, doesn't block progress. Engineering moves forward.
+
+Section 2: PARALLEL WORKSTREAMS (use timeline/process flow graphic with 4 boxes):
+Engineering → Use assets, build omni-channel foundation
+Research → Validate demand, positioning, UX (2 weeks)
+Product & Design → Refine scope, exceptional UX
+GTM → Positioning framework
+
+Section 3: THE ASK (prominent blue background box, white text, numbered list):
+1. Align on direct-first, omni-channel approach (Dough inherits)
+2. Keep engineering moving using existing assets
+3. Commit to "knock it out of the park" quality bar
+4. Embrace research-informed decisions (positioning, UX refinements)
+5. Rally around this as potential biggest 2026 growth driver
+
+================================================================================
+
+END OF PRESENTATION INSTRUCTIONS
+
+Please create this presentation with professional design, appropriate use of icons and graphics, and ensure visual consistency across all slides. Make the content scannable and impactful for an executive audience.

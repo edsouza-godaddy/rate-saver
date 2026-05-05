@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock 07 — Coverage and Economics</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Fee Offset Coverage & Economics</h1>
+      <div class="subtitle">Realistic savings by model and payment mix</div>
+    </div>
+
+    <div class="alert alert-warning">
+      <strong>Reality Check:</strong> "0% credit card processing fees" does not mean 100% of transactions are fee-free. Coverage depends on your payment mix and chosen model.
+    </div>
+
+    <div class="section">
+      <div class="section-title">Your Current State</div>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-header">Monthly Volume</div>
+          <div class="stat-grid">
+            <div class="stat-card">
+              <span class="stat-value">$30K</span>
+              <div class="stat-label">Total Monthly Volume</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 1rem;">
+            <strong>Payment Mix:</strong>
+            <table style="width: 100%; margin-top: 0.5rem; font-size: 0.9rem;">
+              <tr>
+                <td>Credit Cards:</td>
+                <td style="text-align: right;"><strong>$19,500</strong> (65%)</td>
+              </tr>
+              <tr style="background: #f8f9fa;">
+                <td>Debit Cards:</td>
+                <td style="text-align: right;"><strong>$7,500</strong> (25%)</td>
+              </tr>
+              <tr>
+                <td>Cash:</td>
+                <td style="text-align: right;"><strong>$3,000</strong> (10%)</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Current Fee Burden</div>
+          <div class="stat-grid">
+            <div class="stat-card">
+              <span class="stat-value" style="color: #dc3545;">$750</span>
+              <div class="stat-label">Monthly Processing Fees</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 1rem;">
+            <strong>Breakdown:</strong>
+            <table style="width: 100%; margin-top: 0.5rem; font-size: 0.9rem;">
+              <tr>
+                <td>Credit (~3%):</td>
+                <td style="text-align: right;">$585</td>
+              </tr>
+              <tr style="background: #f8f9fa;">
+                <td>Debit (~1.5%):</td>
+                <td style="text-align: right;">$113</td>
+              </tr>
+              <tr>
+                <td>Cash:</td>
+                <td style="text-align: right;">$0</td>
+              </tr>
+              <tr style="border-top: 2px solid #dee2e6; font-weight: bold;">
+                <td>Total:</td>
+                <td style="text-align: right;">$698</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Estimated Offset by Model</div>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-header">Model A<br><span style="font-weight: normal; font-size: 0.85rem;">Card Fee Model</span></div>
+
+          <div class="stat-card" style="margin: 1rem 0;">
+            <span class="stat-value" style="color: #28a745;">$585</span>
+            <div class="stat-label">Monthly Offset</div>
+          </div>
+
+          <div style="font-size: 0.9rem; margin-bottom: 1rem;">
+            <strong>What's Covered:</strong>
+            <ul class="list" style="font-size: 0.85rem;">
+              <li>Credit card fees (100% recovered)</li>
+            </ul>
+
+            <strong>What's NOT Covered:</strong>
+            <ul class="list list-cross" style="font-size: 0.85rem;">
+              <li>Debit fees (~$113/mo)</li>
+              <li>Cash costs (handling, etc.)</li>
+            </ul>
+          </div>
+
+          <div class="highlight">
+            <strong>Coverage:</strong> ~84% of card processing fees<br>
+            <strong>Transaction coverage:</strong> 65% (credit only)
+          </div>
+
+          <div style="margin-top: 1rem; font-size: 0.85rem; color: #6c757d;">
+            <strong>Remaining merchant cost:</strong> $113/mo (debit fees)
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Model B<br><span style="font-weight: normal; font-size: 0.85rem;">Prices Include Fees</span></div>
+
+          <div class="stat-card" style="margin: 1rem 0;">
+            <span class="stat-value" style="color: #28a745;">$628</span>
+            <div class="stat-label">Monthly Offset</div>
+          </div>
+
+          <div style="font-size: 0.9rem; margin-bottom: 1rem;">
+            <strong>What's Covered:</strong>
+            <ul class="list" style="font-size: 0.85rem;">
+              <li>Credit card fees (100% recovered)</li>
+              <li>Debit card fees (100% recovered)</li>
+            </ul>
+
+            <strong>Costs:</strong>
+            <ul class="list" style="font-size: 0.85rem;">
+              <li>Cash discount reduces margin (~$90/mo)</li>
+            </ul>
+          </div>
+
+          <div class="highlight">
+            <strong>Coverage:</strong> ~90% of card processing fees<br>
+            <strong>Transaction coverage:</strong> 90% (all cards)
+          </div>
+
+          <div style="margin-top: 1rem; font-size: 0.85rem; color: #6c757d;">
+            <strong>Net benefit:</strong> $628 offset minus $90 discount cost = <strong>$538/mo net</strong>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Model C<br><span style="font-weight: normal; font-size: 0.85rem;">Channel-Based (Example)</span></div>
+
+          <div class="stat-card" style="margin: 1rem 0;">
+            <span class="stat-value" style="color: #28a745;">~$600</span>
+            <div class="stat-label">Monthly Offset (Est.)</div>
+          </div>
+
+          <div style="font-size: 0.9rem; margin-bottom: 1rem;">
+            <strong>Depends on channel mix:</strong>
+            <ul class="list" style="font-size: 0.85rem;">
+              <li>POS (Model A): credit only</li>
+              <li>Invoice/Online: convenience fee (credit + debit)</li>
+            </ul>
+          </div>
+
+          <div class="highlight">
+            <strong>Coverage:</strong> 75-85% of fees (varies)<br>
+            <strong>Transaction coverage:</strong> Depends on setup
+          </div>
+
+          <div style="margin-top: 1rem; font-size: 0.85rem; color: #6c757d;">
+            <strong>Complexity:</strong> Multiple models = harder to estimate precisely
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Coverage Comparison</div>
+
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Model A</th>
+            <th>Model B</th>
+            <th>Your Current State</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Monthly Processing Fees</strong></td>
+            <td>$698</td>
+            <td>$698</td>
+            <td>$698</td>
+          </tr>
+          <tr>
+            <td><strong>Fees Offset</strong></td>
+            <td style="color: #28a745; font-weight: bold;">$585</td>
+            <td style="color: #28a745; font-weight: bold;">$628</td>
+            <td style="color: #dc3545; font-weight: bold;">$0</td>
+          </tr>
+          <tr>
+            <td><strong>Additional Costs</strong></td>
+            <td>$0</td>
+            <td>$90 (cash discount)</td>
+            <td>$0</td>
+          </tr>
+          <tr>
+            <td><strong>Net Monthly Savings</strong></td>
+            <td style="color: #28a745; font-weight: bold;">$585</td>
+            <td style="color: #28a745; font-weight: bold;">$538</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><strong>Annual Savings</strong></td>
+            <td style="color: #28a745; font-weight: bold;">$7,020</td>
+            <td style="color: #28a745; font-weight: bold;">$6,456</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><strong>% of Fees Offset</strong></td>
+            <td>84%</td>
+            <td>90%</td>
+            <td>0%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Impact of Payment Mix</div>
+      <div class="section-subtitle">How your payment mix affects which model works best</div>
+
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Scenario</th>
+            <th>Credit %</th>
+            <th>Debit %</th>
+            <th>Cash %</th>
+            <th>Better Model</th>
+            <th>Why</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>High Credit</strong></td>
+            <td>80%</td>
+            <td>15%</td>
+            <td>5%</td>
+            <td><span class="badge badge-info">Model A</span></td>
+            <td>Most transactions are credit, so credit-only coverage is good. Lower debit mix means small remaining cost.</td>
+          </tr>
+          <tr>
+            <td><strong>Balanced Cards</strong></td>
+            <td>50%</td>
+            <td>40%</td>
+            <td>10%</td>
+            <td><span class="badge badge-info">Model B</span></td>
+            <td>High debit mix means Model A leaves significant fees uncovered. Model B covers both card types.</td>
+          </tr>
+          <tr>
+            <td><strong>High Cash</strong></td>
+            <td>40%</td>
+            <td>20%</td>
+            <td>40%</td>
+            <td><span class="badge badge-neutral">Either</span></td>
+            <td>High cash reduces total fee burden. Model B's cash discount is less valuable. Model A's limited coverage matters less.</td>
+          </tr>
+          <tr>
+            <td><strong>Your Mix (Example)</strong></td>
+            <td>65%</td>
+            <td>25%</td>
+            <td>10%</td>
+            <td><span class="badge badge-neutral">Close</span></td>
+            <td>Model A offsets more gross fees ($585 vs $538 net). Model B covers more transaction types. Depends on priorities.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">What Would It Take to Hit "True Zero"?</div>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-header">Model A — True Zero Scenario</div>
+          <div style="font-size: 0.9rem;">
+            <p><strong>Required payment mix:</strong></p>
+            <ul class="list">
+              <li>100% credit cards</li>
+              <li>0% debit or cash</li>
+            </ul>
+            <p style="margin-top: 1rem;"><strong>Reality:</strong> This is unrealistic for most merchants. Customers use debit frequently.</p>
+            <div class="alert alert-danger" style="margin-top: 1rem; font-size: 0.85rem;">
+              Model A cannot achieve "true zero" fees for most businesses due to debit inconsistency.
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Model B — True Zero Scenario</div>
+          <div style="font-size: 0.9rem;">
+            <p><strong>Required payment mix:</strong></p>
+            <ul class="list">
+              <li>100% credit + debit cards</li>
+              <li>0% cash</li>
+            </ul>
+            <p style="margin-top: 1rem;"><strong>Reality:</strong> More achievable. Many businesses are 90%+ card payments. Cash discount cost is small.</p>
+            <div class="alert alert-info" style="margin-top: 1rem; font-size: 0.85rem;">
+              Model B can get close to "true zero" if cash mix is low (e.g., online-heavy businesses).
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Minimum Worthwhile Coverage</div>
+
+      <div class="card">
+        <div class="card-header">Is Partial Coverage Worth It?</div>
+        <div style="font-size: 0.9rem; line-height: 1.8;">
+          <p>Not every business needs 100% fee offset to benefit. Consider:</p>
+
+          <div class="grid grid-2" style="margin-top: 1rem;">
+            <div>
+              <strong>Model A (84% coverage):</strong>
+              <ul class="list">
+                <li>$585/mo savings ($7,020/year)</li>
+                <li>Lower posted prices (competitive advantage)</li>
+                <li>Simpler to explain</li>
+              </ul>
+            </div>
+
+            <div>
+              <strong>Model B (90% coverage):</strong>
+              <ul class="list">
+                <li>$538/mo net savings ($6,456/year)</li>
+                <li>No surprise fees (better CX)</li>
+                <li>Covers more transaction types</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="highlight" style="margin-top: 1rem;">
+            <strong>Key Question:</strong> Would you switch providers for $500-600/month in savings, even if it's not 100% of fees?
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Monetization Impact</div>
+      <div class="section-subtitle">How would you prefer to pay for this if savings are meaningful?</div>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-header">Option 1: SaaS Fee</div>
+          <div style="font-size: 0.9rem; margin-bottom: 1rem;">
+            <strong>Example:</strong> $99/month software fee
+          </div>
+
+          <table style="width: 100%; font-size: 0.9rem;">
+            <tr>
+              <td>Model A monthly offset:</td>
+              <td style="text-align: right;">$585</td>
+            </tr>
+            <tr>
+              <td>SaaS fee:</td>
+              <td style="text-align: right; color: #dc3545;">-$99</td>
+            </tr>
+            <tr style="border-top: 2px solid #dee2e6; font-weight: bold;">
+              <td>Net monthly savings:</td>
+              <td style="text-align: right; color: #28a745;">$486</td>
+            </tr>
+          </table>
+
+          <div class="alert alert-success" style="margin-top: 1rem; font-size: 0.85rem;">
+            Still $5,832/year in savings after SaaS cost
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Option 2: Pricing-Based</div>
+          <div style="font-size: 0.9rem; margin-bottom: 1rem;">
+            <strong>Example:</strong> Slightly higher processing rates, but net savings due to fee offset model
+          </div>
+
+          <table style="width: 100%; font-size: 0.9rem;">
+            <tr>
+              <td>Total fees (higher rates):</td>
+              <td style="text-align: right; color: #dc3545;">$850</td>
+            </tr>
+            <tr>
+              <td>Fee offset:</td>
+              <td style="text-align: right; color: #28a745;">-$585</td>
+            </tr>
+            <tr style="border-top: 2px solid #dee2e6; font-weight: bold;">
+              <td>Net cost:</td>
+              <td style="text-align: right;">$265</td>
+            </tr>
+          </table>
+
+          <div style="margin-top: 1rem; font-size: 0.85rem;">
+            <strong>vs your current $698/mo:</strong><br>
+            Saves $433/mo ($5,196/year)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-title">Research Questions This Mock Supports</div>
+      <div class="footer-content">
+        <ul>
+          <li>Is partial coverage (65-90%) acceptable, or do merchants expect 100%?</li>
+          <li>Do merchants understand that payment mix determines coverage?</li>
+          <li>Does the "0% fees" headline create unrealistic expectations?</li>
+          <li>Are savings of $500-600/month meaningful enough to drive switching?</li>
+          <li>Do merchants prefer to pay via SaaS or via pricing economics?</li>
+          <li>How important is debit coverage in model selection?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

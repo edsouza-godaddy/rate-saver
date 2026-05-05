@@ -1,0 +1,273 @@
+SECTION 5: ACCEPTANCE CRITERIA BY SURFACE (CONSOLIDATED)
+
+This section uses a reference-based model: POS (§5.3) contains the comprehensive specification for all common patterns. Subsequent surfaces reference POS and note deltas only.
+
+================================================================================
+5.3 POS (In-Person Terminal) 
+================================================================================
+
+This section serves as the reference specification for payment method selection, receipt structure, manual entry, and disclosure patterns used across all surfaces.
+
+---
+5.3.1 CATALOG-BASED PRODUCT SELECTION
+---
+
+Product Pricing in Catalog:
+a) Auto-Calculate ON:
+   •	System stores cash/ACH price in catalog
+   •	List price calculated as: cash price ÷ (1 - discount%) with rounding
+
+b) Auto-Calculate OFF:
+   •	System stores list price in catalog
+   •	Cash discount calculated as: list price × discount%
+
+Cart / Pre-Checkout:
+   •	Display list prices
+   •	Show "Cash/ACH option available" indicator
+
+---
+5.3.2 PAYMENT METHOD SELECTION 
+---
+
+Customer-Facing Display Must Show:
+   •	💳 Card: $XXX.XX
+   •	💵 Cash: $XXX.XX (Save $X.XX)
+
+Merchant-Facing Display Shows:
+   •	Same information as customer-facing
+
+Flow:
+   •	Customer must confirm payment method selection before proceeding
+   •	Selected method locks in final price
+
+---
+5.3.3 RECEIPT STRUCTURE
+---
+
+Receipt (Card Payment):
+   •	Show items at List price
+   •	Subtotal
+   •	Tax (calculated on subtotal)
+   •	Total
+   •	Payment Method: CREDIT CARD or DEBIT CARD
+   •	No discount line (card customers pay full price)
+
+Receipt (Cash/ACH Payment):
+   •	Show items at card/list price (NOT discounted price per item)
+   •	Subtotal
+   •	Tax (calculated on subtotal)
+   •	Cash/ACH Discount (X%): -$X.XX
+   •	Total (subtotal + tax - discount)
+   •	Payment Method: CASH or ACH
+   •	Footer text: "Thank you! You saved $X.XX with cash/ACH payment."
+
+---
+5.3.4 DISCLOSURES
+---
+
+Physical Signage Required:
+   •	Must be posted at entry and point of sale
+   •	Example text: "List prices are for card payments. Save X% when you pay with cash or ACH."
+   •	Signage requirement documented in onboarding materials
+
+Receipt Disclosure:
+   •	Cash/ACH receipts must show discount as separate line item
+   •	Card receipts show no discount language
+
+Verbal Disclosure (Virtual Terminal):
+   •	Merchant must verbally disclose pricing to customer during phone order
+   •	System displays reminder: "Before taking payment, inform customer: Card price is $XXX.XX, Cash/ACH price is $XXX.XX"
+
+
+================================================================================
+5.4 GoDaddy Mobile App
+================================================================================
+
+Implementation: Same as POS §5.3 with the following deltas:
+
+Catalog-Based Product Selection:
+   •	Same logic as POS §5.3.1
+
+Payment Method Selection:
+   •	Same pattern as POS §5.3.2
+   •	Customer taps on mobile device to select payment method
+   •	Confirmation screen shows final amount before proceeding
+
+Receipt:
+   •	Same structure as POS §5.3.3
+   •	Digital receipt (email/SMS optional)
+
+Virtual Terminal / Manual Entry:
+   •	Same logic as POS §5.3.4
+   •	DELTA: Native mobile keyboard instead of physical keypad
+   •	Input field type: numeric with decimal support
+
+Disclosures:
+   •	Physical signage still required (merchant's physical location)
+   •	Mobile app checkout screen includes text: "Cash discount applied at checkout"
+
+
+================================================================================
+5.5 INVOICING
+================================================================================
+
+Payment Method Selection & Receipts: Same as POS §5.3.2 and §5.3.3
+
+Invoice-Specific Requirements:
+
+---
+5.5.1 INVOICE CREATION (C1) — MULTI-ITEM ENTRY
+---
+
+Line Item Entry:
+   •	Merchant enters multiple items with:
+     - Description
+     - Quantity
+     - Price per item (cash price or list price based on auto-calculate setting)
+   •	System calculates list price or cash discount per §5.3.1 logic
+
+Invoice Preview (Before Sending):
+   •	Shows line items with quantities and prices
+   •	Subtotal (card/list price)
+   •	Tax (calculated on subtotal)
+   •	Cash/ACH Discount: -$X.XX
+   •	Total shown both ways: Card $XXX.XX / Cash/ACH $XXX.XX
+
+Send Invoice:
+   •	Delivery: Email and/or SMS with payment link
+   •	Subject line and body text: Configurable by merchant
+   •	Must include: "Card and Cash/ACH payment options available"
+
+---
+5.5.2 INVOICE PAYMENT PAGE (C2)
+---
+
+Invoice View (Email, PDF, Web Page):
+   •	Display line items at card/list price
+   •	Subtotal
+   •	Tax
+   •	Total: Card $XXX.XX / Cash/ACH $XXX.XX (both shown)
+   •	Explanation text: "Pay with cash or ACH and save X%"
+
+Payment Method Selection:
+   •	💳 Card (Credit or Debit): $XXX.XX
+   •	🏦 ACH / Bank Transfer: $XXX.XX (Save $X.XX)
+   •	Customer must select payment method before entering payment details
+   •	Confirmation screen shows final amount
+
+Receipt:
+   •	Same structure as POS §5.3.3
+   •	Delivered via email/SMS
+   •	Payment Method: CARD or ACH
+
+Disclosures:
+   •	Invoice must state payment options and discount clearly
+   •	Receipt must show discount as separate line item for cash/ACH payments
+
+
+================================================================================
+5.6 PAYLINKS
+================================================================================
+
+Payment Method Selection & Receipts: Same as POS §5.3.2 and §5.3.3
+
+Paylink-Specific Requirements:
+
+---
+5.6.1 PAYLINK CREATION (C1) — SINGLE-ITEM ENTRY
+---
+
+Creation Interface:
+   •	Merchant enters:
+     - Amount (cash price or list price based on auto-calculate setting)
+     - Description (optional)
+   •	System calculates card/cash prices and displays preview:
+     - "Card customers pay: $XXX.XX"
+     - "Cash/ACH customers pay: $XXX.XX (save $X.XX)"
+
+Paylink URL:
+   •	Sharable via SMS, email, social media, QR code
+   •	URL loads payment page (see §5.6.2)
+
+---
+5.6.2 PAYLINK PAYMENT PAGE (C2)
+---
+
+Display:
+   •	Description (if provided)
+   •	Amount: Card $XXX.XX / Cash/ACH $XXX.XX
+   •	Explanation: "Save X% when you pay with cash or ACH"
+
+Payment Method Selection:
+   •	💳 Card: $XXX.XX
+   •	🏦 ACH: $XXX.XX (Save $X.XX)
+   •	💵 Cash (if in-person pickup/delivery enabled): $XXX.XX (Save $X.XX)
+   •	Customer selects before entering payment details
+
+Receipt:
+   •	Same structure as POS §5.3.3
+   •	Digital delivery (email optional)
+
+Disclosures:
+   •	Payment page must clearly show both payment options and savings
+   •	Receipt must show discount line for cash/ACH payments
+
+
+================================================================================
+5.7 VIRTUAL TERMINAL / MANUAL ENTRY
+================================================================================
+
+Entry Screen:
+a) Amount Input:
+   •	Label changes based on auto-calculate setting:
+     - Auto-calculate ON: "Enter Cash/ACH Price"
+     - Auto-calculate OFF: "Enter List Price"
+   •	Physical keypad interface for amount entry
+   •	Input field: $____.__
+
+b) Real-Time Calculation Display:
+   •	If auto-calculate ON: "List price (with rounding): $XXX.XX"
+   •	If auto-calculate OFF: "Cash/ACH price (after X% discount): $XXX.XX"
+
+c) Preview Before Proceeding:
+   •	Shows: "Customer will see: Card $XXX.XX / Cash $XXX.XX"
+   •	Merchant confirms before proceeding to checkout
+
+Payment Processing:
+   •	Proceeds directly to payment method selection (§5.3.2)
+   •	Receipt generated per §5.3.3 pattern
+   •	Single-use entry (clears after transaction)
+
+
+
+================================================================================
+5.8 POST-TRANSACTION MANAGEMENT
+================================================================================
+
+(This section remains unchanged from original PRD — applies universally across all surfaces)
+
+Refunds:
+   •	If cash discount was applied: refund must reverse discount
+   •	Refund receipt shows original payment method and discount reversal
+   •	Example: Original $100 cash payment with $3 discount → Full refund shows $100 refunded
+
+Voids:
+   •	Must void at original amount (before or after discount based on payment method)
+   •	Void receipt shows original transaction details
+
+Partial Refunds:
+   •	Discount proportionally adjusted based on refund amount
+   •	Example: $100 order with $3 cash discount, $50 partial refund → $1.50 discount reversed
+
+Transaction History / Reporting:
+   •	Must show:
+     - List price (card price)
+     - Cash/ACH discount amount (if applicable)
+     - Final amount charged
+     - Payment method
+   •	Filters: Payment method, date range, discount applied Y/N
+
+Settlement Reporting:
+   •	Cash/ACH transactions settled at discounted amount
+   •	Card transactions settled at list price
+   •	Report must separate card vs cash/ACH volume for merchant reconciliation

@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -n \"savingsAmount\\\\|Save.*\\\\$\\\\|Discount.*\\\\$\" \"C:\\\\Users\\\\edsouza\\\\Documents\\\\Zero Fees\\\\Rate Saver - Merchant Prototype.html\")",
+      "Bash(grep -n \"Save \\\\\\\\\\\\$\\\\|Discount.*:\" \"C:\\\\Users\\\\edsouza\\\\Documents\\\\Zero Fees\\\\Rate Saver - Merchant Prototype.html\")",
+      "Bash(git init *)",
+      "Bash(git config *)",
+      "Bash(git add *)"
+    ]
+  }
+}

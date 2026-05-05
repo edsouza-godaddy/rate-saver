@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock 06 — Manual Entry Edge Case</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Manual Card Entry Workflow</h1>
+      <div class="subtitle">How pricing models work outside catalog/register flows</div>
+    </div>
+
+    <div class="alert alert-warning">
+      <strong>Why This Matters:</strong> Many merchants manually enter amounts without using a catalog or register. This workflow must respect pre-tender pricing constraints.
+    </div>
+
+    <div class="section">
+      <div class="section-title">Model A — Card Fee Model (Manual Entry)</div>
+
+      <div class="flow-step">
+        <div class="flow-step-number">1</div>
+        <div class="flow-step-content">
+          <div class="flow-step-title">Merchant Action: Enter Base Amount</div>
+          <div class="flow-step-description">
+            Merchant enters the service/item base price into the payment terminal or system.
+          </div>
+          <div class="card" style="margin-top: 1rem;">
+            <div style="font-family: monospace; background: #f8f9fa; padding: 1rem; border-radius: 4px;">
+              Enter amount: <input type="text" value="$100.00" readonly style="border: 1px solid #ccc; padding: 0.25rem 0.5rem;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-step-number">2</div>
+        <div class="flow-step-content">
+          <div class="flow-step-title">System Action: Show Payment Options</div>
+          <div class="flow-step-description">
+            System displays pricing for each payment type before customer selects.
+          </div>
+          <div class="card" style="margin-top: 1rem;">
+            <div style="background: #f8f9fa; padding: 1rem; border-radius: 4px;">
+              <strong>Payment Options:</strong><br><br>
+              <div style="padding: 0.5rem; background: white; border: 2px solid #0066cc; border-radius: 4px; margin-bottom: 0.5rem;">
+                Credit Card: <strong>$103.00</strong> (includes 3% card fee)
+              </div>
+              <div style="padding: 0.5rem; background: white; border: 1px solid #dee2e6; border-radius: 4px; margin-bottom: 0.5rem;">
+                Debit Card: <strong>$100.00</strong>
+              </div>
+              <div style="padding: 0.5rem; background: white; border: 1px solid #dee2e6; border-radius: 4px;">
+                Cash: <strong>$100.00</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-step-number">3</div>
+        <div class="flow-step-content">
+          <div class="flow-step-title">Customer Action: Select Payment Method</div>
+          <div class="flow-step-description">
+            Customer sees the pricing options and chooses how to pay. Final price is known before payment.
+          </div>
+          <div class="card" style="margin-top: 1rem;">
+            <div style="font-size: 0.9rem;">
+              Customer selects: <strong>Credit Card</strong><br>
+              Amount to charge: <strong>$103.00</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="highlight">
+        <strong>Constraint Compliance:</strong> Pricing is defined before payment method. System does not change price after card is presented. <span class="badge badge-success">Compliant</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Model B — Prices Include Fees (Manual Entry)</div>
+
+      <div class="flow-step">
+        <div class="flow-step-number">1</div>
+        <div class="flow-step-content">
+          <div class="flow-step-title">Merchant Action: Enter Fee-Inclusive Amount</div>
+          <div class="flow-step-description">
+            Merchant enters the fee-inclusive price (or system calculates it from base cost).
+          </div>
+          <div class="card" style="margin-top: 1rem;">
+            <div style="font-family: monospace; background: #f8f9fa; padding: 1rem; border-radius: 4px;">
+              Base cost: $100.00<br>
+              Fee-inclusive price: <input type="text" value="$103.00" readonly style="border: 1px solid #ccc; padding: 0.25rem 0.5rem; margin-top: 0.5rem;">
+            </div>
+            <div style="font-size: 0.85rem; color: #6c757d; margin-top: 0.5rem;">
+              System may calculate fee-inclusive price automatically if configured
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-step-number">2</div>
+        <div class="flow-step-content">
+          <div class="flow-step-title">System Action: Show Payment Options with Discount</div>
+          <div class="flow-step-description">
+            System displays the standard price and discount options before customer selects.
+          </div>
+          <div class="card" style="margin-top: 1rem;">
+            <div style="background: #f8f9fa; padding: 1rem; border-radius: 4px;">
+              <strong>Payment Options:</strong><br><br>
+              <div style="padding: 0.5rem; background: white; border: 1px solid #dee2e6; border-radius: 4px; margin-bottom: 0.5rem;">
+                Credit Card: <strong>$103.00</strong>
+              </div>
+              <div style="padding: 0.5rem; background: white; border: 1px solid #dee2e6; border-radius: 4px; margin-bottom: 0.5rem;">
+                Debit Card: <strong>$103.00</strong>
+              </div>
+              <div style="padding: 0.5rem; background: white; border: 2px solid #28a745; border-radius: 4px; margin-bottom: 0.5rem;">
+                Cash: <strong>$100.00</strong> <span class="badge badge-success">Save $3</span>
+              </div>
+              <div style="padding: 0.5rem; background: white; border: 2px solid #28a745; border-radius: 4px;">
+                ACH: <strong>$100.00</strong> <span class="badge badge-success">Save $3</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-step-number">3</div>
+        <div class="flow-step-content">
+          <div class="flow-step-title">Customer Action: Select Payment Method</div>
+          <div class="flow-step-description">
+            Customer sees standard price and discount offers, chooses how to pay.
+          </div>
+          <div class="card" style="margin-top: 1rem;">
+            <div style="font-size: 0.9rem;">
+              Customer selects: <strong>Cash</strong><br>
+              Amount to charge: <strong>$100.00</strong> (discount applied)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="highlight">
+        <strong>Constraint Compliance:</strong> Fee-inclusive price is defined before payment method. Discount is offered, not a post-selection change. <span class="badge badge-success">Compliant</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Key Differences in Manual Entry</div>
+
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Aspect</th>
+            <th>Model A</th>
+            <th>Model B</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>What Merchant Enters</strong></td>
+            <td>Base amount ($100)</td>
+            <td>Fee-inclusive amount ($103) or base with auto-calculation</td>
+          </tr>
+          <tr>
+            <td><strong>System Calculation</strong></td>
+            <td>Adds fee to credit ($100 → $103)</td>
+            <td>Subtracts discount for cash/ACH ($103 → $100)</td>
+          </tr>
+          <tr>
+            <td><strong>Staff Simplicity</strong></td>
+            <td>Enter what customer was quoted</td>
+            <td>Enter fee-inclusive price (may require training)</td>
+          </tr>
+          <tr>
+            <td><strong>Customer Expectation</strong></td>
+            <td>Customer quoted $100, pays $103 (if credit)</td>
+            <td>Customer quoted $103, may pay less ($100 if cash)</td>
+          </tr>
+          <tr>
+            <td><strong>Risk</strong></td>
+            <td>Staff must communicate fee upfront</td>
+            <td>Staff must understand fee-inclusive pricing</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Edge Case: Phone Order with Manual Entry</div>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-header">Model A — Phone Order Flow</div>
+          <div style="font-size: 0.9rem; line-height: 1.8;">
+            <p><strong>Customer:</strong> "How much for the service?"</p>
+            <p><strong>Staff:</strong> "The base price is $100. If you pay by credit card, there's a 3% card fee, so it's $103. Debit and cash are $100."</p>
+            <p><strong>Customer:</strong> "I'll pay by credit card."</p>
+            <p><strong>Staff:</strong> [Enters $100, system shows $103 for credit card]</p>
+            <p><strong>Final charge:</strong> $103</p>
+          </div>
+          <div class="alert alert-info" style="margin-top: 1rem; font-size: 0.85rem;">
+            Staff must quote both base and card-fee price upfront
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Model B — Phone Order Flow</div>
+          <div style="font-size: 0.9rem; line-height: 1.8;">
+            <p><strong>Customer:</strong> "How much for the service?"</p>
+            <p><strong>Staff:</strong> "The price is $103. If you pay by cash or ACH, you'll save $3, so it's $100."</p>
+            <p><strong>Customer:</strong> "I'll pay by credit card."</p>
+            <p><strong>Staff:</strong> [Enters $103, customer pays full price]</p>
+            <p><strong>Final charge:</strong> $103</p>
+          </div>
+          <div class="alert alert-info" style="margin-top: 1rem; font-size: 0.85rem;">
+            Staff quotes fee-inclusive price first, then mentions discount
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">What Would NOT Work (Violations)</div>
+
+      <div class="card">
+        <div class="card-header">❌ Non-Compliant Manual Entry Scenarios</div>
+
+        <div style="margin-bottom: 1.5rem;">
+          <strong>Scenario 1: Post-Card Type Adjustment</strong>
+          <div style="background: #f8d7da; padding: 1rem; margin-top: 0.5rem; border-radius: 4px;">
+            Staff enters $100, customer swipes card, system detects "credit" and automatically changes to $103.
+            <div style="margin-top: 0.5rem; font-weight: 600;">❌ Violates pre-tender pricing constraint</div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+          <strong>Scenario 2: Hidden Fee</strong>
+          <div style="background: #f8d7da; padding: 1rem; margin-top: 0.5rem; border-radius: 4px;">
+            Customer is quoted "$100 over the phone", staff enters $103 without explaining, customer is surprised by final charge.
+            <div style="margin-top: 0.5rem; font-weight: 600;">❌ Violates transparency constraint</div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+          <strong>Scenario 3: Debit Surcharge</strong>
+          <div style="background: #f8d7da; padding: 1rem; margin-top: 0.5rem; border-radius: 4px;">
+            System adds 3% fee to debit card transactions in manual entry.
+            <div style="margin-top: 0.5rem; font-weight: 600;">❌ Illegal — debit cannot be surcharged</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Staff Training for Manual Entry</div>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-header">Model A — Staff Guidelines</div>
+          <ul class="list">
+            <li>Always quote both base price and card-fee price when asked</li>
+            <li>Enter the base amount into the system</li>
+            <li>Let the system display payment options to customer</li>
+            <li>Confirm final amount before processing</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Model B — Staff Guidelines</div>
+          <ul class="list">
+            <li>Always quote the fee-inclusive (posted) price first</li>
+            <li>Mention discount opportunity for cash/ACH</li>
+            <li>Enter the fee-inclusive amount (or let system calculate)</li>
+            <li>Let the system apply discount if customer chooses cash/ACH</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-title">Research Questions This Mock Supports</div>
+      <div class="footer-content">
+        <ul>
+          <li>Do merchants frequently use manual entry workflows (services, custom amounts, phone orders)?</li>
+          <li>Which model feels simpler for staff to handle in manual entry scenarios?</li>
+          <li>Do merchants understand what they need to enter (base vs fee-inclusive)?</li>
+          <li>Can staff be trained to quote pricing correctly over the phone or in-person?</li>
+          <li>Does manual entry complexity affect which model merchants prefer?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

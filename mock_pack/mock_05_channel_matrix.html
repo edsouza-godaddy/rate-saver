@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock 05 — Channel Matrix</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Channel-Based Pricing Setup</h1>
+      <div class="subtitle">Model C — Choose the right pricing model for each sales channel</div>
+    </div>
+
+    <div class="alert alert-info">
+      <strong>Channel-Based Approach:</strong> Different sales channels may benefit from different pricing models. This lets you optimize for each context.
+    </div>
+
+    <div class="section">
+      <div class="section-title">Select Your Pricing Model by Channel</div>
+      <div class="section-subtitle">
+        For each sales channel, choose the pricing model that works best for your business.
+      </div>
+
+      <div class="matrix">
+        <div class="matrix-row">
+          <div class="matrix-label">In-Person (POS)</div>
+          <div class="matrix-options">
+            <div class="option-card selected">
+              <div class="option-card-title">Model A — Card Fee</div>
+              <div class="option-card-description">
+                Menu prices stay low. Credit card payments include a 3% fee. Debit and cash: no fee.
+              </div>
+            </div>
+            <div class="option-card">
+              <div class="option-card-title">Model B — Prices Include Fees</div>
+              <div class="option-card-description">
+                Menu prices set to cover costs. Cash/ACH customers get a discount.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="matrix-row">
+          <div class="matrix-label">Invoice / Paylink</div>
+          <div class="matrix-options">
+            <div class="option-card">
+              <div class="option-card-title">Model A — Card Fee</div>
+              <div class="option-card-description">
+                Invoice amount is base. Credit cards pay a surcharge. Debit/ACH: no fee.
+              </div>
+            </div>
+            <div class="option-card">
+              <div class="option-card-title">Model B — Prices Include Fees</div>
+              <div class="option-card-description">
+                Invoice includes costs. Cash/ACH customers get a discount.
+              </div>
+            </div>
+            <div class="option-card selected">
+              <div class="option-card-title">Convenience Fee</div>
+              <div class="option-card-description">
+                Invoice base. Card payments include a convenience fee. ACH: no fee.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="matrix-row">
+          <div class="matrix-label">Online</div>
+          <div class="matrix-options">
+            <div class="option-card">
+              <div class="option-card-title">Model A — Card Fee</div>
+              <div class="option-card-description">
+                Item price is base. Credit cards pay a surcharge. Debit/ACH: no fee.
+              </div>
+            </div>
+            <div class="option-card">
+              <div class="option-card-title">Model B — Prices Include Fees</div>
+              <div class="option-card-description">
+                Item price includes costs. Cash/ACH customers get a discount.
+              </div>
+            </div>
+            <div class="option-card selected">
+              <div class="option-card-title">Convenience Fee</div>
+              <div class="option-card-description">
+                Item price is base. Card payments include a convenience fee. ACH: no fee.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Your Selected Configuration</div>
+
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Channel</th>
+            <th>Model</th>
+            <th>Customer Experience</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>In-Person (POS)</strong></td>
+            <td><span class="badge badge-info">Model A</span> Card Fee</td>
+            <td>
+              Menu: $100<br>
+              Credit: $103 | Debit/Cash: $100
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Invoice / Paylink</strong></td>
+            <td><span class="badge badge-info">Convenience Fee</span></td>
+            <td>
+              Invoice: $100<br>
+              Card: $103 (includes fee) | ACH: $100
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Online</strong></td>
+            <td><span class="badge badge-info">Convenience Fee</span></td>
+            <td>
+              Item: $100<br>
+              Card: $103 (includes fee) | ACH: $100
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Example Customer Scenarios</div>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-header">Scenario 1: In-Person Purchase</div>
+          <div style="font-size: 0.9rem; line-height: 1.8;">
+            <p><strong>Customer</strong> walks in and sees menu price: <strong>$100</strong></p>
+            <p>Customer orders and goes to pay.</p>
+            <p><strong>Staff:</strong> "That'll be $100. Credit card payments include a 3% card fee, so it's $103. Debit and cash are $100."</p>
+            <p><strong>Customer</strong> pays with credit card: <strong>$103</strong></p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Scenario 2: Invoice Payment</div>
+          <div style="font-size: 0.9rem; line-height: 1.8;">
+            <p><strong>Customer</strong> receives invoice: <strong>$100</strong></p>
+            <p>Invoice includes payment options with pricing:</p>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+              <li>Card: $103 (includes convenience fee)</li>
+              <li>ACH: $100 (no fee)</li>
+            </ul>
+            <p><strong>Customer</strong> pays by card online: <strong>$103</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Why Channel-Based Pricing?</div>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-header">Potential Benefits</div>
+          <ul class="list list-check">
+            <li><strong>Context optimization:</strong> In-person and online have different customer expectations</li>
+            <li><strong>Convenience fee flexibility:</strong> Easier to use online/invoice where it's more accepted</li>
+            <li><strong>Better coverage mix:</strong> Use Model A in-person (lower prices), convenience fee online (better debit coverage)</li>
+            <li><strong>Strategic control:</strong> You decide what works best for each context</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Potential Challenges</div>
+          <ul class="list list-cross">
+            <li><strong>Staff confusion:</strong> Different rules by channel may be hard to remember</li>
+            <li><strong>Customer confusion:</strong> "Why is pricing different online vs in-person?"</li>
+            <li><strong>Operational complexity:</strong> More moving parts to manage</li>
+            <li><strong>Consistency concerns:</strong> Customers may perceive inconsistency as unfair</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Estimated Coverage by Channel</div>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <span class="stat-value">65%</span>
+          <div class="stat-label">POS Coverage</div>
+          <div style="font-size: 0.8rem; color: #6c757d; margin-top: 0.5rem;">
+            Model A (credit only)
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-value">90%</span>
+          <div class="stat-label">Invoice Coverage</div>
+          <div style="font-size: 0.8rem; color: #6c757d; margin-top: 0.5rem;">
+            Convenience fee (credit + debit)
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-value">90%</span>
+          <div class="stat-label">Online Coverage</div>
+          <div style="font-size: 0.8rem; color: #6c757d; margin-top: 0.5rem;">
+            Convenience fee (credit + debit)
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-value">~75%</span>
+          <div class="stat-label">Overall Coverage</div>
+          <div style="font-size: 0.8rem; color: #6c757d; margin-top: 0.5rem;">
+            Weighted by your channel mix
+          </div>
+        </div>
+      </div>
+
+      <div class="highlight" style="margin-top: 1rem;">
+        <strong>Your Coverage:</strong> Actual offset depends on your volume split between POS, invoice, and online. The example above assumes 60% POS, 20% invoice, 20% online.
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Alternative: Single Model Everywhere</div>
+
+      <div class="card">
+        <div class="card-header">If You Prefer Consistency</div>
+        <div style="font-size: 0.9rem; margin-bottom: 1rem;">
+          You don't have to use channel-based pricing. You can choose one model and apply it everywhere:
+        </div>
+
+        <div class="grid grid-2">
+          <div class="option-card">
+            <div class="option-card-title">Model A Everywhere</div>
+            <div class="option-card-description">
+              Same card fee model across POS, invoice, and online. Simpler to explain, but credit-only coverage.
+            </div>
+          </div>
+
+          <div class="option-card">
+            <div class="option-card-title">Model B Everywhere</div>
+            <div class="option-card-description">
+              Same fee-inclusive pricing across all channels. Higher posted prices everywhere, but better coverage.
+            </div>
+          </div>
+        </div>
+
+        <div class="alert alert-info" style="margin-top: 1rem;">
+          <strong>Most common choice:</strong> Many merchants prefer one model everywhere for simplicity. Channel-based is for merchants who see meaningful differences between in-person and online customer expectations.
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title">Staff Training Considerations</div>
+
+      <div class="card">
+        <div class="card-header">What Your Team Needs to Know</div>
+
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>If Customer...</th>
+              <th>Staff Should Say...</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Pays in-person with credit</td>
+              <td>"Credit card payments include a 3% card fee, so it's $103. Debit and cash are $100."</td>
+            </tr>
+            <tr>
+              <td>Asks why invoice is different</td>
+              <td>"For invoices and online payments, we use a convenience fee structure. It works a bit differently, but the goal is the same — keeping costs low."</td>
+            </tr>
+            <tr>
+              <td>Complains about inconsistency</td>
+              <td>"We use the pricing approach that works best for each way you pay. In-person and online have different costs and customer expectations."</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="alert alert-warning" style="margin-top: 1rem;">
+          <strong>Training is critical:</strong> Staff confusion is the biggest risk with channel-based pricing. If your team can't explain it clearly, consider using one model everywhere.
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-title">Research Questions This Mock Supports</div>
+      <div class="footer-content">
+        <ul>
+          <li>Do merchants naturally think about pricing differently by channel (in-person vs online/invoice)?</li>
+          <li>Is the flexibility worth the added complexity, or is one model everywhere preferred?</li>
+          <li>Can merchants articulate why they would choose different models for different channels?</li>
+          <li>Does combining Model A (POS) + convenience fee (online/invoice) feel like the best of both worlds?</li>
+          <li>What concerns do merchants have about staff training and customer perception with channel-based pricing?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Simple interaction for selecting options
+    document.querySelectorAll('.option-card').forEach(card => {
+      card.addEventListener('click', function() {
+        // Remove selected from siblings
+        const siblings = this.parentElement.querySelectorAll('.option-card');
+        siblings.forEach(s => s.classList.remove('selected'));
+        // Add selected to this card
+        this.classList.add('selected');
+      });
+    });
+  </script>
+</body>
+</html>

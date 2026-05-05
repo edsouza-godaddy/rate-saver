@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zero Fees Pricing Models — Complete Journey</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-950: #0a1628;
+      --navy-900: #152238;
+      --navy-800: #1e3045;
+      --navy-700: #2d4563;
+      --navy-600: #3d5a7f;
+
+      --orange-600: #d97706;
+      --orange-500: #f59e0b;
+      --orange-400: #fbbf24;
+
+      --cream-50: #fdfbf7;
+      --cream-100: #faf6ef;
+      --cream-200: #f5ede0;
+
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-900: #0f172a;
+
+      --emerald-50: #ecfdf5;
+      --emerald-100: #d1fae5;
+      --emerald-600: #059669;
+      --emerald-700: #047857;
+
+      --amber-50: #fffbeb;
+      --amber-100: #fef3c7;
+      --amber-600: #d97706;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--navy-950);
+      background: var(--cream-100);
+      background-image:
+        radial-gradient(at 0% 0%, rgba(249, 168, 37, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.05) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    /* Hero Header */
+    .hero-header {
+      background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-800) 100%);
+      padding: 5rem 3rem 4rem;
+      margin-bottom: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image:
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 2px,
+          rgba(255, 255, 255, 0.02) 2px,
+          rgba(255, 255, 255, 0.02) 4px
+        ),
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(255, 255, 255, 0.02) 2px,
+          rgba(255, 255, 255, 0.02) 4px
+        );
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.5rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      color: var(--orange-400);
+      font-weight: 600;
+      margin-bottom: 2rem;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    .hero-description {
+      font-size: 1.125rem;
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.8;
+      animation: fadeInUp 0.8s ease-out 0.4s both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Stage Sections */
+    .stage-section {
+      padding: 0 3rem;
+      margin-bottom: 5rem;
+    }
+
+    .content-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .stage-header {
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .stage-number {
+      display: inline-block;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--orange-600);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    .stage-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--navy-950);
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .stage-description {
+      font-size: 1.125rem;
+      color: var(--slate-600);
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Model Grid */
+    .model-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .model-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.03);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .model-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08), 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+    }
+
+    .model-header {
+      background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-700) 100%);
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .model-header::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--orange-500), var(--orange-400));
+    }
+
+    .model-header h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .model-subtitle {
+      font-size: 0.875rem;
+      opacity: 0.9;
+      font-weight: 500;
+    }
+
+    .card-content {
+      padding: 2rem;
+    }
+
+    /* Price Displays */
+    .price-display {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--navy-950);
+      margin: 1rem 0;
+      text-align: center;
+    }
+
+    .price-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--slate-600);
+      text-align: center;
+    }
+
+    /* Dual Price Container */
+    .dual-price-container {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 1.5rem;
+      background: var(--slate-50);
+      border-radius: 12px;
+      margin: 1rem 0;
+    }
+
+    .dual-price-item {
+      flex: 1;
+      text-align: center;
+    }
+
+    .dual-price-divider {
+      width: 2px;
+      height: 60px;
+      background: var(--slate-300);
+    }
+
+    /* Callouts */
+    .callout {
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+      font-size: 0.9375rem;
+      border-left: 4px solid;
+      line-height: 1.6;
+    }
+
+    .callout-warning {
+      background: var(--amber-50);
+      border-left-color: var(--amber-600);
+      color: var(--slate-900);
+    }
+
+    .callout-success {
+      background: var(--emerald-50);
+      border-left-color: var(--emerald-600);
+      color: var(--slate-900);
+    }
+
+    .callout-info {
+      background: #dbeafe;
+      border-left-color: #3b82f6;
+      color: var(--slate-900);
+    }
+
+    /* Display Mode Badge */
+    .display-mode-badge {
+      display: inline-block;
+      background: var(--orange-500);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    /* Channel Config */
+    .channel-config {
+      background: #dbeafe;
+      border: 2px solid #3b82f6;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.9375rem;
+      line-height: 1.8;
+    }
+
+    .section-label {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    /* Receipt Styling */
+    .receipt {
+      font-family: 'Courier New', monospace;
+      background: var(--slate-50);
+      border: 2px solid var(--slate-200);
+      padding: 1.5rem;
+      border-radius: 8px;
+      font-size: 0.9375rem;
+      margin: 1rem 0;
+    }
+
+    .receipt-line {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      align-items: center;
+    }
+
+    .receipt-divider {
+      border-top: 1px dashed var(--slate-300);
+      margin: 0.75rem 0;
+    }
+
+    .receipt-divider-heavy {
+      border-top: 2px solid var(--navy-950);
+      margin: 0.75rem 0;
+    }
+
+    .receipt-total {
+      font-weight: 700;
+      font-size: 1.125rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Dual Column Receipt */
+    .dual-column-receipt .receipt-line {
+      display: grid;
+      grid-template-columns: 1fr 100px 100px;
+      gap: 1rem;
+    }
+
+    .flex-1 {
+      grid-column: 1;
+    }
+
+    .col-label,
+    .col-value {
+      text-align: right;
+      font-weight: 600;
+    }
+
+    /* Note Text */
+    .note-text {
+      font-size: 0.875rem;
+      color: var(--slate-600);
+      margin-top: 0.75rem;
+      line-height: 1.6;
+    }
+
+    /* Payment Options */
+    .payment-option {
+      background: var(--slate-50);
+      border: 2px solid var(--slate-200);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.75rem;
+      transition: all 0.2s ease;
+    }
+
+    .payment-option:hover {
+      border-color: var(--orange-500);
+      background: white;
+    }
+
+    .payment-label {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: var(--navy-950);
+    }
+
+    .payment-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--navy-950);
+    }
+
+    .payment-note {
+      font-size: 0.875rem;
+      color: var(--slate-600);
+      margin-top: 0.5rem;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 0.375rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.025em;
+    }
+
+    .badge-success {
+      background: var(--emerald-100);
+      color: var(--emerald-700);
+    }
+
+    .badge-info {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    /* Terminal Display */
+    .terminal-display {
+      background: #1e293b;
+      color: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9375rem;
+      margin: 1rem 0;
+      line-height: 1.8;
+    }
+
+    /* Summary/Reveals Section */
+    .reveals {
+      background: white;
+      border: 3px solid var(--navy-900);
+      border-radius: 16px;
+      padding: 3rem;
+      margin: 4rem 3rem;
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .reveals h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--navy-950);
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 3px solid var(--orange-500);
+    }
+
+    .reveals ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .reveals li {
+      padding: 1rem 0;
+      padding-left: 2rem;
+      position: relative;
+      line-height: 1.8;
+      font-size: 1.0625rem;
+    }
+
+    .reveals li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--orange-500);
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .model-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .hero-header h1 {
+        font-size: 3.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-header {
+        padding: 3rem 1.5rem 2.5rem;
+      }
+
+      .hero-header h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.25rem;
+      }
+
+      .stage-section {
+        padding: 0 1.5rem;
+      }
+
+      .stage-title {
+        font-size: 2rem;
+      }
+
+      .reveals {
+        margin: 3rem 1.5rem;
+        padding: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Hero Header -->
+    <div class="hero-header">
+      <div class="hero-content">
+        <h1>Zero Fees Pricing Models</h1>
+        <div class="hero-subtitle">Complete Journey Comparison</div>
+        <p class="hero-description">
+          An end-to-end exploration of three distinct pricing approaches for offsetting credit card processing fees.
+          Understand what merchants see, what customers experience, and how each model handles the complexities of modern payment processing.
+        </p>
+      </div>
+    </div>
+
+    <!-- STAGE 1: SHELF/MENU/ONLINE PRICE -->
+    <section class="stage-section">
+      <div class="content-wrapper">
+        <div class="stage-header">
+          <div class="stage-number">Stage 1</div>
+          <h2 class="stage-title">Shelf / Menu / Online Price</h2>
+          <p class="stage-description">What the customer sees first — the advertised price before any interaction</p>
+        </div>
+
+        <div class="model-grid">
+          <!-- Model A -->
+          <div class="model-card">
+            <div class="model-header">
+              <h3>Model A</h3>
+              <div class="model-subtitle">Card Fee (Surcharge)</div>
+            </div>
+            <div class="card-content">
+              <div class="price-label">Listed Price:</div>
+              <div class="price-display">$100</div>
+              <div class="callout callout-warning">
+                <strong>Visible signage:</strong> "Card payments may include up to a 3% surcharge"
+              </div>
+            </div>
+          </div>
+
+          <!-- Model B -->
+          <div class="model-card">
+            <div class="model-header">
+              <h3>Model B</h3>
+              <div class="model-subtitle">Prices Include Fees + Cash Discount</div>
+            </div>
+            <div class="card-content">
+              <div class="callout callout-info" style="margin-bottom: 1.5rem;">
+                <strong>Pricing Note:</strong> Rounded to nearest $0.25 for consumer clarity. Math: $100 ÷ 0.97 = $103.09 → $103.25. After 3% discount: $103.25 × 0.97 = $100.15.
+              </div>
+
+              <div style="margin-bottom: 2rem;">
+                <div class="display-mode-badge">Display Mode 1: Single Price</div>
+                <div class="price-label">Listed Price (Fee-Inclusive):</div>
+                <div class="price-display">$103.25</div>
+                <div class="callout callout-success">
+                  <strong>Signage:</strong> "Pay less with cash — save 3%"
+                </div>
+              </div>
+
+              <div>
+                <div class="display-mode-badge">Display Mode 2: Dual Price</div>
+                <div class="dual-price-container">
+                  <div class="dual-price-item">
+                    <div class="price-label">Card Price</div>
+                    <div class="price-display" style="font-size: 2rem;">$103.25</div>
+                  </div>
+                  <div class="dual-price-divider"></div>
+                  <div class="dual-price-item">
+                    <div class="price-label">Cash Price</div>
+                    <div class="price-display" style="font-size: 2rem; color: var(--emerald-600);">$100.15</div>
+                  </div>
+                </div>
+                <div class="note-text">Both prices displayed equally on shelf/menu</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Model C -->
+          <div class="model-card">
+            <div class="model-header">
+              <h3>Model C</h3>
+              <div class="model-subtitle">Channel-Based</div>
+            </div>
+            <div class="card-content">
+              <div class="channel-config">
+                <strong>Fixed Configuration:</strong><br>
+                📍 POS: Model A or dual pricing<br>
+                🌐 Online: Convenience Fee
+              </div>
+              <div style="margin-bottom: 1.5rem;">
+                <strong class="section-label">In-Person (POS):</strong>
+                <div class="price-display">$100</div>
+                <div class="note-text">Using Model A rules</div>
+              </div>
+              <div>
+                <strong class="section-label">Online/Invoice:</strong>
+                <div class="price-display">$100</div>
+                <div class="note-text">Convenience fee disclosed</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAGE 2: CART/PRE-TENDER -->
+    <section class="stage-section">
+      <div class="container">
+        <h2 class="stage-title">2. Cart / Pre-Tender <span style="font-weight: 400; font-size: 0.85em;">(Complete with Tax)</span></h2>
+
+        <div class="model-grid">
+          <!-- Model A -->
+          <div class="model-card">
+            <div class="model-header">
+              <h3>Model A</h3>
+            </div>
+            <div class="card-content">
+              <div class="receipt">
+                <div class="receipt-line">
+                  <span>Item (qty 1):</span>
+                  <span>$100.00</span>
+                </div>
+                <div class="receipt-divider"></div>
+                <div class="receipt-line">
+                  <span><strong>Subtotal:</strong></span>
+                  <span><strong>$100.00</strong></span>
+                </div>
+                <div class="receipt-line">
+                  <span>Tax (10%):</span>
+                  <span>$10.00</span>
+                </div>
+                <div class="receipt-divider" style="border-top: 2px solid var(--navy-900);"></div>
+                <div class="receipt-total">
+                  <span>TOTAL:</span>
+                  <span>$110.00</span>
+                </div>
+              </div>
+              <div class="callout callout-info" style="margin-top: 1.5rem;">
+                <strong>Note:</strong> Surcharge (if credit card) added AFTER tax. Tax on base amount only.
+              </div>
+            </div>
+          </div>
+
+          <!-- Model B -->
+          <div class="model-card">
+            <div class="model-header">
+              <h3>Model B</h3>
+            </div>
+            <div class="card-content">
+              <div style="margin-bottom: 2rem;">
+                <div class="display-mode-badge">Display Mode 1: Single Price</div>
+                <div class="receipt">
+                  <div class="receipt-line">
+                    <span>Item (qty 1):</span>
+                    <span>$103.25</span>
+                  </div>
+                  <div class="receipt-divider"></div>
+                  <div class="receipt-line">
+                    <span><strong>Subtotal:</strong></span>
+                    <span><strong>$103.25</strong></span>
+                  </div>
+                  <div class="receipt-line">
+                    <span>Tax (10%):</span>
+                    <span>$10.33</span>
+                  </div>
+                  <div class="receipt-line" style="color: var(--emerald-600);">
+                    <span>[If Cash] Discount (3%):</span>
+                    <span>-$3.10</span>
+                  </div>
+                  <div class="receipt-divider" style="border-top: 2px solid var(--navy-900);"></div>
+                  <div class="receipt-total">
+                    <span>TOTAL:</span>
+                    <span>Card: $113.58</span>
+                  </div>
+                  <div class="receipt-total" style="color: var(--emerald-600); margin-top: 0.5rem;">
+                    <span></span>
+                    <span>Cash: $110.48</span>
+                  </div>
+                </div>
+                <div class="note-text" style="margin-top: 1rem;">Tax on listed price ($103.25). Discount applied to subtotal only, not tax.</div>
+              </div>
+
+              <div>
+                <div class="display-mode-badge">Display Mode 2: Dual Price</div>
+                <div class="receipt" style="overflow-x: auto;">
+                  <div class="receipt-line">
+                    <span style="flex: 1;">Item (qty 1):</span>
+                    <span style="flex: 0 0 90px; text-align: right; font-weight: 600;">Card</span>
+                    <span style="flex: 0 0 90px; text-align: right; font-weight: 600;">Cash</span>
+                  </div>
+                  <div class="receipt-line">
+                    <span style="flex: 1;"></span>
+                    <span style="flex: 0 0 90px; text-align: right;">$103.25</span>
+                    <span style="flex: 0 0 90px; text-align: right;">$100.15</span>
+                  </div>
+                  <div class="receipt-divider"></div>
+                  <div class="receipt-line">
+                    <span style="flex: 1;"><strong>Subtotal:</strong></span>
+                    <span style="flex: 0 0 90px; text-align: right;"><strong>$103.25</strong></span>
+                    <span style="flex: 0 0 90px; text-align: right;"><strong>$100.15</strong></span>
+                  </div>
+                  <div class="receipt-line">
+                    <span style="flex: 1;">Tax (10%):</span>
+                    <span style="flex: 0 0 90px; text-align: right;">$10.33</span>
+                    <span style="flex: 0 0 90px; text-align: right;">$10.02</span>
+                  </div>
+                  <div class="receipt-divider" style="border-top: 2px solid var(--navy-900);"></div>
+                  <div class="receipt-total">
+                    <span style="flex: 1;">TOTAL:</span>
+                    <span style="flex: 0 0 90px; text-align: right;">$113.58</span>
+                    <span style="flex: 0 0 90px; text-align: right;">$110.17</span>
+                  </div>
+                </div>
+                <div class="callout callout-warning" style="margin-top: 1rem;">
+                  <strong>⚠️ Display Requirement:</strong> Dual totals require wider display. May not work on narrow terminals or mobile devices.
+                </div>
+                <div class="note-text" style="margin-top: 0.75rem;">In dual pricing (cash discounting), tax is calculated on each advertised price: card pays tax on $103.25 ($10.33), cash pays tax on $100.15 ($10.02).</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Model C -->
+          <div class="model-card">
+            <div class="model-header">
+              <h3>Model C</h3>
+            </div>
+            <div class="card-content">
+              <div style="margin-bottom: 2rem;">
+                <strong class="section-label">POS Cart (Model A rules):</strong>
+                <div class="receipt" style="margin-top: 1rem;">
+                  <div class="receipt-line">
+                    <span>Item (qty 1):</span>
+                    <span>$100.00</span>
+                  </div>
+                  <div class="receipt-divider"></div>
+                  <div class="receipt-line">
+                    <span><strong>Subtotal:</strong></span>
+                    <span><strong>$100.00</strong></span>
+                  </div>
+                  <div class="receipt-line">
+                    <span>Tax (10%):</span>
+                    <span>$10.00</span>
+                  </div>
+                  <div class="receipt-divider" style="border-top: 2px solid var(--navy-900);"></div>
+                  <div class="receipt-total">
+                    <span>TOTAL:</span>
+                    <span>$110.00</span>
+                  </div>
+                </div>
+                <div class="note-text" style="margin-top: 0.75rem;">Surcharge added after tax if credit card</div>
+              </div>
+
+              <div>
+                <strong class="section-label">Online Cart (Convenience Fee):</strong>
+                <div class="receipt" style="margin-top: 1rem;">
+                  <div class="receipt-line">
+                    <span>Item (qty 1):</span>
+                    <span>$100.00</span>
+                  </div>
+                  <div class="receipt-divider"></div>
+                  <div class="receipt-line">
+                    <span><strong>Subtotal:</strong></span>
+                    <span><strong>$100.00</strong></span>
+                  </div>
+                  <div class="receipt-line">
+                    <span>Tax (10%):</span>
+                    <span>$10.00</span>
+                  </div>
+                  <div class="receipt-line" style="color: #2563eb;">
+                    <span>Convenience Fee (3%):</span>
+                    <span>$3.00</span>
+                  </div>
+                  <div class="receipt-divider" style="border-top: 2px solid var(--navy-900);"></div>
+                  <div class="receipt-total">
+                    <span>TOTAL:</span>
+                    <span>$113.00</span>
+                  </div>
+                </div>
+                <div class="note-text" style="margin-top: 0.75rem;">Convenience fee added after tax (non-taxable)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAGE 3: CHECKOUT/PAYMENT SELECTION -->
+    <section class="stage-section">
+      <div class="container">
+        <h2 class="stage-title">3. Checkout — Payment Selection <span style="font-weight: 400; font-size: 0.85em;">(Pre-Card)</span></h2>
+
+        <div class="model-grid">
+          <!-- Model A -->
+          <div class="model-card">
+            <div class="model-header">
+              <h3>Model A</h3>
+            </div>
+            <div class="card-content">
+              <div class="payment-option">
+                <div class="payment-label">💳 Card</div>
+                <div class="payment-note">Surcharge may apply (up to 3%)</div>
+              </div>
+              <div class="payment-option">
+                <div class="payment-label">💵 Cash</div>
+                <div class="payment-price">$100.00</div>
+                <div class="payment-note">Base price</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Model B -->
+          <div class="model-card">
+            <div class="model-header">
+              <h3>Model B</h3>
+            </div>
+            <div class="card-content">
+              <div class="payment-option">
+                <div class="payment-label">💳 Card (Credit or Debit)</div>
+                <div class="payment-price">$103.25</div>
+                <div class="payment-note">Listed price</div>
+              </div>
+              <div class="payment-option">
+                <div class="payment-label">💵 Cash</div>
+                <div class="payment-price">$100.15</div>
+                <div class="payment-note"><span class="badge badge-success">Save 3% (~$3.09)</span></div>
+              </div>
+              <div class="payment-option">
+                <div class="payment-label">🏦 ACH / Bank Transfer</div>
+                <div class="payment-price">$100.15</div>
+                <div class="payment-note"><span class="badge badge-success">Save 3% (~$3.09)</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Model C -->
+          <div class="model-card">
+            <div class="model-header">
+              <h3>Model C</h3>
+            </div>
+            <div class="card-content">
+              <div style="margin-bottom: 2rem;">
+                <strong class="section-label">POS Options:</strong>
+                <div class="payment-option">
+                  <div class="payment-label">💳 Card</div>
+                  <div class="payment-note">Surcharge may apply</div>
+                </div>
+                <div class="payment-option">
+                  <div class="payment-label">💵 Cash</div>
+                  <div class="payment-price">$100.00</div>
+                </div>
+              </div>
+              <div>
+                <strong class="section-label">Online Options:</strong>
+                <div class="payment-option">
+                  <div class="payment-label">💳 Card (Credit or Debit)</div>
+                  <div class="payment-price">$103.00</div>
+                  <div class="payment-note">Includes convenience fee</div>
+                </div>
+                <div class="payment-option">
+                  <div class="payment-label">🏦 ACH / Bank Transfer</div>
+                  <div class="payment-price">$103.00</div>
+                  <div class="payment-note">Includes convenience fee</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAGE 4: PAYMENT RESOLUTION -->
+    <section class="stage-section">
+      <div class="container">
+        <h2 class="stage-title">4. Payment Resolution <span style="font-weight: 400; font-size: 0.85em;">(Post-Card)</span></h2>
+
+        <div class="model-grid">
+          <!-- Model A -->
+          <div class="model-card">
+            <div class="model-header">
+              <h3>Model A</h3>
+            </div>
+            <div class="card-content">
+              <div style="margin-bottom: 1.5rem;">
+                <strong class="section-label">Scenario 1: Credit Card Presented</strong>
+                <div class="receipt" style="margin-top: 0.75rem;">
+                  <div class="receipt-line">
+                    <span>Item</span>
+                    <span>$100.00</span>
+                  </div>
+                  <div class="receipt-line">
+                    <span>Card Fee (3%)</span>
+                    <span>$3.00</span>
+                  </div>
+                  <div class="receipt-divider"></div>
+                  <div class="receipt-total">
+                    <span>TOTAL</span>
+                    <span>$103.00</span>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-bottom: 1.5rem;">
+                <strong class="section-label">Scenario 2: Debit Card Presented</strong>
+                <div class="receipt" style="margin-top: 0.75rem;">
+                  <div class="receipt-line">
+                    <span>Item</span>
+                    <span>$100.00</span>
+                  </div>
+                  <div class="receipt-line">
+                    <span>Card Fee</span>
+                    <span>$0.00</span>
+                  </div>
+                  <div class="receipt-divider"></div>
+                  <div class="receipt-total">
+                    <span>TOTAL</span>
+                    <span>$100.00</span>
+                  </div>
+                  <div style="font-size: 0.875rem; color: var(--emerald-600); margin-top: 0.5rem;">
+                    ✓ Debit cannot be surcharged
+                  </div>
+                </div>
+              </div>
+              <div>
+                <strong class="section-label">Scenario 3: Cash Payment</strong>
+                <div class="receipt" style="margin-top: 0.75rem;">
+                  <div class="receipt-line">
+                    <span>Item</span>
+                    <span>$100.00</span>
+                  </div>
+                  <div class="receipt-divider"></div>
+                  <div class="receipt-total">
+                    <span>TOTAL</span>
+                    <span>$100.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Model B -->
+          <div class="model-card">
+            <div class="model-header">
+              <h3>Model B</h3>
+            </div>
+            <div class="card-content">
+              <div style="margin-bottom: 1.5rem;">
+                <strong class="section-label">Scenario 1: Card (Credit or Debit)</strong>
+                <div class="receipt" style="margin-top: 0.75rem;">
+                  <div class="receipt-line">
+                    <span>Item</span>
+                    <span>$103.25</span>
+                  </div>
+                  <div class="receipt-line">
+                    <span>Discount</span>
+                    <span>$0.00</span>
+                  </div>
+                  <div class="receipt-divider"></div>
+                  <div class="receipt-total">
+                    <span>TOTAL</span>
+                    <span>$103.25</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <strong class="section-label">Scenario 2: Cash or ACH</strong>
+                <div class="receipt" style="margin-top: 0.75rem;">
+                  <div class="receipt-line">
+                    <span>Item</span>
+                    <span>$103.25</span>
+                  </div>
+                  <div class="receipt-line">
+                    <span>Cash Discount (3%)</span>
+                    <span>-$3.09</span>
+                  </div>
+                  <div class="receipt-divider"></div>
+                  <div class="receipt-total">
+                    <span>TOTAL</span>
+                    <span>$100.15</span>
+                  </div>
+                  <div class="note-text" style="margin-top: 0.5rem;">Note: Slightly above $100 due to rounding</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Model C -->
+          <div class="model-card">
+            <div class="model-header">
+              <h3>Model C</h3>
+            </div>
+            <div class="card-content">
+              <div style="margin-bottom: 1.5rem;">
+                <strong class="section-label">POS — Scenario 1: Credit Card</strong>
+                <div class="receipt" style="margin-top: 0.75rem;">
+                  <div class="receipt-line">
+                    <span>Item</span>
+                    <span>$100.00</span>
+                  </div>
+                  <div class="receipt-line">
+                    <span>Card Fee (3%)</span>
+                    <span>$3.00</span>
+                  </div>
+                  <div class="receipt-divider"></div>
+                  <div class="receipt-total">
+                    <span>TOTAL</span>
+                    <span>$103.00</span>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-bottom: 1.5rem;">
+                <strong class="section-label">POS — Scenario 2: Debit Card</strong>
+                <div class="receipt" style="margin-top: 0.75rem;">
+                  <div class="receipt-line">
+                    <span>Item</span>
+                    <span>$100.00</span>
+                  </div>
+                  <div class="receipt-divider"></div>
+                  <div class="receipt-total">
+                    <span>TOTAL</span>
+                    <span>$100.00</span>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-bottom: 1.5rem;">
+                <strong class="section-label">Online — Scenario 1: Card (Any)</strong>
+                <div class="receipt" style="margin-top: 0.75rem;">
+                  <div class="receipt-line">
+                    <span>Item</span>
+                    <span>$100.00</span>
+                  </div>
+                  <div class="receipt-line">
+                    <span>Convenience Fee</span>
+                    <span>$3.00</span>
+                  </div>
+                  <div class="receipt-divider"></div>
+                  <div class="receipt-total">
+                    <span>TOTAL</span>
+                    <span>$103.00</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <strong class="section-label">Online — Scenario 2: ACH</strong>
+                <div class="receipt" style="margin-top: 0.75rem;">
+                  <div class="receipt-line">
+                    <span>Item</span>
+                    <span>$100.00</span>
+                  </div>
+                  <div class="receipt-line">
+                    <span>Convenience Fee</span>
+                    <span>$3.00</span>
+                  </div>
+                  <div class="receipt-divider"></div>
+                  <div class="receipt-total">
+                    <span>TOTAL</span>
+                    <span>$103.00</span>
+                  </div>
+                  <div style="font-size: 0.875rem; color: #dc2626; margin-top: 0.5rem;">
+                    Note: Convenience fee applies to ACH in this example
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAGE 5: REQUIRED DISCLOSURES -->
+    <section class="stage-section">
+      <div class="container">
+        <h2 class="stage-title">5. Required Disclosures</h2>
+
+        <div class="model-grid">
+          <!-- Model A -->
+          <div class="model-card">
+            <div class="model-header">
+              <h3>Model A</h3>
+            </div>
+            <div class="card-content">
+              <ul style="list-style: none; padding: 0; margin: 0; line-height: 2;">
+                <li>• Entry signage: "Card payments may include surcharge"</li>
+                <li>• Surcharge disclosed before card presentation</li>
+                <li>• Receipt shows fee as line item</li>
+                <li>• Debit CANNOT be surcharged</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Model B -->
+          <div class="model-card">
+            <div class="model-header">
+              <h3>Model B</h3>
+            </div>
+            <div class="card-content">
+              <ul style="list-style: none; padding: 0; margin: 0; line-height: 2;">
+                <li>• Listed price = standard price</li>
+                <li>• Signage: "Pay less with cash/ACH"</li>
+                <li>• Discount shown before payment</li>
+                <li>• Receipt shows discount as line item</li>
+                <li>• <strong>Display Mode 1:</strong> Single price only</li>
+                <li>• <strong>Display Mode 2:</strong> Both prices shown equally</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Model C -->
+          <div class="model-card">
+            <div class="model-header">
+              <h3>Model C</h3>
+            </div>
+            <div class="card-content">
+              <ul style="list-style: none; padding: 0; margin: 0; line-height: 2;">
+                <li><strong>POS:</strong> Surcharge disclosure (Model A rules)</li>
+                <li><strong>Online:</strong> Convenience fee disclosed; applies to ALL payment types (credit, debit, ACH)</li>
+                <li style="color: var(--orange-500);">⚠ Staff must understand which model applies where</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAGE 6: CUSTOMER PERCEPTION -->
+    <section class="stage-section">
+      <div class="container">
+        <h2 class="stage-title">6. What Customer Experiences</h2>
+
+        <div class="model-grid">
+          <!-- Model A -->
+          <div class="model-card">
+            <div class="model-header">
+              <h3>Model A</h3>
+            </div>
+            <div class="card-content">
+              <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <span class="badge badge-success">Lower Posted Price</span>
+                <span class="badge badge-info">Fee After Card Presented</span>
+                <span class="badge badge-info">Debit = No Fee</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Model B -->
+          <div class="model-card">
+            <div class="model-header">
+              <h3>Model B</h3>
+            </div>
+            <div class="card-content">
+              <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <span class="badge badge-info">Higher Posted Price (or Dual Prices)</span>
+                <span class="badge badge-success">No Surprise Fees</span>
+                <span class="badge badge-success">Discount Offer</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Model C -->
+          <div class="model-card">
+            <div class="model-header">
+              <h3>Model C</h3>
+            </div>
+            <div class="card-content">
+              <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <span class="badge badge-info">Different by Channel</span>
+                <span class="badge badge-info">POS: Fee on Credit Only</span>
+                <span class="badge badge-info">Online: Fee on All Cards</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAGE 7: MANUAL ENTRY WORKFLOW -->
+    <section class="stage-section">
+      <div class="container">
+        <h2 class="stage-title">7. Manual Entry Workflow <span style="font-weight: 400; font-size: 0.85em;">(Terminal/Virtual Terminal)</span></h2>
+
+        <div class="model-grid">
+          <!-- Model A -->
+          <div class="model-card">
+            <div class="model-header">
+              <h3>Model A</h3>
+            </div>
+            <div class="card-content">
+              <div style="margin-bottom: 2rem;">
+                <strong class="section-label">Staff Action: Enter Base Amount</strong>
+                <div style="margin-top: 0.75rem; padding: 0.75rem; background: var(--cream-100); border-radius: 6px; font-family: 'Courier Prime', monospace; font-size: 0.9375rem;">
+                  Enter amount: <span style="background: white; border: 2px solid var(--slate-300); padding: 0.25rem 0.75rem; border-radius: 4px; font-weight: 600;">$100.00</span>
+                </div>
+              </div>
+
+              <div style="margin-bottom: 2rem;">
+                <strong class="section-label">Terminal Display (Pre-Payment)</strong>
+                <div class="terminal-display" style="margin-top: 0.75rem;">
+                  <div style="margin-bottom: 0.75rem; font-size: 1.125rem;">💵 CASH</div>
+                  <div style="font-size: 0.875rem; opacity: 0.7;">Card price will be higher</div>
+                </div>
+              </div>
+
+              <div>
+                <strong class="section-label">After Card Presented (Customer-Facing)</strong>
+                <div class="terminal-display" style="margin-top: 0.75rem;">
+                  <div style="margin-bottom: 0.75rem; font-size: 1.125rem;">💳 CREDIT CARD</div>
+                  <div style="margin-bottom: 0.25rem;">Amount: $100.00</div>
+                  <div style="margin-bottom: 0.75rem; color: var(--amber-400);">Card Fee (3%): $3.00</div>
+                  <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 0.75rem; font-size: 1.25rem; font-weight: 700;">
+                    TOTAL: $103.00
+                  </div>
+                </div>
+              </div>
+
+              <div class="callout callout-info" style="margin-top: 1.5rem;">
+                <strong>Key:</strong> Staff enters base price. System shows cash option first, then calculates surcharge after card type detection.
+              </div>
+            </div>
+          </div>
+
+          <!-- Model B -->
+          <div class="model-card">
+            <div class="model-header">
+              <h3>Model B</h3>
+            </div>
+            <div class="card-content">
+              <div style="margin-bottom: 2rem;">
+                <strong class="section-label">Staff Action: Enter Fee-Inclusive Price</strong>
+                <div style="margin-top: 0.75rem; padding: 0.75rem; background: var(--cream-100); border-radius: 6px; font-family: 'Courier Prime', monospace; font-size: 0.9375rem;">
+                  Base cost: $100.00<br>
+                  System calculates: <span style="background: white; border: 2px solid var(--slate-300); padding: 0.25rem 0.75rem; border-radius: 4px; font-weight: 600;">$103.25</span>
+                </div>
+                <div class="note-text" style="margin-top: 0.75rem;">Staff may enter base cost and let system back out fee-inclusive price</div>
+              </div>
+
+              <div style="margin-bottom: 2rem;">
+                <strong class="section-label">Terminal Display (Pre-Payment)</strong>
+                <div class="terminal-display" style="margin-top: 0.75rem;">
+                  <div style="margin-bottom: 0.75rem;">Select Payment Method:</div>
+                  <div style="padding: 0.75rem; background: rgba(255,255,255,0.1); border-radius: 6px; margin-bottom: 0.75rem;">
+                    💳 Card: <strong>$103.25</strong>
+                  </div>
+                  <div style="padding: 0.75rem; background: var(--emerald-600); border-radius: 6px;">
+                    💵 Cash: <strong>$100.15</strong> <span style="font-size: 0.875rem;">(Save $3.10)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <strong class="section-label">After Payment Selection (Customer-Facing)</strong>
+                <div class="terminal-display" style="margin-top: 0.75rem;">
+                  <div style="margin-bottom: 0.75rem; font-size: 1.125rem;">💵 CASH SELECTED</div>
+                  <div style="margin-bottom: 0.25rem;">Amount: $103.25</div>
+                  <div style="margin-bottom: 0.75rem; color: #4ade80;">Cash Discount (3%): -$3.10</div>
+                  <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 0.75rem; font-size: 1.25rem; font-weight: 700;">
+                    TOTAL: $100.15
+                  </div>
+                </div>
+              </div>
+
+              <div class="callout callout-info" style="margin-top: 1.5rem;">
+                <strong>Key:</strong> Staff enters fee-inclusive price (or system calculates it). All payment options shown before selection.
+              </div>
+            </div>
+          </div>
+
+          <!-- Model C -->
+          <div class="model-card">
+            <div class="model-header">
+              <h3>Model C</h3>
+            </div>
+            <div class="card-content">
+              <div class="callout callout-warning" style="margin-bottom: 1.5rem;">
+                <strong>Channel-Dependent:</strong>
+                <ul style="margin: 0.75rem 0 0 1.25rem; padding: 0;">
+                  <li><strong>POS Terminal:</strong> Uses Model A workflow (base entry + surcharge)</li>
+                  <li><strong>Virtual Terminal (Invoice/Online):</strong> May use convenience fee (disclosed before payment)</li>
+                </ul>
+              </div>
+
+              <div>
+                <strong class="section-label">Example: Virtual Terminal for Invoice</strong>
+                <div class="terminal-display" style="margin-top: 0.75rem;">
+                  <div style="margin-bottom: 0.75rem;">Invoice #1234</div>
+                  <div style="margin-bottom: 0.25rem;">Amount Due: $100.00</div>
+                  <div style="margin-bottom: 0.75rem; color: var(--amber-400);">Convenience Fee (3%): $3.00</div>
+                  <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 0.75rem; font-weight: 700; font-size: 1.125rem;">
+                    TOTAL: $103.00
+                  </div>
+                  <div style="font-size: 0.875rem; opacity: 0.7; margin-top: 0.75rem;">
+                    Applies to all payment methods (credit, debit, ACH)
+                  </div>
+                </div>
+              </div>
+
+              <div class="callout callout-info" style="margin-top: 1.5rem;">
+                <strong>Key:</strong> Staff must know which model applies to which channel. Training required for multi-channel complexity.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-danger" style="margin-top: 2rem;">
+          <strong>⚠️ Critical Staff Training:</strong> In manual entry scenarios (phone orders, services, custom amounts), staff must correctly quote pricing BEFORE entering payment. Model A: quote base + card fee option. Model B: quote fee-inclusive price + discount option. Incorrect quoting leads to customer surprise and dissatisfaction.
+        </div>
+      </div>
+    </section>
+
+    <!-- SUMMARY SECTION -->
+    <div class="reveals">
+      <h2>Summary</h2>
+      <ul>
+        <li><strong>Card type detection happens post-presentation:</strong> Customers select "card" without specifying credit or debit. The system detects card type after presentation. Model A applies surcharge only to credit cards. Model B treats all cards identically at the listed price.</li>
+
+        <li><strong>Model A uses lower listed prices with post-detection surcharge:</strong> Shelf price is $100. After card presentation, credit pays $103 (surcharge applied), debit pays $100 (no surcharge allowed by law). Pre-card disclosure: "Card payments may include up to 3% surcharge."</li>
+
+        <li><strong>Model B offers two display modes:</strong> <strong>Mode 1</strong> shows single price ($103.25) with discount at payment. <strong>Mode 2</strong> shows dual prices equally on shelf (card: $103.25, cash: $100.15). Rounding to nearest $0.25 means cash price is slightly above $100 after 3% discount ($100.15 vs. perfect $100).</li>
+
+        <li><strong>Model B math uses proper discount backing-out:</strong> To achieve ~$100 cash price after 3% discount, listed price is $100 ÷ 0.97 = $103.093, rounded to $103.25 for consumer clarity. When 3% discount applied: $103.25 × 0.97 = $100.15. This slight overage is acceptable for practical display purposes.</li>
+
+        <li><strong>Tax treatment (all models):</strong> Tax is calculated on the pre-discount/list price because that is the advertised price. In Model B, tax is calculated on $103.25 (the list price) for both card and cash customers. Discounts apply to subtotal only, not the tax basis. Surcharges and convenience fees are added AFTER tax (non-taxable).</li>
+
+        <li><strong>ACH convenience fee configuration:</strong> In Model C online and other convenience fee scenarios, merchants can choose whether ACH incurs the convenience fee or receives a discount/no fee. This is a merchant configuration choice, not mandated by the model. Some merchants apply convenience fees to all payment methods including ACH; others exclude ACH or offer ACH as the "no fee" option.</li>
+
+        <li><strong>Model C is channel-based composition, not dynamic:</strong> POS uses Model A (surcharge on credit only) or dual pricing. Online/invoice uses convenience fee (applies to all payment types) or dual pricing. Each channel has ONE pre-configured model that does not change based on card type or runtime conditions.</li>
+      </ul>
+    </div>
+
+    <!-- EFFECTIVE PROCESSING FEES SECTION -->
+    <div class="reveals" style="margin-top: 3rem;">
+      <h2>Effective Processing Fees Paid by Merchant</h2>
+      <p style="margin-bottom: 2rem; font-size: 1.0625rem; color: var(--slate-600);">Based on $30K monthly volume: 65% credit ($19,500), 25% debit ($7,500), 10% cash ($3,000)</p>
+
+      <div class="model-grid">
+        <!-- Model A Fees -->
+        <div class="model-card">
+          <div class="model-header">
+            <h3>Model A</h3>
+            <div class="model-subtitle">Card Fee (Surcharge)</div>
+          </div>
+          <div class="card-content">
+            <strong style="display: block; margin-bottom: 1rem; color: var(--navy-900);">Fee Recovery:</strong>
+            <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
+              <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--cream-200);">Credit cards: <span style="color: var(--emerald-600); font-weight: 700;">100% recovered</span> (~$585/mo offset)</li>
+              <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--cream-200);">Debit cards: <span style="color: #dc2626; font-weight: 700;">$0 recovered</span> (~$113/mo paid by merchant)</li>
+              <li style="padding: 0.5rem 0;">Cash: No processing fees</li>
+            </ul>
+
+            <div style="background: #dbeafe; padding: 1.25rem; border-radius: 8px; margin-bottom: 1rem; text-align: center;">
+              <strong style="display: block; margin-bottom: 0.5rem;">Net Monthly Cost:</strong>
+              <div style="font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: #1e40af;">$113</div>
+              <span style="font-size: 0.875rem; color: var(--slate-600);">Debit fees only</span>
+            </div>
+
+            <div style="background: var(--emerald-50); padding: 1.25rem; border-radius: 8px; text-align: center;">
+              <strong style="display: block; margin-bottom: 0.5rem;">Annual Savings:</strong>
+              <div style="font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: var(--emerald-600);">$7,020</div>
+              <span style="font-size: 0.875rem; color: var(--slate-600);">vs. paying all fees ($698/mo)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Model B Fees -->
+        <div class="model-card">
+          <div class="model-header">
+            <h3>Model B</h3>
+            <div class="model-subtitle">Prices Include Fees + Discount</div>
+          </div>
+          <div class="card-content">
+            <strong style="display: block; margin-bottom: 1rem; color: var(--navy-900);">Fee Recovery:</strong>
+            <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
+              <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--cream-200);">Credit cards: <span style="color: var(--emerald-600); font-weight: 700;">100% recovered</span> ($585/mo offset)</li>
+              <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--cream-200);">Debit cards: <span style="color: var(--emerald-600); font-weight: 700;">100% recovered</span> ($113/mo offset)</li>
+              <li style="padding: 0.5rem 0;">Cash: <span style="color: var(--emerald-600); font-weight: 700;">Break-even or profit</span> (Cash customers pay $100.15, merchant base cost is $100)</li>
+            </ul>
+
+            <div style="background: var(--emerald-50); padding: 1.25rem; border-radius: 8px; margin-bottom: 1rem; text-align: center; border: 3px solid var(--emerald-600);">
+              <strong style="display: block; margin-bottom: 0.5rem;">Net Monthly Cost:</strong>
+              <div style="font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: var(--emerald-600);">$0</div>
+              <span style="font-size: 0.9375rem; color: var(--emerald-700); font-weight: 700;">True zero fees — all processing costs offset</span>
+            </div>
+
+            <div style="background: var(--emerald-50); padding: 1.25rem; border-radius: 8px; text-align: center;">
+              <strong style="display: block; margin-bottom: 0.5rem;">Annual Savings:</strong>
+              <div style="font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: var(--emerald-600);">$8,376</div>
+              <span style="font-size: 0.875rem; color: var(--slate-600);">vs. paying all fees ($698/mo)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Model C Fees -->
+        <div class="model-card">
+          <div class="model-header">
+            <h3>Model C</h3>
+            <div class="model-subtitle">Channel-Based</div>
+          </div>
+          <div class="card-content">
+            <strong style="display: block; margin-bottom: 1rem; color: var(--navy-900);">Fee Recovery (depends on channel mix):</strong>
+            <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
+              <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--cream-200);"><strong>POS transactions:</strong> Like Model A (credit only)</li>
+              <li style="padding: 0.5rem 0;"><strong>Online transactions:</strong> Convenience fee recovers all card types + ACH</li>
+            </ul>
+
+            <div style="background: var(--amber-50); padding: 1.25rem; border-radius: 8px; margin-bottom: 1rem; text-align: center;">
+              <strong style="display: block; margin-bottom: 0.5rem;">Net Monthly Cost:</strong>
+              <div style="font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: var(--amber-600);">$75-125</div>
+              <span style="font-size: 0.875rem; color: var(--slate-600);">Varies by channel split</span>
+            </div>
+
+            <div style="background: var(--emerald-50); padding: 1.25rem; border-radius: 8px; text-align: center;">
+              <strong style="display: block; margin-bottom: 0.5rem;">Annual Savings:</strong>
+              <div style="font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: var(--emerald-600);">$6,480-$7,200</div>
+              <span style="font-size: 0.875rem; color: var(--slate-600);">Depends on POS vs. online mix</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-success" style="margin-top: 2rem; font-size: 1.0625rem;">
+        <strong>Key Insight:</strong> Model B achieves <strong>true zero fees</strong> because: (1) Card customers pay the fee-inclusive price, offsetting 100% of card processing costs, and (2) Cash customers pay $100.15 after discount (base cost is $100), resulting in break-even or slight profit on cash transactions. No merchant cost remains. Model A has $113/mo net cost (debit fees). Model C varies by channel mix ($75-125/mo).
+      </div>
+    </div>
+  </div>
+</body>
+</html>
