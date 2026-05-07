@@ -1341,7 +1341,7 @@
         </span>
     </div>
     <p className="form-help">
-        When enabled, list prices are automatically calculated above your base prices. When disabled, list prices stay the same as your base prices and the cash/ACH discount is applied at checkout.
+        When enabled, list prices are automatically calculated above your base prices. When disabled, list prices stay the same as your base prices and the cash discount is applied at checkout.
     </p>
 </div>
 
@@ -1753,15 +1753,11 @@
                                                     </span>
                                                 </div>
                                                 <div className="summary-row">
-                                                    <span className="summary-label">Cash Total</span>
+                                                    <span className="summary-label">
+                                                        Cash Total <span style={{fontSize: '0.75rem', color: '#65676b'}}>({cashDiscountPercent}% savings)</span>
+                                                    </span>
                                                     <span className="summary-value" style={{color: '#27ae60'}}>
                                                         ${orderTotals.cashTotal.toFixed(2)}
-                                                    </span>
-                                                </div>
-                                                <div className="summary-row">
-                                                    <span className="summary-label">{autoCalculateListPrices ? 'Cash Savings' : 'Cash Discount'} ({cashDiscountPercent}%)</span>
-                                                    <span className="summary-value" style={{color: '#27ae60'}}>
-                                                        ${orderTotals.savingsAmount.toFixed(2)}
                                                     </span>
                                                 </div>
                                             </>
@@ -2088,13 +2084,13 @@
 
                 if (feeProgram === 'cash_discount') {
                     if (autoCalculateListPrices) {
-                        enteredLabel = 'Cash/ACH Price';
+                        enteredLabel = 'Cash Price';
                         calculatedAmount = amount > 0 ? PricingEngine.calculateCardPrice(amount, parseFloat(cashDiscountPercent), roundingRule) : 0;
                         calculatedLabel = 'Card Price (including rounding)';
                     } else {
                         enteredLabel = 'List Price';
                         calculatedAmount = amount > 0 ? (amount * (100 - parseFloat(cashDiscountPercent))) / 100 : 0;
-                        calculatedLabel = `Cash/ACH Price (after ${cashDiscountPercent}% discount)`;
+                        calculatedLabel = `Cash Price (after ${cashDiscountPercent}% discount)`;
                     }
                 } else {
                     enteredLabel = 'Base Price';
@@ -2221,10 +2217,10 @@
                             </h4>
                             <p style={{fontSize: '0.875rem', color: '#65676b', lineHeight: '1.5'}}>
                                 {feeProgram === 'cash_discount' && autoCalculateListPrices &&
-                                    `Enter the cash/ACH price (what you want to net). The List price will be automatically calculated to include the ${cashDiscountPercent}% markup with proper rounding.`
+                                    `Enter the cash price (what you want to net). The List price will be automatically calculated to include the ${cashDiscountPercent}% markup with proper rounding.`
                                 }
                                 {feeProgram === 'cash_discount' && !autoCalculateListPrices &&
-                                    `Enter the list price. Customers paying with cash/ACH will receive a ${cashDiscountPercent}% discount at checkout.`
+                                    `Enter the list price. Customers paying with cash will receive a ${cashDiscountPercent}% discount at checkout.`
                                 }
                                 {feeProgram === 'surcharge' &&
                                     'Enter the base price. If the customer pays with a credit card, a 3% surcharge will be added at checkout.'
@@ -2269,7 +2265,7 @@
                                                 ${finalTotal.toFixed(2)}
                                             </div>
                                             <div className="stat-helper">
-                                                {selectedPaymentMethod === 'cash' ? 'Cash / ACH Payment' : `${selectedCardType === 'credit' ? 'Credit' : 'Debit'} Card`}
+                                                {selectedPaymentMethod === 'cash' ? 'Cash Payment' : `${selectedCardType === 'credit' ? 'Credit' : 'Debit'} Card`}
                                             </div>
                                         </div>
 
@@ -2350,7 +2346,7 @@
                                     {feeProgram === 'cash_discount' && selectedPaymentMethod === 'cash' && (
                                         <div style={{margin: '1rem 0', padding: '0.5rem', background: '#d4edda', borderRadius: '4px'}}>
                                             <div className="receipt-line">
-                                                <span>Cash/ACH Discount ({cashDiscountPercent}%)</span>
+                                                <span>Cash Discount ({cashDiscountPercent}%)</span>
                                                 <span>-${orderTotals.savingsAmount.toFixed(2)}</span>
                                             </div>
                                         </div>
@@ -2387,7 +2383,7 @@
 
                                     <div className="receipt-footer">
                                         {selectedPaymentMethod === 'cash' && feeProgram === 'cash_discount' ? (
-                                            <div>Thank you! You saved ${orderTotals.savingsAmount.toFixed(2)} ({cashDiscountPercent}%) with cash/ACH payment.</div>
+                                            <div>Thank you! You saved ${orderTotals.savingsAmount.toFixed(2)} ({cashDiscountPercent}%) with cash payment.</div>
                                         ) : (
                                             <div>Thank you for your business!</div>
                                         )}
@@ -2447,7 +2443,7 @@
                                                     ${item.displayPrice.toFixed(2)}
                                                     {feeProgram === 'cash_discount' && parseFloat(cashDiscountPercent) > 0 && !autoCalculateListPrices && (
                                                         <div style={{fontSize: '0.75rem', color: '#27ae60'}}>
-                                                            Cash/ACH: ${item.cashDiscountedPrice.toFixed(2)}
+                                                            Cash: ${item.cashDiscountedPrice.toFixed(2)}
                                                         </div>
                                                     )}
                                                 </td>
@@ -2487,7 +2483,7 @@
                                                 onClick={() => setSelectedPaymentMethod('cash')}
                                             >
                                                 <div className="price-option-icon">💵</div>
-                                                <div className="price-option-label">Pay with Cash / ACH</div>
+                                                <div className="price-option-label">Pay with Cash</div>
                                                 <div className="price-option-amount" style={{color: '#27ae60'}}>
                                                     ${orderTotals.cashTotal.toFixed(2)}
                                                 </div>
@@ -2495,43 +2491,51 @@
                                                     {autoCalculateListPrices ? `Save $${orderTotals.savingsAmount.toFixed(2)} (${cashDiscountPercent}%)` : `Discount $${orderTotals.savingsAmount.toFixed(2)} (${cashDiscountPercent}%)`}
                                                 </div>
                                                 <div style={{fontSize: '0.75rem', color: '#65676b', marginTop: '0.5rem'}}>
-                                                    Cash or ACH Transfer
+                                                    Cash Payment
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div style={{marginTop: '1.5rem', padding: '1rem', background: '#f0f2f5', borderRadius: '6px', textAlign: 'center'}}>
                                             <strong>Cash Discount Active:</strong> {autoCalculateListPrices
-                                                ? `Choose your preferred payment method. Cash/ACH payments receive the discounted base price.`
-                                                : `Choose your preferred payment method. Cash/ACH payments receive a ${cashDiscountPercent}% discount off the listed price.`}
+                                                ? `Choose your preferred payment method. Cash payments receive the discounted base price.`
+                                                : `Choose your preferred payment method. Cash payments receive a ${cashDiscountPercent}% discount off the listed price.`}
                                         </div>
                                     </>
                                 ) : feeProgram === 'surcharge' ? (
                                     <>
-                                        <div className="form-group" style={{maxWidth: '400px', margin: '0 auto 1.5rem'}}>
-                                            <label className="form-label">Card Type (for surcharge calculation)</label>
-                                            <select
-                                                className="form-select"
-                                                value={selectedCardType}
-                                                onChange={(e) => setSelectedCardType(e.target.value)}
-                                            >
-                                                <option value="credit">Credit Card (3% surcharge)</option>
-                                                <option value="debit">Debit Card (no surcharge)</option>
-                                            </select>
-                                        </div>
-
-                                        <div className="price-comparison">
+                                        <div style={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', marginBottom: '1.5rem'}}>
                                             <div
-                                                className={`price-option ${selectedPaymentMethod === 'card' ? 'selected' : ''}`}
-                                                onClick={() => setSelectedPaymentMethod('card')}
+                                                className={`price-option ${selectedPaymentMethod === 'card' && selectedCardType === 'credit' ? 'selected' : ''}`}
+                                                onClick={() => {
+                                                    setSelectedPaymentMethod('card');
+                                                    setSelectedCardType('credit');
+                                                }}
                                             >
                                                 <div className="price-option-icon">💳</div>
-                                                <div className="price-option-label">Pay with Card</div>
+                                                <div className="price-option-label">Credit Card</div>
                                                 <div className="price-option-amount">
-                                                    ${orderTotals.cardTotal.toFixed(2)}
+                                                    ${(orderTotals.cashTotal * 1.03).toFixed(2)}
                                                 </div>
                                                 <div style={{fontSize: '0.75rem', color: '#e74c3c', marginTop: '0.5rem'}}>
-                                                    Includes ${orderTotals.surchargeAmount.toFixed(2)} surcharge
+                                                    +${(orderTotals.cashTotal * 0.03).toFixed(2)} surcharge (3%)
+                                                </div>
+                                            </div>
+
+                                            <div
+                                                className={`price-option ${selectedPaymentMethod === 'card' && selectedCardType === 'debit' ? 'selected' : ''}`}
+                                                onClick={() => {
+                                                    setSelectedPaymentMethod('card');
+                                                    setSelectedCardType('debit');
+                                                }}
+                                            >
+                                                <div className="price-option-icon">💳</div>
+                                                <div className="price-option-label">Debit Card</div>
+                                                <div className="price-option-amount">
+                                                    ${orderTotals.cashTotal.toFixed(2)}
+                                                </div>
+                                                <div style={{fontSize: '0.75rem', color: '#65676b', marginTop: '0.5rem'}}>
+                                                    No surcharge
                                                 </div>
                                             </div>
 
@@ -2540,17 +2544,18 @@
                                                 onClick={() => setSelectedPaymentMethod('cash')}
                                             >
                                                 <div className="price-option-icon">💵</div>
-                                                <div className="price-option-label">Pay with Cash</div>
-                                                <div className="price-option-amount" style={{color: '#27ae60'}}>
+                                                <div className="price-option-label">Cash</div>
+                                                <div className="price-option-amount">
                                                     ${orderTotals.cashTotal.toFixed(2)}
                                                 </div>
-                                                <div className="price-option-badge">
-                                                    No Surcharge
-                                                </div>
                                                 <div style={{fontSize: '0.75rem', color: '#65676b', marginTop: '0.5rem'}}>
-                                                    Cash or ACH Transfer
+                                                    No surcharge
                                                 </div>
                                             </div>
+                                        </div>
+
+                                        <div style={{padding: '1rem', background: '#f0f2f5', borderRadius: '6px', textAlign: 'center', fontSize: '0.875rem'}}>
+                                            <strong>Surcharge Mode:</strong> Credit cards include a 3% surcharge. Debit cards and cash pay the base price with no surcharge.
                                         </div>
                                     </>
                                 ) : (
