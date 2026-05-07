@@ -2771,17 +2771,21 @@
                                 )}
                             </div>
 
+                            {/* HIDDEN: Manual Entry - unhide when requested */}
                             <div
                                 className={`nav-item ${currentView === 'manual' ? 'active' : ''}`}
                                 onClick={() => setCurrentView('manual')}
+                                style={{display: 'none'}}
                             >
                                 <span className="nav-icon">🔢</span>
                                 <span className="nav-label">Manual Entry</span>
                             </div>
 
+                            {/* HIDDEN: Invoice - unhide when requested */}
                             <div
                                 className={`nav-item ${currentView === 'invoice' ? 'active' : ''}`}
                                 onClick={() => setCurrentView('invoice')}
+                                style={{display: 'none'}}
                             >
                                 <span className="nav-icon">📄</span>
                                 <span className="nav-label">Invoice</span>
