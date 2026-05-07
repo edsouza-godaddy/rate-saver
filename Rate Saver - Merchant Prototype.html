@@ -857,7 +857,7 @@
 
             // Fee Program Settings
             const [feeProgram, setFeeProgram] = useState('surcharge'); // 'surcharge' or 'cash_discount'
-            const [cashDiscountPercent, setCashDiscountPercent] = useState('3.5');
+            const [cashDiscountPercent, setCashDiscountPercent] = useState('4');
             const [roundingRule, setRoundingRule] = useState('ends_99');
             const [autoCalculateListPrices, setAutoCalculateListPrices] = useState(true);
 
@@ -1248,7 +1248,7 @@
                                         <div style={{marginTop: '0.5rem'}}><strong>How it works:</strong> A clearly disclosed surcharge is applied at checkout for credit card transactions only. Debit and cash customers pay your base price.</div>
                                         <div style={{marginTop: '0.5rem'}}><strong>Compliance notes:</strong> Available on credit cards only (not debit). Not available in Connecticut, Massachusetts, or Puerto Rico. Capped at 2% in Colorado; elsewhere capped at the lower of 3% or actual processing cost. Requires 30-day advance registration and clear disclosure at entry, point of sale, and on receipts.</div>
                                         <div style={{marginTop: '0.5rem'}}><strong>Responsibilities:</strong> Post clear signage at entry and point of sale. Display the surcharge as a separate line item on receipts.</div>
-                                        <div style={{marginTop: '0.5rem'}}><strong>Processing rates:</strong> 3% for credit cards, 2.3% for debit cards, 1% for ACH (merchant pays debit and ACH fees)</div>
+                                        <div style={{marginTop: '0.5rem'}}><strong>Processing rates:</strong> 3% for credit cards, 2.3% for debit cards</div>
                                     </div>
                                 </div>
                             </div>
@@ -1261,12 +1261,12 @@
                                 <div className="radio-content">
                                     <div className="radio-title">Option B</div>
                                     <div className="radio-description" style={{lineHeight: '1.6'}}>
-                                        <div style={{fontSize: '0.9rem', color: '#1c1e21', marginBottom: '0.75rem'}}>The system helps calculate a list price that covers your processing cost, then automatically passes a discount to customers who pay with cash or ACH.</div>
-                                        <div><strong>Benefits:</strong> Eliminate processing fees on every payment type — credit, debit, and ACH. No percentage cap on the discount, available in all 50 states, and the system can automatically calculate list prices to protect your target margin.</div>
-                                        <div style={{marginTop: '0.5rem'}}><strong>How it works:</strong> Post list prices that reflect your processing cost. Cash and ACH customers receive a discount at checkout — your system handles the math. Card customers pay the list price.</div>
+                                        <div style={{fontSize: '0.9rem', color: '#1c1e21', marginBottom: '0.75rem'}}>The system helps calculate a list price that covers your processing cost, then automatically passes a discount to customers who pay with cash.</div>
+                                        <div><strong>Benefits:</strong> Eliminate processing fees on all cards - credit and debit. No percentage cap on the discount, available in all 50 states, and the system can automatically calculate list prices to protect your target margin.</div>
+                                        <div style={{marginTop: '0.5rem'}}><strong>How it works:</strong> Post list prices that reflect your processing cost. Cash customers receive a discount at checkout — your system handles the math. Card customers pay the list price.</div>
                                         <div style={{marginTop: '0.5rem'}}><strong>Compliance notes:</strong> Available nationwide with no state restrictions or card-network registration required.</div>
-                                        <div style={{marginTop: '0.5rem'}}><strong>Responsibilities:</strong> Update all pricing displays (menus, shelves, website) to reflect list prices. Post signage indicating customers can save by paying with cash or ACH.</div>
-                                        <div style={{marginTop: '0.5rem'}}><strong>Processing rates:</strong> 3.5% all cards · 1% ACH</div>
+                                        <div style={{marginTop: '0.5rem'}}><strong>Responsibilities:</strong> Update all pricing displays (menus, shelves, website) to reflect list prices. Post signage indicating customers can save by paying with cash.</div>
+                                        <div style={{marginTop: '0.5rem'}}><strong>Processing rates:</strong> 3.5% all cards</div>
                                     </div>
                                 </div>
                             </div>
@@ -1287,7 +1287,7 @@
                                         className="form-input"
                                         min="0"
                                         max="10"
-                                        step="0.1"
+                                        step="0.25"
                                         value={cashDiscountPercent}
                                         onChange={(e) => {
                                             const val = parseFloat(e.target.value);
@@ -1297,7 +1297,7 @@
                                         }}
                                     />
                                     <p className="form-help">
-                                        Enter a discount percentage between 0% and 10%. Typical range is 3-4% to cover card processing costs.
+                                        Enter a discount percentage between 0% and 10%. Typical range is 3.5-4.5% to cover card processing costs.
                                     </p>
                                 </div>
 
@@ -1369,11 +1369,11 @@
                                     <strong>How This Works:</strong><br/>
                                     {autoCalculateListPrices ? (
                                         <>
-                                            Your base prices remain the same (what you want to net). We automatically calculate a higher list price—typically around {cashDiscountPercent}% above your base. Customers paying with cash or ACH receive a discount, while card customers pay the list price. Either way, you receive your target amount—<strong>effectively offsetting processing fees.</strong>
+                                            Your base prices remain the same (what you want to net). We automatically calculate a higher list price—typically around {cashDiscountPercent}% above your base. Customers paying with cash receive a discount, while card customers pay the list price. Either way, you receive your target amount—<strong>effectively offsetting processing fees.</strong>
                                         </>
                                     ) : (
                                         <>
-                                            Your list prices stay the same as your base prices. Customers paying with cash or ACH receive a {cashDiscountPercent}% discount off that price at checkout, while card customers pay the listed amount. This setup creates a traditional cash discount instead of automatically marking up list prices.
+                                            Your list prices stay the same as your base prices. Customers paying with cash receive a {cashDiscountPercent}% discount off that price at checkout, while card customers pay the listed amount. This setup creates a traditional cash discount instead of automatically marking up list prices.
                                         </>
                                     )}
                                 </div>
@@ -1382,39 +1382,147 @@
                             <div className="card">
                                 <div className="card-header">
                                     <h2 className="card-title">Pricing Preview</h2>
+                                    <p style={{fontSize: '0.875rem', color: '#65676b', marginTop: '0.5rem'}}>
+                                        Example: $100.00 item
+                                    </p>
+                                </div>
+
+                                <div style={{marginBottom: '1.5rem', padding: '1rem', background: '#f8f9fa', borderRadius: '8px'}}>
+                                    <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem'}}>
+                                        <div>
+                                            <div style={{fontSize: '0.75rem', color: '#65676b', marginBottom: '0.25rem'}}>
+                                                Your Catalog Price
+                                            </div>
+                                            <div style={{fontSize: '1.25rem', fontWeight: '600'}}>
+                                                $100.00
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div style={{fontSize: '0.75rem', color: '#65676b', marginBottom: '0.25rem'}}>
+                                                List Price (Customer Sees)
+                                            </div>
+                                            <div style={{fontSize: '1.25rem', fontWeight: '600', color: autoCalculateListPrices ? '#3498db' : '#000'}}>
+                                                ${autoCalculateListPrices ? PricingEngine.calculateCardPrice(100, parseFloat(cashDiscountPercent), roundingRule).toFixed(2) : '100.00'}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <table className="order-table">
                                     <thead>
                                         <tr>
-                                            <th>Product</th>
-                                            <th>{autoCalculateListPrices ? 'Your Price (Cash/ACH)' : 'Base Price'}</th>
-                                            <th>{autoCalculateListPrices ? 'List Price (Cards)' : 'List Price'}</th>
-                                            <th>{autoCalculateListPrices ? 'Markup Amount' : 'Cash Discount'}</th>
+                                            <th>Payment Method</th>
+                                            <th>Customer Sees & Pays</th>
+                                            <th>Processing Fee</th>
+                                            <th>You Net</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {adjustedProducts.slice(0, 6).map(product => (
-                                            <tr key={product.id}>
-                                                <td>
-                                                    <strong>{product.name}</strong><br/>
-                                                    <span style={{fontSize: '0.75rem', color: '#65676b'}}>
-                                                        {product.category}
-                                                    </span>
-                                                </td>
-                                                <td style={{color: '#27ae60'}}>
-                                                    <strong>${product.cashPrice.toFixed(2)}</strong>
-                                                </td>
-                                                <td><strong>${product.cardPrice.toFixed(2)}</strong></td>
-                                                <td>
-                                                    <span style={{color: autoCalculateListPrices ? '#3498db' : '#27ae60'}}>
-                                                        {autoCalculateListPrices ? '+' : '-'}${product.discount.toFixed(2)}
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        ))}
+                                        {(() => {
+                                            const listPrice = autoCalculateListPrices ?
+                                                PricingEngine.calculateCardPrice(100, parseFloat(cashDiscountPercent), roundingRule) :
+                                                100;
+                                            const creditFee = listPrice * 0.035;
+                                            const creditNet = listPrice - creditFee;
+                                            const debitFee = listPrice * 0.035;
+                                            const debitNet = listPrice - debitFee;
+                                            const cashPrice = autoCalculateListPrices ?
+                                                (listPrice * (1 - parseFloat(cashDiscountPercent) / 100)) :
+                                                (100 * (1 - parseFloat(cashDiscountPercent) / 100));
+
+                                            return (
+                                                <>
+                                                    <tr>
+                                                        <td><strong>Credit Card</strong></td>
+                                                        <td>
+                                                            <strong>${listPrice.toFixed(2)}</strong>
+                                                            <div style={{fontSize: '0.75rem', color: '#65676b'}}>
+                                                                (list price, no discount)
+                                                            </div>
+                                                        </td>
+                                                        <td style={{color: '#e74c3c'}}>
+                                                            -${creditFee.toFixed(2)}
+                                                            <div style={{fontSize: '0.75rem', color: '#65676b'}}>
+                                                                (3.5%)
+                                                            </div>
+                                                        </td>
+                                                        <td style={{color: '#27ae60'}}>
+                                                            <strong>${creditNet.toFixed(2)}</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Debit Card</strong></td>
+                                                        <td>
+                                                            <strong>${listPrice.toFixed(2)}</strong>
+                                                            <div style={{fontSize: '0.75rem', color: '#65676b'}}>
+                                                                (list price, no discount)
+                                                            </div>
+                                                        </td>
+                                                        <td style={{color: '#e74c3c'}}>
+                                                            -${debitFee.toFixed(2)}
+                                                            <div style={{fontSize: '0.75rem', color: '#65676b'}}>
+                                                                (3.5%)
+                                                            </div>
+                                                        </td>
+                                                        <td style={{color: '#27ae60'}}>
+                                                            <strong>${debitNet.toFixed(2)}</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Cash</strong></td>
+                                                        <td>
+                                                            <span style={{textDecoration: 'line-through', color: '#95a5a6'}}>
+                                                                ${listPrice.toFixed(2)}
+                                                            </span>
+                                                            {' '}
+                                                            <strong style={{color: '#27ae60'}}>${cashPrice.toFixed(2)}</strong>
+                                                            <div style={{fontSize: '0.75rem', color: '#27ae60'}}>
+                                                                ({cashDiscountPercent}% discount applied)
+                                                            </div>
+                                                        </td>
+                                                        <td style={{color: '#27ae60'}}>
+                                                            $0.00
+                                                            <div style={{fontSize: '0.75rem', color: '#65676b'}}>
+                                                                (no fees)
+                                                            </div>
+                                                        </td>
+                                                        <td style={{color: '#27ae60'}}>
+                                                            <strong>${cashPrice.toFixed(2)}</strong>
+                                                        </td>
+                                                    </tr>
+                                                </>
+                                            );
+                                        })()}
                                     </tbody>
                                 </table>
+
+                                {(() => {
+                                    const listPrice = autoCalculateListPrices ?
+                                        PricingEngine.calculateCardPrice(100, parseFloat(cashDiscountPercent), roundingRule) :
+                                        100;
+                                    const cashPayment = listPrice * (1 - parseFloat(cashDiscountPercent) / 100);
+                                    const cardNet = listPrice - (listPrice * 0.035);
+
+                                    return (
+                                        <div className="alert alert-info" style={{marginTop: '1rem'}}>
+                                            <strong>How This Works:</strong>
+                                            {autoCalculateListPrices ? (
+                                                <>
+                                                    Customers see ${listPrice.toFixed(2)} on your menu/shelf.
+                                                    Card payers pay that amount, you net ${cardNet.toFixed(2)} after 3.5% processing fees.
+                                                    Cash payers get {cashDiscountPercent}% off, paying ${cashPayment.toFixed(2)} (you net ${cashPayment.toFixed(2)}, no fees).
+                                                    Due to rounding, you net slightly more than your $100.00 target on all transactions.
+                                                </>
+                                            ) : (
+                                                <>
+                                                    Customers see $100.00 on your menu/shelf.
+                                                    Card payers pay $100.00, but you absorb 3.5% processing fees (net ${(100 - (100 * 0.035)).toFixed(2)}).
+                                                    Cash payers get {cashDiscountPercent}% off, paying ${cashPayment.toFixed(2)}.
+                                                </>
+                                            )}
+                                        </div>
+                                    );
+                                })()}
                             </div>
                         </>
                     )}
@@ -1422,7 +1530,10 @@
                     {feeProgram === 'surcharge' && (
                         <div className="card">
                             <div className="card-header">
-                                <h2 className="card-title">Lower Fees (Credit Surcharge) Settings</h2>
+                                <h2 className="card-title">Pricing Preview</h2>
+                                <p style={{fontSize: '0.875rem', color: '#65676b', marginTop: '0.5rem'}}>
+                                    Example: $100.00 item
+                                </p>
                             </div>
 
                             <div className="alert alert-warning">
@@ -1433,38 +1544,100 @@
                                 • Must be clearly disclosed to customers before payment
                             </div>
 
+                            <div style={{marginBottom: '1.5rem', padding: '1rem', background: '#f8f9fa', borderRadius: '8px'}}>
+                                <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem'}}>
+                                    <div>
+                                        <div style={{fontSize: '0.75rem', color: '#65676b', marginBottom: '0.25rem'}}>
+                                            Your Catalog Price
+                                        </div>
+                                        <div style={{fontSize: '1.25rem', fontWeight: '600'}}>
+                                            $100.00
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div style={{fontSize: '0.75rem', color: '#65676b', marginBottom: '0.25rem'}}>
+                                            List Price (Customer Sees)
+                                        </div>
+                                        <div style={{fontSize: '1.25rem', fontWeight: '600'}}>
+                                            $100.00
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <table className="order-table">
                                 <thead>
                                     <tr>
-                                        <th>Card Type</th>
-                                        <th>Surcharge Rate</th>
-                                        <th>Example: $100 Purchase</th>
+                                        <th>Payment Method</th>
+                                        <th>Customer Sees & Pays</th>
+                                        <th>Processing Fee</th>
+                                        <th>You Net</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td><strong>Credit Card</strong></td>
-                                        <td>3.0%</td>
                                         <td>
-                                            $100.00 + $3.00 surcharge = <strong>$103.00</strong>
+                                            $100.00 + <strong style={{color: '#e74c3c'}}>$3.00</strong> surcharge = <strong>$103.00</strong>
+                                            <div style={{fontSize: '0.75rem', color: '#65676b'}}>
+                                                (3.0% surcharge added)
+                                            </div>
+                                        </td>
+                                        <td style={{color: '#e74c3c'}}>
+                                            -$3.09
+                                            <div style={{fontSize: '0.75rem', color: '#65676b'}}>
+                                                (3.0% on $103)
+                                            </div>
+                                        </td>
+                                        <td style={{color: '#27ae60'}}>
+                                            <strong>$99.91</strong>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td><strong>Debit Card</strong></td>
-                                        <td>0%</td>
                                         <td>
-                                            <strong>$100.00</strong> (no surcharge)
+                                            <strong>$100.00</strong>
+                                            <div style={{fontSize: '0.75rem', color: '#65676b'}}>
+                                                (no surcharge allowed)
+                                            </div>
+                                        </td>
+                                        <td style={{color: '#e74c3c'}}>
+                                            -$2.30
+                                            <div style={{fontSize: '0.75rem', color: '#65676b'}}>
+                                                (2.3%)
+                                            </div>
+                                        </td>
+                                        <td style={{color: '#f39c12'}}>
+                                            <strong>$97.70</strong>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Cash / ACH</strong></td>
-                                        <td>0.0%</td>
+                                        <td><strong>Cash</strong></td>
                                         <td>
-                                            <strong>$100.00</strong> (no surcharge)
+                                            <strong>$100.00</strong>
+                                            <div style={{fontSize: '0.75rem', color: '#65676b'}}>
+                                                (no surcharge)
+                                            </div>
+                                        </td>
+                                        <td style={{color: '#27ae60'}}>
+                                            $0.00
+                                            <div style={{fontSize: '0.75rem', color: '#65676b'}}>
+                                                (no fees)
+                                            </div>
+                                        </td>
+                                        <td style={{color: '#27ae60'}}>
+                                            <strong>$100.00</strong>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+
+                            <div className="alert alert-info" style={{marginTop: '1rem'}}>
+                                <strong>How This Works:</strong> Customers see $100.00 on your menu/shelf.
+                                Credit card payers see an additional 3% surcharge added at checkout ($103.00 total).
+                                You pay 3% processing fee on the full $103 amount, netting $99.91.
+                                Debit and cash payers pay $100.00, but you absorb debit card fees ($2.30).
+                            </div>
                         </div>
                     )}
                 </div>
@@ -1501,7 +1674,7 @@
                                                 </div>
                                                 {feeProgram === 'cash_discount' && parseFloat(cashDiscountPercent) > 0 && (
                                                     <div className="product-base-price">
-                                                        Cash/ACH: ${product.cashDiscountedPrice.toFixed(2)}
+                                                        Cash: ${product.cashDiscountedPrice.toFixed(2)}
                                                     </div>
                                                 )}
                                             </div>
@@ -1536,7 +1709,7 @@
                                                             ${item.displayPrice.toFixed(2)} each
                                                             {feeProgram === 'cash_discount' && parseFloat(cashDiscountPercent) > 0 && !autoCalculateListPrices && (
                                                                 <span style={{display: 'block'}}>
-                                                                    Cash/ACH: ${item.cashDiscountedPrice.toFixed(2)}
+                                                                    Cash: ${item.cashDiscountedPrice.toFixed(2)}
                                                                 </span>
                                                             )}
                                                         </div>
@@ -1580,13 +1753,13 @@
                                                     </span>
                                                 </div>
                                                 <div className="summary-row">
-                                                    <span className="summary-label">Cash/ACH Total</span>
+                                                    <span className="summary-label">Cash Total</span>
                                                     <span className="summary-value" style={{color: '#27ae60'}}>
                                                         ${orderTotals.cashTotal.toFixed(2)}
                                                     </span>
                                                 </div>
                                                 <div className="summary-row">
-                                                    <span className="summary-label">{autoCalculateListPrices ? 'Cash Savings' : 'Cash/ACH Discount'} ({cashDiscountPercent}%)</span>
+                                                    <span className="summary-label">{autoCalculateListPrices ? 'Cash Savings' : 'Cash Discount'} ({cashDiscountPercent}%)</span>
                                                     <span className="summary-value" style={{color: '#27ae60'}}>
                                                         ${orderTotals.savingsAmount.toFixed(2)}
                                                     </span>
@@ -1678,7 +1851,7 @@
                                 <div style={{display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1rem'}}>
                                     <div>
                                         <label style={{display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem', color: '#65676b'}}>
-                                            {feeProgram === 'cash_discount' && autoCalculateListPrices ? 'Cash/ACH Price' : 'Amount'}
+                                            {feeProgram === 'cash_discount' && autoCalculateListPrices ? 'Cash Price' : 'Amount'}
                                         </label>
                                         <input
                                             type="number"
@@ -1867,7 +2040,7 @@
                                         </div>
                                         {feeProgram === 'cash_discount' && invoiceDiscount > 0 && (
                                             <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem'}}>
-                                                <span style={{fontSize: '1rem', color: '#27ae60'}}>Cash/ACH Discount ({cashDiscountPercent}%):</span>
+                                                <span style={{fontSize: '1rem', color: '#27ae60'}}>Cash Discount ({cashDiscountPercent}%):</span>
                                                 <span style={{fontSize: '1rem', fontWeight: '600', color: '#27ae60'}}>-${invoiceDiscount.toFixed(2)}</span>
                                             </div>
                                         )}

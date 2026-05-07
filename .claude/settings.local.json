@@ -5,7 +5,12 @@
       "Bash(grep -n \"Save \\\\\\\\\\\\$\\\\|Discount.*:\" \"C:\\\\Users\\\\edsouza\\\\Documents\\\\Zero Fees\\\\Rate Saver - Merchant Prototype.html\")",
       "Bash(git init *)",
       "Bash(git config *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(gh repo *)",
+      "Bash(gh workflow *)",
+      "Bash(start *)",
+      "Bash(git push *)"
     ]
   }
 }
